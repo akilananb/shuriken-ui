@@ -1,5 +1,5 @@
-import InfiniteScrollTable from "../../components/common/infinte_table/Index";
-import AddOverridePopup from "../../components/layout/add_override_popup/Index";
+import InfiniteScrollTable from "@components/common/infinte_table";
+import AddOverridePopup from "@components/layout/add_override_popup";
 const Overrides = () => {
   const offset = 20;
   const columns = [

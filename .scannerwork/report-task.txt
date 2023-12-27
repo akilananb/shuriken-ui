@@ -1,6 +1,0 @@
-projectKey=shuriken-ui
-serverUrl=http://localhost:9000
-serverVersion=10.0.0.68432
-dashboardUrl=http://localhost:9000/dashboard?id=shuriken-ui
-ceTaskId=AYwquYUjflJ4P7lw5bqG
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYwquYUjflJ4P7lw5bqG

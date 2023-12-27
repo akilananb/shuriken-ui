@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { Layout } from "antd";
-import Home from "@pages/Home";
+import Home from "@pages/home";
 import SideBar from "@components/layout/sidebar";
-import Overrides from "@pages/Overrides";
+import Overrides from "@pages/overrides";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const { Content } = Layout;
