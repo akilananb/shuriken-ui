@@ -1,0 +1,8 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="SpeakerHigh">
+<path id="Vector" d="M13.6797 4.81812C14.0976 5.23598 14.429 5.73206 14.6552 6.27802C14.8813 6.82399 14.9977 7.40915 14.9977 8.0001C14.9977 8.59104 14.8813 9.17621 14.6552 9.72217C14.429 10.2681 14.0976 10.7642 13.6797 11.1821" stroke="#323232" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M5 10.5H2C1.86739 10.5 1.74021 10.4473 1.64645 10.3536C1.55268 10.2598 1.5 10.1326 1.5 10V6C1.5 5.86739 1.55268 5.74021 1.64645 5.64645C1.74021 5.55268 1.86739 5.5 2 5.5H5L9.5 2V14L5 10.5Z" stroke="#323232" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M5 5.5V10.5" stroke="#323232" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M11.9121 6.58569C12.0978 6.77141 12.2451 6.99189 12.3457 7.23454C12.4462 7.47719 12.4979 7.73726 12.4979 7.99991C12.4979 8.26255 12.4462 8.52262 12.3457 8.76527C12.2451 9.00792 12.0978 9.2284 11.9121 9.41412" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
