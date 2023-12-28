@@ -2,12 +2,18 @@ import { describe, beforeEach, it, expect, vi } from "vitest";
 import { render, fireEvent, screen } from "@testing-library/react";
 import NavBar from "@components/layout/navbar";
 import "@testing-library/jest-dom";
+import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
 
 const mockShowDrawer = vi.fn();
 
 describe("NavBar", () => {
   beforeEach(() => {
-    render(<NavBar showDrawer={mockShowDrawer} />);
+    // Wrap NavBar with BrowserRouter
+    render(
+      <BrowserRouter>
+        <NavBar showDrawer={mockShowDrawer} />
+      </BrowserRouter>
+    );
   });
 
   it("should render the navbar", () => {
