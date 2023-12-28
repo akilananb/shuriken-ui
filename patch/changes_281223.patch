@@ -1,0 +1,143 @@
+diff --git a/.gitignore b/.gitignore
+index a547bf3..3f63544 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -11,6 +11,7 @@ node_modules
+ dist
+ dist-ssr
+ *.local
++.scannerwork
+ 
+ # Editor directories and files
+ .vscode/*
+diff --git a/.scannerwork/.sonar_lock b/.scannerwork/.sonar_lock
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/.scannerwork/report-task.txt b/.scannerwork/report-task.txt
+deleted file mode 100644
+index 27843ff..0000000
+--- a/.scannerwork/report-task.txt
++++ /dev/null
+@@ -1,6 +0,0 @@
+-projectKey=shuriken-ui
+-serverUrl=http://localhost:9000
+-serverVersion=10.0.0.68432
+-dashboardUrl=http://localhost:9000/dashboard?id=shuriken-ui
+-ceTaskId=AYyrhuXM9Ab0MrYmcrd1
+-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYyrhuXM9Ab0MrYmcrd1
+diff --git a/changes.patch b/changes.patch
+new file mode 100644
+index 0000000..831ab26
+--- /dev/null
++++ b/changes.patch
+@@ -0,0 +1,86 @@
++diff --git a/.scannerwork/.sonar_lock b/.scannerwork/.sonar_lock
++deleted file mode 100644
++index e69de29..0000000
++diff --git a/.scannerwork/report-task.txt b/.scannerwork/report-task.txt
++deleted file mode 100644
++index 67a489a..0000000
++--- a/.scannerwork/report-task.txt
+++++ /dev/null
++@@ -1,6 +0,0 @@
++-projectKey=shuriken-ui
++-serverUrl=http://localhost:9000
++-serverVersion=10.0.0.68432
++-dashboardUrl=http://localhost:9000/dashboard?id=shuriken-ui
++-ceTaskId=AYwquYUjflJ4P7lw5bqG
++-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYwquYUjflJ4P7lw5bqG
++diff --git a/commitlint.config.cjs b/commitlint.config.cjs
++index a3ca8c0..b216289 100644
++--- a/commitlint.config.cjs
+++++ b/commitlint.config.cjs
++@@ -1,5 +1,38 @@
++ module.exports = {
++ parserPreset: 'conventional-changelog-conventionalcommits',
+++rules: {
+++  'body-leading-blank': [1, 'always'],
+++  'body-max-line-length': [2, 'always', 100],
+++  'footer-leading-blank': [1, 'always'],
+++  'footer-max-line-length': [2, 'always', 100],
+++  'header-max-length': [2, 'always', 100],
+++  'subject-case': [
+++    2,
+++    'never',
+++    ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
+++  ],
+++  'subject-empty': [2, 'never'],
+++  'subject-full-stop': [2, 'never', '.'],
+++  'type-case': [2, 'always', 'lower-case'],
+++  'type-empty': [2, 'never'],
+++  'type-enum': [
+++    2,
+++    'always',
+++    [
+++      'build',
+++      'chore',
+++      'ci',
+++      'docs',
+++      'feat',
+++      'fix',
+++      'perf',
+++      'refactor',
+++      'revert',
+++      'style',
+++      'test',
+++    ],
+++  ],
+++},
++ prompt: {
++     settings: {},
++     messages: {
++diff --git a/src/App.jsx b/src/App.jsx
++index ec40b98..16038e7 100644
++--- a/src/App.jsx
+++++ b/src/App.jsx
++@@ -1,9 +1,9 @@
++ import { useState } from "react";
++ 
++ import { Layout } from "antd";
++-import Home from "@pages/Home";
+++import Home from "@pages/home";
++ import SideBar from "@components/layout/sidebar";
++-import Overrides from "@pages/Overrides";
+++import Overrides from "@pages/overrides";
++ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
++ 
++ const { Content } = Layout;
++diff --git a/src/pages/overrides/Index.jsx b/src/pages/overrides/Index.jsx
++index 6271f3f..0670b17 100644
++--- a/src/pages/overrides/Index.jsx
+++++ b/src/pages/overrides/Index.jsx
++@@ -1,5 +1,5 @@
++-import InfiniteScrollTable from "../../components/common/infinte_table/Index";
++-import AddOverridePopup from "../../components/layout/add_override_popup/Index";
+++import InfiniteScrollTable from "@components/common/infinte_table";
+++import AddOverridePopup from "@components/layout/add_override_popup";
++ const Overrides = () => {
++   const offset = 20;
++   const columns = [
+diff --git a/src/components/layout/navbar/index.test.jsx b/src/components/layout/navbar/index.test.jsx
+index bbd2526..7c9c730 100644
+--- a/src/components/layout/navbar/index.test.jsx
++++ b/src/components/layout/navbar/index.test.jsx
+@@ -2,12 +2,18 @@ import { describe, beforeEach, it, expect, vi } from "vitest";
+ import { render, fireEvent, screen } from "@testing-library/react";
+ import NavBar from "@components/layout/navbar";
+ import "@testing-library/jest-dom";
++import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
+ 
+ const mockShowDrawer = vi.fn();
+ 
+ describe("NavBar", () => {
+   beforeEach(() => {
+-    render(<NavBar showDrawer={mockShowDrawer} />);
++    // Wrap NavBar with BrowserRouter
++    render(
++      <BrowserRouter>
++        <NavBar showDrawer={mockShowDrawer} />
++      </BrowserRouter>
++    );
+   });
+ 
+   it("should render the navbar", () => {
