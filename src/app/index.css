@@ -92,8 +92,19 @@ body {
   }
 
   .asset-add-override-button {
-    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 bg-nomura-red border-none font-bold text-base text-white;
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2  border-none font-bold text-base text-white;
   }
+}
+
+.btn-red {
+  color: #fff;
+  background-color: #c92420 !important;
+  box-shadow: 0 2px 0 rgba(255, 55, 5, 0.06);
+  border-radius: 0px !important;
+}
+
+.bg-grey{
+  background-color: gray;
 }
 
 /* .ltv-override-filter-button , .ltv-override-filter-button:hover, .ltv-override-filter-button:focus, .ltv-override-filter-button:active {
@@ -147,4 +158,25 @@ input[type=number] {
   border-width: 0 50px 65px 0;
   border-color: transparent #ffffff transparent transparent;
   transform: skewX(-20deg);
+}
+.asset-add-override-button {
+  display: flex;
+  height: 3rem;
+  width: 10rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(215 17 51 / var(--tw-bg-opacity));
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }

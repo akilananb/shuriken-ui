@@ -1,6 +1,7 @@
-import InfiniteScrollTable from "@components/common/infinte_table";
-import AddOverridePopup from "@components/layout/add_override_popup";
-const Overrides = () => {
+import InfiniteScrollTable from "@/components/common/infinte_table";
+import AddOverridePopup from "@/components/layout/add_override_popup";
+
+const page = () => {
   const offset = 20;
   const columns = [
     {
@@ -69,4 +70,4 @@ const Overrides = () => {
   );
 };
 
-export default Overrides;
+export default page;

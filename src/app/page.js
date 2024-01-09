@@ -1,7 +1,8 @@
+"use client";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input, Switch, Button } from "antd";
 import { useState } from "react";
-// import AutoCompleteSearch from '@components/common/search_input'
+
 const renderTitle = (title) => (
   <span>
     {title}
@@ -57,22 +58,22 @@ const options = [
 const SearchInput = () => {
   const [isSearchFocused, setSearchFocused] = useState(false);
   const [searchvalue, setSearchvalue] = useState("");
-  const styleSheet = `
-    .ltv-search-popup:before {
-        content: "${
-          searchvalue.length != 0
-            ? searchvalue + " Search Asset"
-            : "Start typing to begin searching."
-        }";
-    }
-  `;
+  // const styleSheet = `
+  //   .ltv-search-popup:before {
+  //       content: "${
+  //         searchvalue.length != 0
+  //           ? searchvalue + " Search Asset"
+  //           : "Start typing to begin searching."
+  //       }";
+  //   }
+  // `;
 
   return (
     <div className="ltv-search-input-parent">
       {isSearchFocused && (
         <div className="absolute w-[565px] h-16 ltv-custom-search-override"></div>
       )}
-      <style>{styleSheet}</style>
+      {/* <style>{styleSheet}</style> */}
 
       <AutoComplete
         popupClassName="ltv-search-popup"
@@ -94,7 +95,7 @@ const SearchInput = () => {
   );
 };
 
-function Home() {
+export default function Home() {
   return (
     <div className="flex flex-row bg-white h-full justify-center items-center">
       <div className="flex flex-col items-center justify-center gap-10 w-[746px] relative -top-16">
@@ -110,8 +111,8 @@ function Home() {
               placeholder="Quantity(Optional)"
             />
           </div>
-          <div className="flex gap-2">
-            <Switch size="small" />
+          <div className="flex gap-2 align-items-center">
+            <Switch size="small" className="bg-grey" />
             Multiple Security Search
           </div>
         </div>
@@ -119,7 +120,7 @@ function Home() {
         <div>
           <Button
             type="primary"
-            className="flex text-base w-40 px-4 py-6 justify-center items-center font-bold leading-normal text-center"
+            className="flex text-base w-40 px-4 py-6 justify-center items-center font-bold leading-normal text-center btn-red"
           >
             Search
           </Button>
@@ -128,5 +129,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

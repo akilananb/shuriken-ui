@@ -1,5 +1,7 @@
+"use client";
+import Modal from "@/components/common/modal";
 import { useState } from "react";
-import Modal from "@components/common/modal";
+
 
 const AddOverridePopup = () => {
   const [showModal, setShowModal] = useState(false);

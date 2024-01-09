@@ -1,21 +1,22 @@
 import { Layout, Button } from "antd";
 import PropTypes from "prop-types";
 import { MenuOutlined, BellOutlined } from "@ant-design/icons";
-import BrandLogoFull from "@components/common/brand_logo_full";
 const { Header } = Layout;
 import { useNavigate } from "react-router-dom";
+import BrandLogoFull from "@/components/common/brand_logo_full";
+import Link from "next/link";
 
 NavBar.propTypes = {
   showDrawer: PropTypes.func.isRequired,
 };
 
 function NavBar({ showDrawer }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <Header
       data-testid="shuriken-header"
-      className="flex align-center p-3  bg-nomura-dark-grey"
+      className="flex align-center p-3  bg-nomura-dark-grey opacity-80"
     >
       <div className="flex items-center gap-6 ">
         <Button
@@ -26,12 +27,14 @@ function NavBar({ showDrawer }) {
           className="text-base !w-10 h-10 text-white hover:text-white"
         />
         <div className="relative">
-          <div
-            onClick={() => navigate("/")}
-            className="bg-white h-16 p-4 w-[120px] flex items-center logo-bannar cursor-pointer"
-          >
-            <BrandLogoFull />
-          </div>
+          <Link href="/">
+            <div
+              // onClick={() => navigate("/")}
+              className="bg-white h-16 p-4 w-[120px] flex items-center logo-bannar cursor-pointer"
+            >
+              <BrandLogoFull />
+            </div>
+          </Link>
         </div>
         <div>
           <div className="text-white font-bold text-sm">Shuriken</div>

@@ -1,7 +1,8 @@
+"use client"
 import "./infinte_table.css";
-import PropTypes from "prop-types";
-import useInfiniteScroll from "@hooks/useInfiniteScroll";
-import useScrollPosition from "@hooks/useScrollPosition";
+// import PropTypes from "prop-types";
+import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import useScrollPosition from "@/hooks/useScrollPosition";
 
 const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
   const { data, loading, setHasMore } = useInfiniteScroll(fetchData);
@@ -62,16 +63,16 @@ InfiniteScrollTable.defaultProps = {
   offset: 20,
 };
 
-InfiniteScrollTable.propTypes = {
-  columns: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      dataField: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  fetchData: PropTypes.func.isRequired,
-  disableScrollToTop: PropTypes.bool,
-};
+// InfiniteScrollTable.propTypes = {
+//   columns: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+//       dataField: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+//   fetchData: PropTypes.func.isRequired,
+//   disableScrollToTop: PropTypes.bool,
+// };
 
 export default InfiniteScrollTable;
