@@ -11,41 +11,44 @@ export async function getServerSideProps(context) {
 }
 
 
+
+const offset = 20;
+const columns = [
+  {
+    name: "ID",
+    dataField: "id",
+  },
+  {
+    name: "Album ID",
+    dataField: "albumId",
+  },
+  {
+    name: "Title",
+    dataField: "title",
+  },
+  {
+    name: "URL",
+    dataField: "url",
+  },
+  {
+    name: "Thumbnail Url",
+    dataField: "thumbnailUrl",
+  },
+];
+
+export const fetchData = async (page) => {
+  'use server';
+const response = await fetch(
+  `https://jsonplaceholder.typicode.com/photos?_start=${
+    page === 1 ? 0 : (page - 1) * offset
+  }&_limit=20`
+);
+return response.json();
+};
+
+
 const page = () => {
 
-
-  const offset = 20;
-  const columns = [
-    {
-      name: "ID",
-      dataField: "id",
-    },
-    {
-      name: "Album ID",
-      dataField: "albumId",
-    },
-    {
-      name: "Title",
-      dataField: "title",
-    },
-    {
-      name: "URL",
-      dataField: "url",
-    },
-    {
-      name: "Thumbnail Url",
-      dataField: "thumbnailUrl",
-    },
-  ];
-  
- const fetchData = async (page) => {
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/photos?_start=${
-      page === 1 ? 0 : (page - 1) * offset
-    }&_limit=20`
-  );
-  return response.json();
-};
 
   return (
     <div className="flex bg-white h-full p-16">
