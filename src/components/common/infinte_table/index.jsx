@@ -1,4 +1,5 @@
 "use client"
+
 import "./infinte_table.css";
 // import PropTypes from "prop-types";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";

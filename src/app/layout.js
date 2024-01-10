@@ -1,7 +1,6 @@
 "use client";
 
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { Layout } from "antd";
 import SideBar from "@/components/layout/sidebar";
 import { useState } from "react";

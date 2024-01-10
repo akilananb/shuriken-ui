@@ -1,4 +1,5 @@
 "use client";
+import '@/styles/globals.css'
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input, Switch, Button } from "antd";
 import { useState } from "react";

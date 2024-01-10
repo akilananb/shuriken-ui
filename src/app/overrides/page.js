@@ -1,7 +1,19 @@
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
+export async function getServerSideProps(context) {
+  // Fetch data server-side
+  const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=0&_limit=20`);
+  const data = await response.json();
+
+  // Pass data to the page via props
+  return { props: { initialData: data } };
+}
+
+
 const page = () => {
+
+
   const offset = 20;
   const columns = [
     {
@@ -25,15 +37,15 @@ const page = () => {
       dataField: "thumbnailUrl",
     },
   ];
-
-  const fetchData = async (page) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/photos?_start=${
-        page === 1 ? 0 : (page - 1) * offset
-      }&_limit=20`
-    );
-    return response.json();
-  };
+  
+ const fetchData = async (page) => {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/photos?_start=${
+      page === 1 ? 0 : (page - 1) * offset
+    }&_limit=20`
+  );
+  return response.json();
+};
 
   return (
     <div className="flex bg-white h-full p-16">
