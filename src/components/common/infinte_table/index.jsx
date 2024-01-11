@@ -33,7 +33,7 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
           </thead>
           <tbody
             ref={elementRef}
-            className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar"
+            className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar "
           >
             {data.map((row, index) => (
               <tr key={index} className="px-4 pt-3">

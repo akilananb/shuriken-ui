@@ -1,38 +1,74 @@
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
-export async function getServerSideProps(context) {
-  // Fetch data server-side
-  const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=0&_limit=20`);
-  const data = await response.json();
+// export async function getServerSideProps(context) {
+//   // Fetch data server-side
+//   const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=0&_limit=20`);
+//   const data = await response.json();
 
-  // Pass data to the page via props
-  return { props: { initialData: data } };
-}
+//   // Pass data to the page via props
+//   return { props: { initialData: data } };
+// }
 
 
 
 const offset = 20;
 const columns = [
   {
-    name: "ID",
+    name: "Security Name",
     dataField: "id",
   },
   {
-    name: "Album ID",
+    name: "Type",
     dataField: "albumId",
   },
   {
-    name: "Title",
+    name: "Status",
     dataField: "title",
   },
   {
-    name: "URL",
+    name: "ISIN",
     dataField: "url",
   },
   {
-    name: "Thumbnail Url",
-    dataField: "thumbnailUrl",
+    name: "TICKER",
+    dataField: "id",
+  },
+  {
+    name: "Exchange",
+    dataField: "id",
+  },
+  {
+    name: "Security Type",
+    dataField: "id",
+  },
+  {
+    name: "LTV at IM",
+    dataField: "id",
+  },
+  {
+    name: "Override",
+    dataField: "id",
+  },
+  {
+    name: "Creator",
+    dataField: "id",
+  },
+  {
+    name: "Creation Date",
+    dataField: "id",
+  },
+  {
+    name: "Valid From",
+    dataField: "id",
+  },
+  {
+    name: "Valid To",
+    dataField: "id",
+  },
+  {
+    name: "Last Modified",
+    dataField: "id",
   },
 ];
 
@@ -59,7 +95,7 @@ const page = () => {
           </div>
           <AddOverridePopup />
         </div>
-        <div className="flex flex-row items-baseline">
+        <div className="flex flex-row items-baseline override-filter">
           <div className="flex flex-row pr-4 items-center gap-4">
             <div className="font-bold text-base">Filters:</div>
             <div className="flex flex-row pr-4 items-center gap-4">
