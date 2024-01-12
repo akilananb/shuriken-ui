@@ -30,6 +30,8 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+      <title>Shuriken - Nomura</title>
       <body
       //  className={inter.className}
       >

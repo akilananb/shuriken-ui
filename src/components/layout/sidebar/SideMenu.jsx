@@ -1,11 +1,8 @@
 'use client';
 
 import { Menu } from "antd";
-// import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-
 import { SearchOutlined, CopyOutlined, SoundOutlined } from "@ant-design/icons";
-// import { useRouter } from "next/router";
 
 const items = [
   {
@@ -39,12 +36,9 @@ const items = [
 
 
 const SideMenu = ({ onClose }) => {
-  // const router = useRouter();
 
   const handleClick = ({key}) => {
-    // router.push(key.path)
     router.push(items[parseInt(key) - 1].path)
-    // onClose();
   };
 
   return (

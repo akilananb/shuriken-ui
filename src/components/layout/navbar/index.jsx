@@ -11,7 +11,6 @@ NavBar.propTypes = {
 };
 
 function NavBar({ showDrawer }) {
-  // const navigate = useNavigate();
 
   return (
     <Header
@@ -29,7 +28,6 @@ function NavBar({ showDrawer }) {
         <div className="relative">
           <Link href="/">
             <div
-              // onClick={() => navigate("/")}
               className="bg-white h-16 p-4 w-[120px] flex items-center logo-bannar cursor-pointer"
             >
               <BrandLogoFull />

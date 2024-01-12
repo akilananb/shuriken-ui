@@ -1,14 +1,14 @@
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
-// export async function getServerSideProps(context) {
-//   // Fetch data server-side
-//   const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=0&_limit=20`);
-//   const data = await response.json();
+export async function getServerSideProps(context) {
+  // Fetch data server-side
+  const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_start=0&_limit=20`);
+  const data = await response.json();
 
-//   // Pass data to the page via props
-//   return { props: { initialData: data } };
-// }
+  // Pass data to the page via props
+  return { props: { initialData: data } };
+}
 
 
 

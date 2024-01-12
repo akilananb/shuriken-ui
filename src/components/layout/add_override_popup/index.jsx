@@ -58,7 +58,6 @@ const AddOverridePopup = () => {
       }
 
       const responseData = await response.json();
-      // console.log(responseData);
     } catch (error) {
       console.error('Error:', error.message);
     }
