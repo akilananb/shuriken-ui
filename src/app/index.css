@@ -224,8 +224,9 @@ input[type="number"] {
   font-style: normal;
   font-weight: 700;
 }
-.override-filter{
+.override-filter {
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--Nomura-Off-Grey, #D1D3D4);
+  border-bottom: 1px solid var(--Nomura-Off-Grey, #d1d3d4);
   margin-bottom: 10px;
 }
+

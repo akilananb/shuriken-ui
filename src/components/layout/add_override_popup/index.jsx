@@ -4,7 +4,8 @@ import { useState } from "react";
 
 const AddOverridePopup = () => {
   const [showModal, setShowModal] = useState(false);
-  const [type, setTypes] = useState(0)
+  const [modal_type, setModalType] = useState('')
+
 
   const closeModal = () => {
     setShowModal(false)
@@ -29,7 +30,7 @@ const AddOverridePopup = () => {
 
   const updateOverrideType = (type) => {
     // Condition for Note || Override
-    return type === 1 ? 'OVERRIDE' : 'NOTE';
+    return modal_type === 1 ? 'OVERRIDE' : 'NOTE';
   };
 
   const onCreateOverride = async (e) => {
@@ -63,26 +64,25 @@ const AddOverridePopup = () => {
     }
   };
 
+  const openModal = (modalName) => {
+    setShowModal(true)
+    setModalType(modalName)
+  }
+
   return (
     <>
       <div className="flex">
-        <button className="asset-add-override-button me-3" onClick={() => {
-          setShowModal(true)
-          setTypes(1)
-        }}>
+        <button className="asset-add-override-button me-3" onClick={() => openModal('overrides')}>
           Add Override
         </button>
-        <button className="asset-add-override-button" onClick={() => {
-          setShowModal(true)
-          setTypes(2)
-        }}>
+        <button className="asset-add-override-button" onClick={() => openModal('notes')}>
           Add Note
         </button>
       </div>
       <Modal show={showModal} onClose={closeModal} >
         <div className="flex flex-col gap-10 h-full justify-center items-center overrides-modal">
           <div>
-            <h1>{type === 1 ? "Add Override" : "Add Note"}</h1>
+            <h1>{modal_type === 'overrides' ? "Add Override" : "Add Note"}</h1>
           </div>
           <form onSubmit={onCreateOverride} className="w-full ">
             <div className="flex flex-col gap-4 w-full">
@@ -96,7 +96,7 @@ const AddOverridePopup = () => {
                   name="instrumentTicker"
                 />
               </div>
-              {type === 1 ? (
+              {modal_type === 'overrides' ? (
                 <div>
                   <input
                     type="text"
@@ -127,16 +127,16 @@ const AddOverridePopup = () => {
               <div>
                 <input
                   type="text"
-                  placeholder={type === 1 ? "Why are you adding this override?" : "Add Note"}
+                  placeholder={modal_type === 'overrides' ? "Why are you adding this override?" : "Add Note"}
                   className="h-12 w-104 px-6 py-4 bg-white text-black border-1 border-solid border-nomura-off-grey rounded"
-                  value={type === 1 ? formData.ltvOverrideNote : formData.generalNote}
+                  value={modal_type === 'overrides' ? formData.ltvOverrideNote : formData.generalNote}
                   onChange={handleInputChange}
-                  name={type === 1 ? "ltvOverrideNote" : "generalNote"}
+                  name={modal_type === 'overrides' ? "ltvOverrideNote" : "generalNote"}
                 />
               </div>
             </div>
             <div className="mt-10 w-full flex justify-center">
-              <div className="flex justify-center btn-create w-full">
+              <div className="flex justify-center asset-add-override-button">
                 <button>Create</button>
               </div>
             </div>

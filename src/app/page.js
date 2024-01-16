@@ -1,5 +1,5 @@
 "use client";
-import '@/styles/globals.css'
+import "@/styles/globals.css";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input, Switch, Button } from "antd";
 import { useState } from "react";
@@ -59,23 +59,12 @@ const options = [
 const SearchInput = () => {
   const [isSearchFocused, setSearchFocused] = useState(false);
   const [searchvalue, setSearchvalue] = useState("");
-  // const styleSheet = `
-  //   .ltv-search-popup:before {
-  //       content: "${
-  //         searchvalue.length != 0
-  //           ? searchvalue + " Search Asset"
-  //           : "Start typing to begin searching."
-  //       }";
-  //   }
-  // `;
 
   return (
     <div className="ltv-search-input-parent">
       {isSearchFocused && (
         <div className="absolute w-[565px] h-16 ltv-custom-search-override"></div>
       )}
-      {/* <style>{styleSheet}</style> */}
-
       <AutoComplete
         popupClassName="ltv-search-popup"
         popupMatchSelectWidth={565}
@@ -117,7 +106,6 @@ export default function Home() {
             Multiple Security Search
           </div>
         </div>
-        {/* <AutoCompleteSearch/> */}
         <div>
           <Button
             type="primary"

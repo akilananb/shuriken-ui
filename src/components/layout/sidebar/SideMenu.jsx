@@ -1,44 +1,45 @@
 'use client';
-
 import { Menu } from "antd";
 import PropTypes from "prop-types";
 import { SearchOutlined, CopyOutlined, SoundOutlined } from "@ant-design/icons";
-
-const items = [
-  {
-    key: "1",
-    icon: <SearchOutlined />,
-    label: "LTV Security Search",
-    path: "/",
-  },
-  {
-    key: "2",
-    icon: <SearchOutlined />,
-    label: "Margin Ratio Search",
-  },
-  {
-    key: "3",
-    icon: <SearchOutlined />,
-    label: "ELN Search",
-  },
-  {
-    key: "4",
-    icon: <CopyOutlined />,
-    label: "Override",
-    path: "/overrides",
-  },
-  {
-    key: "5",
-    icon: <SoundOutlined />,
-    label: "Announcements",
-  },
-];
-
+import { useRouter } from 'next/navigation';
 
 const SideMenu = ({ onClose }) => {
+  const router = useRouter();
 
-  const handleClick = ({key}) => {
-    router.push(items[parseInt(key) - 1].path)
+  const items = [
+    {
+      key: "1",
+      icon: <SearchOutlined />,
+      label: "LTV Security Search",
+      path: "/",
+    },
+    {
+      key: "2",
+      icon: <SearchOutlined />,
+      label: "Margin Ratio Search",
+    },
+    {
+      key: "3",
+      icon: <SearchOutlined />,
+      label: "ELN Search",
+    },
+    {
+      key: "4",
+      icon: <CopyOutlined />,
+      label: "Override",
+      path: "/overrides",
+    },
+    {
+      key: "5",
+      icon: <SoundOutlined />,
+      label: "Announcements",
+    },
+  ];
+
+  const handleClick = ({ key }) => {
+    router.push(items[parseInt(key) - 1].path);
+    onClose()
   };
 
   return (
