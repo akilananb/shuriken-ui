@@ -2,7 +2,7 @@
 import Modal from "@/components/common/modal";
 import { useState } from "react";
 
-const AddOverridePopup = () => {
+const AddOverridePopup = ({ fetchData }) => {
   const [showModal, setShowModal] = useState(false);
   const [modal_type, setModalType] = useState('')
 
@@ -12,12 +12,15 @@ const AddOverridePopup = () => {
   };
 
   const [formData, setFormData] = useState({
-    instrumentTicker: '',
-    overrideType: "NOTE||OVERRIDE",
+    instrumentId: "",
+    instrumentType: "BOND",
+    overrideType: "OVERRIDE_LTV",
     ltvOverrideNote: '',
     ltvOverrideValue: '',
-    generalNote: '',
-    overrideStatus: 'Active'
+    generalNote: 'some Test',
+    status: 'ACTIVE',
+    startDate: '',
+    endDate: '',
   });
 
   const handleInputChange = (e) => {
@@ -28,37 +31,37 @@ const AddOverridePopup = () => {
     }));
   };
 
-  const updateOverrideType = (type) => {
-    // Condition for Note || Override
-    return modal_type === 1 ? 'OVERRIDE' : 'NOTE';
-  };
 
   const onCreateOverride = async (e) => {
     e.preventDefault();
     try {
-      const updatedOverrideType = updateOverrideType(type);
-
-      // Update formData
-      const data = formData;
-      const updatedObject = {
-        ...data,
-        overrideType: updatedOverrideType
-      }
-
-      // updated formData in your fetch function
       const response = await fetch('/api/v1/instrument-override/create-override', {
         method: 'POST',
+        body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedObject),
       });
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const responseData = await response.json();
+      const responseData = await fetchData();
+      setFormData({
+        instrumentId: "",
+        instrumentType: "BOND",
+        overrideType: "OVERRIDE_LTV",
+        ltvOverrideNote: '',
+        ltvOverrideValue: '',
+        generalNote: 'some Test',
+        status: 'ACTIVE',
+        startDate: '',
+        endDate: '',
+      });
+      setShowModal(false)
+
+
     } catch (error) {
       console.error('Error:', error.message);
     }
@@ -75,9 +78,9 @@ const AddOverridePopup = () => {
         <button className="asset-add-override-button me-3" onClick={() => openModal('overrides')}>
           Add Override
         </button>
-        <button className="asset-add-override-button" onClick={() => openModal('notes')}>
+        {/* <button className="asset-add-override-button" onClick={() => openModal('notes')}>
           Add Note
-        </button>
+        </button> */}
       </div>
       <Modal show={showModal} onClose={closeModal} >
         <div className="flex flex-col gap-10 h-full justify-center items-center overrides-modal">
@@ -91,9 +94,9 @@ const AddOverridePopup = () => {
                   type="text"
                   placeholder="Search"
                   className=""
-                  value={formData.instrumentTicker}
+                  value={formData.instrumentId}
                   onChange={handleInputChange}
-                  name="instrumentTicker"
+                  name="instrumentId"
                 />
               </div>
               {modal_type === 'overrides' ? (
@@ -114,6 +117,9 @@ const AddOverridePopup = () => {
                     type="date"
                     placeholder="Valid From"
                     className="h-12 w-104 px-6 py-4 bg-white text-black border-1 border-solid border-nomura-off-grey rounded date-input"
+                    value={formData.startDate}
+                    onChange={handleInputChange}
+                    name="startDate"
                   />
                 </div>
                 <div>
@@ -121,6 +127,9 @@ const AddOverridePopup = () => {
                     type="date"
                     placeholder="Valid Till"
                     className="h-12 w-104 px-6 py-4 bg-white text-black border-1 border-solid border-nomura-off-grey rounded"
+                    value={formData.endDate}
+                    onChange={handleInputChange}
+                    name="endDate"
                   />
                 </div>
               </div>

@@ -1,60 +1,68 @@
 const columns = [
   {
     name: "Security Name",
-    dataField: "id",
-  },
-  {
-    name: "Type",
-    dataField: "albumId",
+    dataField: "overrideInstrumentDetail.securityName",
+    type: "text",
   },
   {
     name: "Status",
-    dataField: "title",
+    dataField: "overrideInstrumentDetail.status",
+    type: "text",
   },
-  {
-    name: "ISIN",
-    dataField: "url",
-  },
+  // {
+  //   name: "ISIN",
+  //   dataField: "url",
+  // },
   {
     name: "TICKER",
-    dataField: "id",
+    dataField: "overrideInstrumentDetail.ticker",
+    type: "text",
   },
   {
     name: "Exchange",
-    dataField: "id",
+    dataField: "overrideInstrumentDetail.exchange",
+    type: "text",
   },
   {
     name: "Security Type",
-    dataField: "id",
+    dataField: "overrideInstrumentDetail.securityType",
+    type: "text",
   },
   {
     name: "LTV at IM",
-    dataField: "id",
+    dataField: "ltvOverrideValue",
+    type: "text",
   },
   {
     name: "Override",
-    dataField: "id",
+    dataField: "ltvOverrideNote",
+    type: "text",
   },
   {
     name: "Creator",
-    dataField: "id",
+    dataField: "overrideInstrumentDetail.createdByUser",
+    type: "text",
   },
   {
     name: "Creation Date",
-    dataField: "id",
+    dataField: "overrideInstrumentDetail.createdAt",
+    type: "date",
   },
   {
     name: "Valid From",
-    dataField: "id",
+    dataField: "startDate",
+    type: "date",
   },
   {
     name: "Valid To",
-    dataField: "id",
+    dataField: "endDate",
+    type: "date",
   },
   {
     name: "Last Modified",
-    dataField: "id",
+    dataField: "modifiedAt",
+    type: "date",
   },
 ];
 
-export default columns
+export default columns;

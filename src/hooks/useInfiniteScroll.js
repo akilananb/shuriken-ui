@@ -12,7 +12,7 @@ const useInfiniteScroll = (fetchData) => {
       if (loading || !hasMore) return;
       setLoading(true);
       const newData = await fetchData(page);
-      setData((prevData) => [...prevData, ...newData]);
+      setData(newData.content)
       setPage((prevPage) => prevPage + 1);
       setHasMore(false);
       setLoading(false);

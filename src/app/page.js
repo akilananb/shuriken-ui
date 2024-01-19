@@ -1,7 +1,9 @@
 "use client";
+import Announcement from "@/components/common/Announcement/Announcement";
 import "@/styles/globals.css";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input, Switch, Button } from "antd";
+import Link from "next/link";
 import { useState } from "react";
 
 const renderTitle = (title) => (
@@ -92,6 +94,7 @@ export default function Home() {
         <div className="text-justify leading-normal text-2xl font-bold ">
           LTV Search
         </div>
+        <Announcement className={"w-343"} />
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-2  self-streach relative">
             <SearchInput />
@@ -107,12 +110,12 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <Button
-            type="primary"
-            className="flex text-base w-40 px-4 py-6 justify-center items-center font-bold leading-normal text-center btn-red"
+          <Link
+            href="/bonds"
+            className="asset-add-override-button"
           >
             Search
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

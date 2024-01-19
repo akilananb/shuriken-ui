@@ -1,5 +1,6 @@
 "use client"
 
+import formatDate from "@/hooks/helper";
 import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
@@ -32,15 +33,24 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
           </thead>
           <tbody
             ref={elementRef}
-            className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar "
+            className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar border-none"
           >
             {data.map((row, index) => (
               <tr key={index} className="px-4 pt-3">
-                {columns.map((column, columnIndex) => (
-                  <td key={columnIndex} style={{ width: column.width }}>
-                    {row[column.dataField]}
-                  </td>
-                ))}
+                {columns.map((column, columnIndex) => {
+                  const dataFieldParts = column.dataField.split('.');
+                  let value = row;
+                  // Access nested properties
+                  for (const part of dataFieldParts) {
+                    value = value[part]
+                  }
+                  return (
+                    <td key={columnIndex} style={{ width: column.width }}>
+                      {column.type === "date" ? formatDate(value) : value}
+                    </td>
+                  )
+                }
+                )}
               </tr>
             ))}
           </tbody>
