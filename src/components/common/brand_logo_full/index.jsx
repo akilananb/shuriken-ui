@@ -1,10 +1,8 @@
-import HeaderLogo from "@assets/logo.png";
+import Image from 'next/image'
 
 function BrandLogoFull() {
   return (
-    <>
-      <img src={HeaderLogo} className="!h-4 !w-22" />
-    </>
+    <Image src='/static/images/logo.png' width="88" height="16" alt="Logo"/>
   );
 }
 
