@@ -56,7 +56,7 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize
                   }
                   return (
                     <td key={columnIndex} className="px-4 pt-3" style={{ width: column.width }}>
-                      {column.type === "date" ? formatDate(value) : value}
+                      {column.type === "date" ? value ? formatDate(value) : "-" : value}
                     </td>
                   )
                 }
