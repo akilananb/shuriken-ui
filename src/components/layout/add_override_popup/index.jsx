@@ -100,7 +100,7 @@ const AddOverridePopup = ({ onChange }) => {
                   <div className="mt-10 w-full flex justify-center">
                     <button
                       type="submit"
-                      className={`flex justify-center asset-add-override-button${!isValid?"-disabled":""}`}
+                      className="asset-add-override-button"
                       disabled={!isValid}
                     >
                       Create
