@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 
 const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData) => {
   const [data, setData] = useState(initialData?.content || []);
-  const [totalElements, setTotalElements] = useState(initialData?.totalElements || 0);
-  const [totalPages, setTotalPages] = useState(initialData?.totalPages || 0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(page < (initialData?.totalPages || 1));
@@ -17,8 +15,6 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
       
       if (newData && Array.isArray(newData.content)) {
         setData(prevData => [...prevData, ...newData.content]);
-        setTotalElements(newData.totalElements);
-        setTotalPages(newData.totalPages);
         setHasMore(page < newData.totalPages);
       } else {
         console.error('Invalid data structure received:', newData);
@@ -35,16 +31,15 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
   // Effect to load more data when page number changes
   useEffect(() => {
     fetchData();
-  }, [page, loading, hasMore, fetchPageData, pageSize, filters]);
+  }, [page, loading, hasMore, fetchPageData, pageSize, filters, reload]);
 
   // Effect to reset and reload data when filters change
   useEffect(() => {
-    setData(initialData?.content || []);
-    setTotalElements(initialData?.totalElements || 0);
-    setTotalPages(initialData?.totalPages || 0);
+    setData([]);
     setPage(1);
-    setHasMore(1 < (initialData?.totalPages || 1));
+    setHasMore(true);
     setLoading(false);
+    fetchData();
   }, [filters, reload]);
 
   // Function to manually trigger a new page load
@@ -52,7 +47,7 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
     if (!loading && hasMore) setPage(prevPage => prevPage + 1);
   };
 
-  return { data, totalElements, totalPages, loading, hasMore, loadNextPage };
+  return { data,  loading, setHasMore };
 };
 
 export default useInfiniteScroll;

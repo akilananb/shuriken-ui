@@ -1,13 +1,13 @@
 "use client"
 
-import formatDate from "@/hooks/helper";
+import  { formatDate } from "@/_utils/helper";
 import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import Image from 'next/image'
 
 const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize, filters, reload, initialData}) => {
-  const { data, loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, reload, initialData);
+  const { data,  loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, reload, initialData);
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
       setHasMore(true);
