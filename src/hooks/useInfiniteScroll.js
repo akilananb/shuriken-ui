@@ -7,8 +7,6 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, initialData = {}) =
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(page < (initialData?.totalPages || 1));
-  console.log('useInfiniteScroll', data, initialData);
-  // Function to fetch data
   const fetchData = async () => {
     if (loading || !hasMore) return;
 
