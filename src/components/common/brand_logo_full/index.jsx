@@ -1,8 +1,8 @@
+import Image from 'next/image'
+
 function BrandLogoFull() {
   return (
-    <>
-      <img src='/assets/logo.png' className="!h-4 !w-22" />
-    </>
+    <Image src='/static/images/logo.png' width="88" height="16" alt="Logo"/>
   );
 }
 

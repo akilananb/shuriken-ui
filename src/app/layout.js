@@ -1,13 +1,11 @@
 "use client";
 import { Layout } from "antd";
 import SideBar from "@/components/layout/sidebar";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import NavBar from "@/components/layout/navbar";
-import { Roboto , Arimo} from 'next/font/google'
-import "./index.css";
-
-const inter = Arimo({weight: '400', fontSize:'14px', subsets: ['latin'] })
-
+import "@/styles/globals.css";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import Spinner from "@/components/common/spinner";
 
 export default function RootLayout({ children }) {
   const { Content } = Layout;
@@ -24,14 +22,14 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {/* <Layout> */}
+      <body>
+        <AntdRegistry>
           <SideBar onClose={onClose} open={open} />
-          {/* <Layout className="site-layout"> */}
             <NavBar showDrawer={showDrawer} />
-          {/* </Layout> */}
-          <div className="content-height">{children}</div>
-        {/* </Layout> */}
+            <Suspense fallback={<Spinner fullPage={true}/>}>
+                <div className="content-height">{children}</div>
+            </Suspense>
+        </AntdRegistry>
       </body>
     </html>
   );

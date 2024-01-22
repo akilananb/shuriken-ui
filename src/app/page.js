@@ -1,6 +1,5 @@
 "use client";
-import Announcement from "@/components/common/Announcement/Announcement";
-import "@/styles/globals.css";
+import Announcement from "@/components/layout/announcement";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input, Switch, Button } from "antd";
 import Link from "next/link";
@@ -94,7 +93,7 @@ export default function Home() {
         <div className="text-justify leading-normal text-2xl font-bold ">
           LTV Search
         </div>
-        <Announcement className={"w-343"} />
+        <Announcement className={"w-343"}/>
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-2  self-streach relative">
             <SearchInput />

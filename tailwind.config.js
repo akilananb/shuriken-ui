@@ -16,6 +16,7 @@ module.exports = {
         'light-red': '#FFEDED',
         'nomura-red': '#D71133',
 
+        'nomura-white': '#FFF',
         'nomura-off-white': '#F9F9F9',
         'nomura-off-grey': '#D1D3D4',
         'nomura-dark-grey': '#323232',

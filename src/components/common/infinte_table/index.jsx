@@ -4,10 +4,10 @@ import formatDate from "@/hooks/helper";
 import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
+import Image from 'next/image'
 
-const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
-  const { data, loading, setHasMore } = useInfiniteScroll(fetchData);
-
+const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize, filters, initialData}) => {
+  const { data, loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, initialData);
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
       setHasMore(true);
@@ -16,7 +16,7 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
 
   return (
     <>
-      <div className="pb-6 border-0 border-b border-solid border-gray-200">
+      <div className="pb-6 border-0 border-b border-solid border-gray-200 min-w-[1000px] overflow-x-auto">
         <table className="w-full divide-x">
           <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
@@ -35,6 +35,16 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
             ref={elementRef}
             className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar border-none"
           >
+            {data.length == 0 && (
+              <tr >
+                <td colSpan={columns.length} className="text-center py-8">
+                  <div className="flex flex-col items-center">
+                    <Image src="/static/images/NoResults.png" alt="no data" width="50" height="50" />
+                    <p className="text-gray-600 mt-2 text-lg p-2">No Data Found!</p>
+                  </div>
+                </td>
+              </tr>
+              )}
             {data.map((row, index) => (
               <tr key={index} className="px-4 pt-3">
                 {columns.map((column, columnIndex) => {
@@ -45,7 +55,7 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
                     value = value[part]
                   }
                   return (
-                    <td key={columnIndex} style={{ width: column.width }}>
+                    <td key={columnIndex} className="px-4 pt-3" style={{ width: column.width }}>
                       {column.type === "date" ? formatDate(value) : value}
                     </td>
                   )
@@ -68,10 +78,5 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop }) => {
     </>
   );
 };
-
-InfiniteScrollTable.defaultProps = {
-  offset: 20,
-};
-
 
 export default InfiniteScrollTable;
