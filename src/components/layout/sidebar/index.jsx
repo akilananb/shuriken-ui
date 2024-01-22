@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import BrandLogoFull from "@components/common/brand_logo_full";
 import Footer from "./Footer";
 import SideMenu from "./SideMenu";
+import BrandLogoFull from "@/components/common/brand_logo_full";
 
 const drawerStyle = {
   header: "flex !pb-4 !px-0 !pt-0 items-center gap-[106px] self-stretch",

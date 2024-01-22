@@ -1,7 +1,10 @@
+"use client";
+import Announcement from "@/components/layout/announcement";
 import { UserOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input, Switch, Button } from "antd";
+import Link from "next/link";
 import { useState } from "react";
-// import AutoCompleteSearch from '@components/common/search_input'
+
 const renderTitle = (title) => (
   <span>
     {title}
@@ -57,23 +60,12 @@ const options = [
 const SearchInput = () => {
   const [isSearchFocused, setSearchFocused] = useState(false);
   const [searchvalue, setSearchvalue] = useState("");
-  const styleSheet = `
-    .ltv-search-popup:before {
-        content: "${
-          searchvalue.length != 0
-            ? searchvalue + " Search Asset"
-            : "Start typing to begin searching."
-        }";
-    }
-  `;
 
   return (
     <div className="ltv-search-input-parent">
       {isSearchFocused && (
         <div className="absolute w-[565px] h-16 ltv-custom-search-override"></div>
       )}
-      <style>{styleSheet}</style>
-
       <AutoComplete
         popupClassName="ltv-search-popup"
         popupMatchSelectWidth={565}
@@ -94,13 +86,14 @@ const SearchInput = () => {
   );
 };
 
-function Home() {
+export default function Home() {
   return (
     <div className="flex flex-row bg-white h-full justify-center items-center">
       <div className="flex flex-col items-center justify-center gap-10 w-[746px] relative -top-16">
         <div className="text-justify leading-normal text-2xl font-bold ">
           LTV Search
         </div>
+        <Announcement className={"w-343"}/>
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-2  self-streach relative">
             <SearchInput />
@@ -110,23 +103,20 @@ function Home() {
               placeholder="Quantity(Optional)"
             />
           </div>
-          <div className="flex gap-2">
-            <Switch size="small" />
+          <div className="flex gap-2 align-items-center">
+            <Switch size="small" className="bg-grey" />
             Multiple Security Search
           </div>
         </div>
-        {/* <AutoCompleteSearch/> */}
         <div>
-          <Button
-            type="primary"
-            className="flex text-base w-40 px-4 py-6 justify-center items-center font-bold leading-normal text-center"
+          <Link
+            href="/bonds"
+            className="asset-add-override-button"
           >
             Search
-          </Button>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
-
-export default Home;
