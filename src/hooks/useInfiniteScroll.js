@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useInfiniteScroll = (fetchPageData, pageSize, filters, initialData = {}) => {
+const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData) => {
   const [data, setData] = useState(initialData?.content || []);
   const [totalElements, setTotalElements] = useState(initialData?.totalElements || 0);
   const [totalPages, setTotalPages] = useState(initialData?.totalPages || 0);
@@ -45,7 +45,7 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, initialData = {}) =
     setPage(1);
     setHasMore(1 < (initialData?.totalPages || 1));
     setLoading(false);
-  }, [filters]);
+  }, [filters, reload]);
 
   // Function to manually trigger a new page load
   const loadNextPage = () => {

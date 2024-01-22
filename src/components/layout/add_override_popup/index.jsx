@@ -81,7 +81,7 @@ const NotesForm = ({ formData, handleInputChange }) => (
 );
 
 
-const AddOverridePopup = () => {
+const AddOverridePopup = ({onChange}) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
   const [modalType, setModalType] = useState('overrides');
   const [formData, setFormData] = useState(initialState);
@@ -114,6 +114,7 @@ const AddOverridePopup = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      onChange();
       closeModal();
     } catch (error) {
       console.error('Error:', error.message);

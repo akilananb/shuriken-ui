@@ -6,8 +6,8 @@ import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import Image from 'next/image'
 
-const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize, filters, initialData}) => {
-  const { data, loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, initialData);
+const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize, filters, reload, initialData}) => {
+  const { data, loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, reload, initialData);
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
       setHasMore(true);
