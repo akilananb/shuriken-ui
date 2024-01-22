@@ -107,11 +107,15 @@ body {
   }
 
   .asset-add-override-button {
-    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2  border-none font-bold text-base text-white;
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 border-none font-bold text-base text-white disabled:bg-nomura-off-grey;
+  }
+
+  .nomura-red-button {
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 border-none font-bold text-base text-white;
   }
 
   .asset-add-override-button-disabled {
-    @apply flex w-40 h-12 py-4 px-6  items-center gap-2  border-none font-bold text-base text-white bg-nomura-off-grey;
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 border-none font-bold text-base text-white bg-nomura-dark-grey;
   }
 
   .override-input {
