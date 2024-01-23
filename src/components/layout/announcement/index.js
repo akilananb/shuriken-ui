@@ -20,7 +20,7 @@ const AnnouncementModalContent = ({ payLoad }) => {
   );
 };
 
-const Announcement = ({ data }) => {
+const Announcement = ({ data , statementClass}) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
 
   const modalContent = useMemo(() => {
@@ -36,7 +36,7 @@ const Announcement = ({ data }) => {
   return (
     <div>
       <div
-        className="announcement-statement cursor-pointer"
+        className={`announcement-statement cursor-pointer ${statementClass}`}
         onClick={openModal}
       >
         {data.payLoad[0].message}
