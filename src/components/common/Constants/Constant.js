@@ -62,7 +62,7 @@ const columns = [
     name: "Last Modified",
     dataField: "modifiedAt",
     type: "date",
-  },
+  }
 ];
 
 export default columns;

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import columns from "@/components/common/Constants/Constant";
+import {actionItems} from "./overrides.const";
+
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import { filtersToQueryString } from "@/_utils/helper";
 import AddOverridePopup from "@/components/layout/add_override_popup";
@@ -117,6 +119,7 @@ const OverrideContent = ({ intialData }) => {
         filters={filters}
         initialData={intialData}
         reload={reloadTable}
+        actionItems={actionItems}
       />
     </>
   );
