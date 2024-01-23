@@ -14,7 +14,14 @@ module.exports = {
       },
       colors: {
         'light-red': '#FFEDED',
+        'noumura-light-red-500': '#FFEDED',
+        'noumura-light-red-400': '#f7d2d2',
+        'noumura-light-red-300': '#f7c6c6',
+
         'nomura-red': '#D71133',
+        'nomura-red-400': '#ed1338',
+        'nomura-red-300': '#f7284b',
+
 
         'nomura-white': '#FFF',
         'nomura-off-white': '#F9F9F9',

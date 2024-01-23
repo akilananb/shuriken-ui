@@ -2,10 +2,9 @@
 import Modal from "@/components/common/modal";
 import { useState } from "react";
 import useModal from "@/hooks/useModal";
-import { useEffect } from "react";
-import { Field, Formik, Form } from "formik";
-import OverridesForm from "./OverridesForm";
-import NoteForm from "./NoteForm";
+import { Formik, Form } from "formik";
+import OverrideForm from "./overrideForm";
+import NoteForm from "./noteForm";
 
 import { AddOverrideSchema } from "./validation";
 const initialState = {
@@ -45,7 +44,6 @@ const AddOverridePopup = ({ onChange }) => {
         }
       );
 
-      console.error("Error:", response.res);
       if (response.status === 400) {
         response.json().then((err) => validateBE(err));
       } else if (!response.ok) {
@@ -88,10 +86,10 @@ const AddOverridePopup = ({ onChange }) => {
                 <Form>
                   <div className="flex flex-col gap-4 w-full">
                     {modalType === "overrides" && (
-                      <OverridesForm errors={errors} touched={touched} />
+                      <OverrideForm errors={errors} touched={touched} />
                     )}
                     {modalType === "notes" && (
-                      <NotesForm errors={errors} touched={touched} />
+                      <NoteForm errors={errors} touched={touched} />
                     )}
                   </div>
                   {commonError && (

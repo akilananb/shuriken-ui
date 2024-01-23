@@ -1,13 +1,29 @@
-"use client"
+"use client";
 
-import  { formatDate } from "@/_utils/helper";
+import { formatDate } from "@/_utils/helper";
 import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
-import Image from 'next/image'
-
-const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize, filters, reload, initialData}) => {
-  const { data,  loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, reload, initialData);
+import Image from "next/image";
+import ActionItem from "./actionItem";
+const InfiniteScrollTable = ({
+  columns,
+  fetchData,
+  disableScrollToTop,
+  pageSize,
+  filters,
+  reload,
+  initialData,
+  actionItems,
+  actionOnClick
+}) => {
+  const { data, loading, setHasMore } = useInfiniteScroll(
+    fetchData,
+    pageSize,
+    filters,
+    reload,
+    initialData
+  );
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
       setHasMore(true);
@@ -29,6 +45,13 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize
                   {column.name}
                 </th>
               ))}
+              {actionItems?.map((actionItem, index) => (
+                <th
+                  key={index}
+                  style={{ width: actionItem.width }}
+                  className="px-4 py-4 text-left"
+                ></th>
+              ))}
             </tr>
           </thead>
           <tbody
@@ -36,31 +59,55 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize
             className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar border-none"
           >
             {data.length == 0 && (
-              <tr >
+              <tr>
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
-                    <Image src="/static/images/NoResults.png" alt="no data" width="50" height="50" />
-                    <p className="text-gray-600 mt-2 text-lg p-2">No Data Found!</p>
+                    <Image
+                      src="/static/images/NoResults.png"
+                      alt="no data"
+                      width="50"
+                      height="50"
+                    />
+                    <p className="text-gray-600 mt-2 text-lg p-2">
+                      No Data Found!
+                    </p>
                   </div>
                 </td>
               </tr>
-              )}
+            )}
             {data.map((row, index) => (
               <tr key={index} className="px-4 pt-3">
                 {columns.map((column, columnIndex) => {
-                  const dataFieldParts = column.dataField.split('.');
+                  const dataFieldParts = column.dataField.split(".");
                   let value = row;
                   // Access nested properties
                   for (const part of dataFieldParts) {
-                    value = value[part]
+                    value = value[part];
                   }
                   return (
                     <td key={columnIndex} className="px-4 pt-3" style={{ width: column.width }}>
                       {column.type === "date" ? value ? formatDate(value) : "-" : value}
                     </td>
-                  )
-                }
-                )}
+                  );
+                })}
+                {actionItems?.map((actionItem, index) => {
+                  return (
+                    <td
+                      key={index}
+                      className="px-4 pt-3"
+                      style={{ width: actionItem.width }}
+                    >
+
+                      <ActionItem 
+                      actionType={actionItem.actionType}
+                      onClick={()=>{
+                        actionOnClick(actionItem.actionType, row.instrumentOverrideId)
+                      }} />
+
+
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

@@ -1,13 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import columns from "@/components/common/Constants/Constant";
+import { actionItems } from "./overrides.const";
+import Modal from "@/components/common/modal";
+import useModal from "@/hooks/useModal";
+
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import { filtersToQueryString } from "@/_utils/helper";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
 export const fetchData = async (page, pageSize, filters) => {
-
-
   let url = `/api/v1/instrument-override?page=${
     page === 1 ? 0 : (page - 1) * pageSize
   }&size=${pageSize}`;
@@ -21,12 +23,18 @@ export const fetchData = async (page, pageSize, filters) => {
   return response.json();
 };
 
+export const fetchDeleteData = async (instrumentId) => {
+  let url = `/api/v1/instrument-override/${instrumentId}`;
+  await fetch(url, { cache: "no-store", method: "DELETE" });
+};
+
 const OverrideContent = ({ intialData }) => {
+  const { isModalOpen, openModal, closeModal } = useModal(false);
+  const [instrumentId, setInstrumentId] = useState(null);
   const [filters, setFilters] = useState({
     overrideStatus: "ACTIVE",
   });
-  const [ reloadTable , setReloadTable ] = useState(false);
-
+  const [reloadTable, setReloadTable] = useState("");
 
   const handleFilterChange = (filterType, value) => {
     setFilters((prevFilters) => {
@@ -62,7 +70,9 @@ const OverrideContent = ({ intialData }) => {
         <div className="text-justify font-sans text-xl font-bold">
           Overrides
         </div>
-        <AddOverridePopup onChange={() => setReloadTable(true)}/>
+        <AddOverridePopup
+          onChange={() => setReloadTable(new Date().toISOString())}
+        />
       </div>
       <div className="flex flex-row items-baseline override-filter">
         <div className="flex flex-row pr-4 items-center gap-4">
@@ -117,7 +127,49 @@ const OverrideContent = ({ intialData }) => {
         filters={filters}
         initialData={intialData}
         reload={reloadTable}
+        actionItems={actionItems}
+        actionOnClick={(actionType, instrumentId) => {
+          switch (actionType) {
+            case "Delete": {
+              setInstrumentId(instrumentId);
+              openModal();
+              break;
+            }
+          }
+        }}
       />
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={"Alert"}>
+        <div className="flex flex-col gap-2 ">
+          <p className="text-gray-600 mt-2 text-lg p-2">
+            Do you want to delete this record?
+          </p>
+
+          <div className="flex flex-row gap-2 ">
+            <button
+              className="secondary-button"
+              onClick={() => {
+                closeModal();
+              }}
+            >
+              No
+            </button>
+
+            <button
+              className="primary-button"
+              onClick={() => {
+                fetchDeleteData(instrumentId).then(() => {
+                  setReloadTable(new Date().toISOString());
+                  closeModal();
+                  setInstrumentId("");
+                });
+              }}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
