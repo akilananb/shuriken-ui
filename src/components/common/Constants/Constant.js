@@ -14,7 +14,7 @@ const columns = [
   //   dataField: "url",
   // },
   {
-    name: "TICKER",
+    name: "Ticker",
     dataField: "overrideInstrumentDetail.ticker",
     type: "text",
   },
@@ -30,12 +30,12 @@ const columns = [
   },
   {
     name: "LTV at IM",
-    dataField: "ltvOverrideValue",
+    dataField: "",
     type: "text",
   },
   {
     name: "Override",
-    dataField: "ltvOverrideNote",
+    dataField: "ltvOverrideValue",
     type: "text",
   },
   {
