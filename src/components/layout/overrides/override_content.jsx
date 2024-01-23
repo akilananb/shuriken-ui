@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import columns from "@/components/common/Constants/Constant";
 import { actionItems } from "./overrides.const";
+import Modal from "@/components/common/modal";
+import useModal from "@/hooks/useModal";
 
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import { filtersToQueryString } from "@/_utils/helper";
@@ -27,6 +29,8 @@ export const fetchDeleteData = async (instrumentId) => {
 };
 
 const OverrideContent = ({ intialData }) => {
+  const { isModalOpen, openModal, closeModal } = useModal(false);
+  const [instrumentId, setInstrumentId] = useState(null);
   const [filters, setFilters] = useState({
     overrideStatus: "ACTIVE",
   });
@@ -125,17 +129,47 @@ const OverrideContent = ({ intialData }) => {
         reload={reloadTable}
         actionItems={actionItems}
         actionOnClick={(actionType, instrumentId) => {
-          console.log(`Action ${actionType} Ins-${instrumentId}`);
           switch (actionType) {
             case "Delete": {
-              fetchDeleteData(instrumentId).then(() => {
-                setReloadTable(new Date().toISOString());
-              });
+              setInstrumentId(instrumentId);
+              openModal();
               break;
             }
           }
         }}
       />
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={"Alert"}>
+        <div className="flex flex-col gap-2 ">
+          <p className="text-gray-600 mt-2 text-lg p-2">
+            Do you want to delete this record?
+          </p>
+
+          <div className="flex flex-row gap-2 ">
+            <button
+              className="secondary-button"
+              onClick={() => {
+                closeModal();
+              }}
+            >
+              No
+            </button>
+
+            <button
+              className="primary-button"
+              onClick={() => {
+                fetchDeleteData(instrumentId).then(() => {
+                  setReloadTable(new Date().toISOString());
+                  closeModal();
+                  setInstrumentId("");
+                });
+              }}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
