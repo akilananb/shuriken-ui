@@ -6,16 +6,20 @@ const ActionItem = ({ actionType, onClick }) => {
   function renderIcon(actionType) {
     switch (actionType) {
       case "Edit":
-        return <Image priority src={EditIcon} />;
+        return EditIcon;
       case "Delete":
-        return <Image priority src={DeleteIcon} />;
+        return DeleteIcon;
 
       default:
-        return <></>;
+        return "";
     }
   }
 
-  return <button onClick={onClick}>{renderIcon(actionType)}</button>;
+  return (
+    <button onClick={onClick}>
+      <Image width={32} height={32} alt="Logo" src={renderIcon(actionType)} />
+    </button>
+  );
 };
 
 export default ActionItem;

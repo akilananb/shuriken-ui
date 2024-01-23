@@ -44,7 +44,6 @@ const AddOverridePopup = ({ onChange }) => {
         }
       );
 
-      console.error("Error:", response.res);
       if (response.status === 400) {
         response.json().then((err) => validateBE(err));
       } else if (!response.ok) {
