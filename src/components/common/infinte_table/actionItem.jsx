@@ -17,7 +17,7 @@ const ActionItem = ({ actionType, onClick }) => {
 
   return (
     <button onClick={onClick}>
-      <Image width={32} height={32} alt="Logo" src={renderIcon(actionType)} />
+      <Image width={16} height={16} alt="Logo" src={renderIcon(actionType)} />
     </button>
   );
 };
