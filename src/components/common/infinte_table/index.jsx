@@ -15,6 +15,7 @@ const InfiniteScrollTable = ({
   reload,
   initialData,
   actionItems,
+  actionOnClick
 }) => {
   const { data, loading, setHasMore } = useInfiniteScroll(
     fetchData,
@@ -97,7 +98,11 @@ const InfiniteScrollTable = ({
                       style={{ width: actionItem.width }}
                     >
 
-                      <ActionItem actionType={actionItem.actionType}/>
+                      <ActionItem 
+                      actionType={actionItem.actionType}
+                      onClick={()=>{
+                        actionOnClick(actionItem.actionType, row.instrumentOverrideId)
+                      }} />
 
 
                     </td>

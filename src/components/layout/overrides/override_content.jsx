@@ -1,15 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import columns from "@/components/common/Constants/Constant";
-import {actionItems} from "./overrides.const";
+import { actionItems } from "./overrides.const";
 
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import { filtersToQueryString } from "@/_utils/helper";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
 export const fetchData = async (page, pageSize, filters) => {
-
-
   let url = `/api/v1/instrument-override?page=${
     page === 1 ? 0 : (page - 1) * pageSize
   }&size=${pageSize}`;
@@ -23,12 +21,16 @@ export const fetchData = async (page, pageSize, filters) => {
   return response.json();
 };
 
+export const fetchDeleteData = async (instrumentId) => {
+  let url = `/api/v1/instrument-override/${instrumentId}`;
+  await fetch(url, { cache: "no-store", method: "DELETE" });
+};
+
 const OverrideContent = ({ intialData }) => {
   const [filters, setFilters] = useState({
     overrideStatus: "ACTIVE",
   });
-  const [ reloadTable , setReloadTable ] = useState(false);
-
+  const [reloadTable, setReloadTable] = useState("");
 
   const handleFilterChange = (filterType, value) => {
     setFilters((prevFilters) => {
@@ -64,7 +66,9 @@ const OverrideContent = ({ intialData }) => {
         <div className="text-justify font-sans text-xl font-bold">
           Overrides
         </div>
-        <AddOverridePopup onChange={() => setReloadTable(true)}/>
+        <AddOverridePopup
+          onChange={() => setReloadTable(new Date().toISOString())}
+        />
       </div>
       <div className="flex flex-row items-baseline override-filter">
         <div className="flex flex-row pr-4 items-center gap-4">
@@ -120,6 +124,17 @@ const OverrideContent = ({ intialData }) => {
         initialData={intialData}
         reload={reloadTable}
         actionItems={actionItems}
+        actionOnClick={(actionType, instrumentId) => {
+          console.log(`Action ${actionType} Ins-${instrumentId}`);
+          switch (actionType) {
+            case "Delete": {
+              fetchDeleteData(instrumentId).then(() => {
+                setReloadTable(new Date().toISOString());
+              });
+              break;
+            }
+          }
+        }}
       />
     </>
   );
