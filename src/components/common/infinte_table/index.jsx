@@ -15,7 +15,7 @@ const InfiniteScrollTable = ({
   reload,
   initialData,
   actionItems,
-  actionOnClick
+  actionOnClick,
 }) => {
   const { data, loading, setHasMore } = useInfiniteScroll(
     fetchData,
@@ -26,13 +26,13 @@ const InfiniteScrollTable = ({
   );
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
-      setHasMore(true);
+      setHasMore(new Date().getTime());
     }
   });
 
   return (
     <>
-      <div className="pb-6 border-0 border-b border-solid border-gray-200 min-w-[1000px] overflow-x-auto">
+      <div className="pb-6 border-0 border-b border-solid border-gray-200 min-w-[1000px] ">
         <table className="w-full divide-x">
           <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
@@ -56,7 +56,8 @@ const InfiniteScrollTable = ({
           </thead>
           <tbody
             ref={elementRef}
-            className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar border-none"
+            className="block table-fixed overflow-y-auto max-h-100  justify-between  w-full h-[50vh]"
+            
           >
             {data.length == 0 && (
               <tr>
@@ -85,8 +86,16 @@ const InfiniteScrollTable = ({
                     value = value[part];
                   }
                   return (
-                    <td key={columnIndex} className="px-4 pt-3" style={{ width: column.width }}>
-                      {column.type === "date" ? value ? formatDate(value) : "-" : value}
+                    <td
+                      key={columnIndex}
+                      className="px-4 pt-3"
+                      style={{ width: column.width }}
+                    >
+                      {column.type === "date"
+                        ? value
+                          ? formatDate(value)
+                          : "-"
+                        : value}
                     </td>
                   );
                 })}
@@ -97,14 +106,15 @@ const InfiniteScrollTable = ({
                       className="px-4 pt-3"
                       style={{ width: actionItem.width }}
                     >
-
-                      <ActionItem 
-                      actionType={actionItem.actionType}
-                      onClick={()=>{
-                        actionOnClick(actionItem.actionType, row.instrumentOverrideId)
-                      }} />
-
-
+                      <ActionItem
+                        actionType={actionItem.actionType}
+                        onClick={() => {
+                          actionOnClick(
+                            actionItem.actionType,
+                            row.instrumentOverrideId
+                          );
+                        }}
+                      />
                     </td>
                   );
                 })}
