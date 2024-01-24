@@ -4,7 +4,7 @@ import { useState } from "react";
 import useModal from "@/hooks/useModal";
 import { Formik, Form } from "formik";
 import OverrideForm from "./overrideForm";
-import NoteForm from "./NoteForm";
+import NoteForm from "./noteForm";
 
 import { AddOverrideSchema } from "./validation";
 const initialState = {
