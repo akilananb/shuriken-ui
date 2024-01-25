@@ -13,7 +13,6 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
 
     try {
       const newData = await fetchPageData(page, pageSize, filters);
-      console.log(`Data ${page} -- ${newData.totalPages}`,)
 
       if (newData && Array.isArray(newData.content) && page <= newData.totalPages ) {
         setData(prevData => [...prevData, ...newData.content]);
@@ -36,10 +35,6 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
   useEffect(() => {
     fetchData();
   }, [hasMore]);
-
-  useEffect(() => {
-    console.log("CALLED",hasMore)
-  }, [ hasMore]);
 
   // Effect to reset and reload data when filters change
   useEffect(() => {
