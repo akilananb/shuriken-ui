@@ -2,8 +2,6 @@ import Announcement from "@/components/layout/announcement";
 import LtvSearch from "@/components/layout/ltvsearch";
 import { Input, Switch } from "antd";
 import Link from "next/link";
-import SearchInput from "@/components/common/search_input";
-
 
 export async function getLadingPageData() {
   try {
@@ -40,10 +38,8 @@ export default async function Home() {
           modal={true}
           data={announcementData}
         />
-         <SearchInput/>
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-2  self-streach relative">
-           
             <LtvSearch />
             <Input
               className="w-[167px] !h-[50px]"
