@@ -26,6 +26,7 @@ const config: Config = {
 
         "nomura-white": "#FFF",
         "noumura-grey": "#999",
+        "nomura-light-grey": "#F3F3F3",
         "nomura-off-white": "#F9F9F9",
         "nomura-off-grey": "#D1D3D4",
         "nomura-dark-grey": "#323232",

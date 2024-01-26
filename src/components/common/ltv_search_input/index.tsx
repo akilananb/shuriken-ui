@@ -8,6 +8,7 @@ import Autocomplete, {
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import SearchService, { SearchRes } from "@/services/search_services";
+import LTVCalculationView from "./ltv_calculator_view";
 const SearchComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<SearchRes[]>([]);
@@ -92,7 +93,7 @@ const SearchComponent = () => {
     // setSearchTerm("");
   };
   return (
-    <div>
+    <>
       <Autocomplete
         id="search-autocomplete"
         fullWidth
@@ -118,21 +119,28 @@ const SearchComponent = () => {
         isOptionEqualToValue={(option, value) => option.value1 === value.value1}
         renderGroup={renderGroup}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Search"
-            variant="outlined"
-            onChange={(e) => handleSearchChange(e.target.value)}
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <>
-                  <SearchIcon color="disabled" />
-                  {params.InputProps.startAdornment}
-                </>
-              ),
-            }}
-          />
+          <>
+            <TextField
+              {...params}
+              placeholder="Search"
+              variant="outlined"
+              onChange={(e) => handleSearchChange(e.target.value)}
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <>
+                    <SearchIcon color="disabled" />
+                    {params.InputProps.startAdornment}
+                    <LTVCalculationView
+                      className="absolute right-0 mr-4"
+                      searchKey={""}
+                      loading="LOADING"
+                    />
+                  </>
+                ),
+              }}
+            />
+          </>
         )}
         // ListboxComponent={(props) => (
         //   <ul {...props} style={{ padding: 0 }}>
@@ -154,7 +162,7 @@ const SearchComponent = () => {
           inputValue.length < 3 ? [] : options
         }
       />
-    </div>
+    </>
   );
 };
 
