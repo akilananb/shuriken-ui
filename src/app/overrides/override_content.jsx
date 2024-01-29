@@ -18,6 +18,7 @@ export const fetchData = async (page, pageSize, filters) => {
 
   const response = await fetch(url, { cache: "no-store" });
 
+
   return response.json();
 };
 
@@ -113,7 +114,7 @@ const OverrideContent = ({ intialData }) => {
       <InfiniteScrollTable
         fetchData={fetchData}
         columns={columns}
-        pageSize={100}
+        pageSize={6}
         filters={filters}
         initialData={intialData}
         reload={reloadTable}

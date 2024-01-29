@@ -1,6 +1,6 @@
 "use client"
 
-import  { formatDate } from "@/_utils/helper";
+import { formatDate } from "@/_utils/helper";
 import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
@@ -44,7 +44,7 @@ const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize
                   </div>
                 </td>
               </tr>
-              )}
+            )}
             {data.map((row, index) => (
               <tr key={index} className="px-4 pt-3">
                 {columns.map((column, columnIndex) => {

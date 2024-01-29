@@ -5,17 +5,19 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(page < (initialData?.totalPages || 1));
+
+
   const fetchData = async () => {
     if (loading || !hasMore) return;
-
     setLoading(true);
-
     try {
       const newData = await fetchPageData(page, pageSize, filters);
-      
+
+
       if (newData && Array.isArray(newData.content)) {
         setData(prevData => [...prevData, ...newData.content]);
         setHasMore(page < newData.totalPages);
+        console.log(hasMore,data)
       } else {
         console.error('Invalid data structure received:', newData);
         setHasMore(false);
@@ -40,6 +42,7 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
     setHasMore(true);
     setLoading(false);
     fetchData();
+
   }, [filters, reload]);
 
   // Function to manually trigger a new page load
