@@ -1,5 +1,13 @@
 export type LTVCalculationTypes = "UNKNOWN" | "LOADING" | "SUCCESS" | "FAILED";
-import { SearchRes } from "@/services/search_services";
+export type NoDataFoundOption =
+  | "UNKNOWN"
+  | "LESS_THAN_3_CHAR"
+  | "NO_MATCH"
+  | "LOADING"
+  | "SUCCESS"
+  | "FAILED";
+
+import { LTVSearch } from "@/services/search_services";
 
 export interface LTVCalculationViewProps {
   className?: string;
@@ -8,5 +16,5 @@ export interface LTVCalculationViewProps {
 }
 
 export interface LTVSearchInputProps {
-  onSelect?: (selectedItem?: SearchRes) => void;
+  onSelect?: (selectedItem?: LTVSearch) => void;
 }

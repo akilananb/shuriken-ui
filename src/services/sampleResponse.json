@@ -1,32 +1,21 @@
-[
-  {
-    "id": "1",
-    "value1": "US101121",
-    "value2": "Main result 1",
-    "category": "Equities"
-  },
-  {
-    "id": "2",
-    "value1": "EES101121",
-    "value2": "Main result 2",
-    "category": "Equities"
-  },
-  {
-    "id": "3",
-    "value1": "WE1233",
-    "value2": "Main result 3",
-    "category": "Bonds"
-  },
-  {
-    "id": "4",
-    "value1": "Result 4",
-    "value2": "Sub result 4",
-    "category": "Equities"
-  },
-  {
-    "id": "5",
-    "value1": "Result 5",
-    "value2": "Main result 5",
-    "category": "Equities"
-  }
-]
+{
+  "size": 2,
+  "payLoad": [
+    {
+      "securityName": "Nomura Global Bond 1",
+      "isin": "JP1234567890",
+      "ticker": "NGB101",
+      "securityType": "Bond",
+      "status": "Active",
+      "exchange": "Tokyo Stock Exchange"
+    },
+    {
+      "securityName": "Nomura Global Equities 1",
+      "isin": "JP0987654321",
+      "ticker": "NGB101",
+      "securityType": "Equities",
+      "status": "Active",
+      "exchange": "Tokyo Stock Exchange"
+    }
+  ]
+}

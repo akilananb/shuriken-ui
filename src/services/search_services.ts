@@ -7,7 +7,7 @@ class SearchService {
     this.baseUrl = process.env.API_BASE_URLL || "";
   }
 
-  public async fetchSearch(searchKey: string): Promise<SearchRes[]> {
+  public async fetchSearch(searchKey: string): Promise<SearchRes> {
     console.log("Called fetch Search-->", searchKey);
     //   const response = await fetch(`${this.baseUrl}${searchKey}`, options);
 
@@ -16,7 +16,7 @@ class SearchService {
     //   }
 
     //   return response.json();
-    const fakeApiCall = new Promise<SearchRes[]>((resolve) => {
+    const fakeApiCall = new Promise<SearchRes>((resolve) => {
       setTimeout(() => {
         resolve(responseJson);
       }, 1000);

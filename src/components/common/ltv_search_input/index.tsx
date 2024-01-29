@@ -7,39 +7,48 @@ import Autocomplete, {
 } from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
-import SearchService, { SearchRes } from "@/services/search_services";
+import SearchService, { LTVSearch } from "@/services/search_services";
+import { Response } from "@/_utils/Response";
+import { debounce } from "@mui/material/utils";
+
 import LTVCalculationView from "./ltv_calculator_view";
-import { LTVSearchInputProps } from "./types";
+import { LTVSearchInputProps, NoDataFoundOption } from "./types";
 const SearchComponent: React.FC<LTVSearchInputProps> = (
   props: LTVSearchInputProps
 ) => {
   const { onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState<SearchRes[]>([]);
+  const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
+    new Response().applyLoader("UNKNOWN")
+  );
   const searchService = new SearchService();
+
+  const performSearch = async () => {
+    console.log("CALLED", searchTerm);
+    if (searchTerm && searchTerm.trim().length >= 3) {
+      setSearchResults(new Response().applyLoader("LOADING"));
+
+      const _results = await searchService.fetchSearch(searchTerm);
+      const results = _results?.payLoad?.sort((a, b) =>
+        b.securityType.localeCompare(a.securityType)
+      );
+
+      setSearchResults(new Response(results).applyLoader("LOADED"));
+    } else {
+      // Handle the case when the search term is empty
+      setSearchResults(new Response([]).applyLoader("LOADED"));
+    }
+  };
 
   useEffect(() => {
     // Perform API call when searchTerm changes
-    const performSearch = async () => {
-      if (searchTerm && searchTerm.trim().length >= 3) {
-        const _results = await searchService.fetchSearch(searchTerm);
-        const results = _results?.sort((a, b) =>
-          b.category.localeCompare(a.category)
-        );
-
-        setSearchResults(results);
-      } else {
-        // Handle the case when the search term is empty
-        setSearchResults([]);
-      }
-    };
 
     performSearch();
   }, [searchTerm]);
 
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-  };
+  const deBounceOnChangeListener = debounce((event) => {
+    setSearchTerm(event.target.value);
+  }, 400 ?? 0);
 
   const handleSearchSelect = (_, selectedValue) => {
     /*TODO
@@ -54,7 +63,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 
   const renderOption = (
     props,
-    option: SearchRes,
+    option: LTVSearch,
     state: AutocompleteRenderOptionState
   ) => {
     const { index, inputValue, selected } = state;
@@ -65,7 +74,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     return (
       <div {...props} key={index}>
         <div className="w-full flex flex-row">
-          {option.value1
+          {option.isin
             .split(regex)
             .map((part, index) =>
               regex.test(part) ? (
@@ -75,7 +84,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
               )
             )}
           <div className="text-lg pl-4 text-nomura-dark-grey">
-            {option.value2}
+            {option.securityName}
           </div>
         </div>
       </div>
@@ -97,15 +106,34 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     // console.log("handleAutocompleteBlur opened");
     // setSearchTerm("");
   };
+
+  const renderNoMatchOption = () => {
+    const _searchResults = searchResults.getResponse() ?? [];
+
+    let type: NoDataFoundOption = "UNKNOWN";
+    if (searchTerm.length < 3) type = "LESS_THAN_3_CHAR";
+    else if (searchResults.isLoading()) type = "LOADING";
+    else if (_searchResults.length == 0) type = "NO_MATCH";
+    switch (type) {
+      case "LESS_THAN_3_CHAR":
+        return "Please enter at least 3 characters for wildcard search.";
+      case "LOADING":
+        return "Loading...";
+      case "NO_MATCH":
+        return "No asset matches the search criteria. Please enter asset ISIN / Ticker only to start the search.";
+      default:
+        return "";
+    }
+  };
   return (
     <>
       <Autocomplete
         id="search-autocomplete"
         fullWidth
         popupIcon={null}
-        options={searchResults}
-        groupBy={(option) => option.category}
-        getOptionLabel={(option) => option.value1}
+        options={searchResults.getResponse() ?? []}
+        groupBy={(option) => option.securityType}
+        getOptionLabel={(option) => option.isin}
         onBlur={handleAutocompleteBlur} // onBlur event listener
         onChange={handleSearchSelect}
         sx={{
@@ -121,7 +149,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
             },
           },
         }}
-        isOptionEqualToValue={(option, value) => option.value1 === value.value1}
+        isOptionEqualToValue={(option, value) => option.isin === value.isin}
         renderGroup={renderGroup}
         renderInput={(params) => (
           <>
@@ -129,7 +157,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
               {...params}
               placeholder="Search"
               variant="outlined"
-              onChange={(e) => handleSearchChange(e.target.value)}
+              onChange={deBounceOnChangeListener}
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (
@@ -160,7 +188,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
         renderOption={renderOption}
         noOptionsText={
           <Typography variant="body2" color="textSecondary">
-            ----No matching options-----
+            {renderNoMatchOption()}
           </Typography>
         }
         filterOptions={(options, { inputValue }) =>
