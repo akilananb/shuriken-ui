@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete, {
   AutocompleteRenderGroupParams,
@@ -12,19 +12,28 @@ import { Response } from "@/_utils/Response";
 import { debounce } from "@mui/material/utils";
 
 import LTVCalculationView from "./ltv_calculator_view";
-import { LTVSearchInputProps, NoDataFoundOption } from "./types";
+import {
+  LTVCalculationTypes,
+  LTVSearchInputProps,
+  NoDataFoundOption,
+} from "./types";
 const SearchComponent: React.FC<LTVSearchInputProps> = (
   props: LTVSearchInputProps
 ) => {
-  const { onSelect } = props;
+  const autocompleteRef = useRef<any>(null);
+
+  const { onSelectedItem, className } = props;
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(null);
   const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
     new Response().applyLoader("UNKNOWN")
   );
+  const [ltvCalculationResult, setLTVCalculationResult] = useState<
+    Response<string>
+  >(new Response().applyLoader("UNKNOWN"));
   const searchService = new SearchService();
 
   const performSearch = async () => {
-    console.log("CALLED", searchTerm);
     if (searchTerm && searchTerm.trim().length >= 3) {
       setSearchResults(new Response().applyLoader("LOADING"));
 
@@ -40,15 +49,45 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     }
   };
 
+  const performCalculation = async () => {
+    if (searchTerm && searchTerm.trim().length >= 3) {
+      setLTVCalculationResult(new Response().applyLoader("LOADING"));
+
+      const result = await searchService.fetchLTVCalculation(selectedItem);
+
+      setLTVCalculationResult(new Response(result).applyLoader("LOADED"));
+    } else {
+      // Handle the case when the search term is empty
+      setLTVCalculationResult(new Response("").applyLoader("LOADED"));
+    }
+  };
+
   useEffect(() => {
     // Perform API call when searchTerm changes
 
     performSearch();
   }, [searchTerm]);
 
-  const deBounceOnChangeListener = debounce((event) => {
-    setSearchTerm(event.target.value);
+  const deBounceOnChangeListener = debounce((event, value) => {
+    setSearchTerm(value);
   }, 400 ?? 0);
+
+  const clearAll = () => {
+    setSelectedItem(null);
+    onSelectedItem?.(null);
+    setLTVCalculationResult(new Response().applyLoader("UNKNOWN"));
+  };
+  const onClick = (event) => {
+    console.log("onClick Value:--", event.target.value);
+    // setSearchTerm("");
+    clearAll();
+    // Clear the selected item when clicked
+    // if (autocompleteRef.current) {
+    //   autocompleteRef.current.clear();
+    // }
+    // setSearchTerm("");
+    // setSearchTerm(event.target.value);
+  };
 
   const handleSearchSelect = (_, selectedValue) => {
     /*TODO
@@ -58,7 +97,9 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
       setSearchTerm("");
     }
     console.log("Selected Value:--", selectedValue);
-    onSelect?.(selectedValue);
+    onSelectedItem?.(selectedValue);
+    setSelectedItem(selectedValue);
+    performCalculation();
   };
 
   const renderOption = (
@@ -98,15 +139,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     params.children,
   ];
 
-  const handleAutocompleteBlur = () => {
-    // // Clear the searchTerm on blur if no option is selected
-    // if (!searchResults.find((option) => option.value1 === searchTerm)) {
-    //   setSearchTerm("");
-    // }
-    // console.log("handleAutocompleteBlur opened");
-    // setSearchTerm("");
-  };
-
   const renderNoMatchOption = () => {
     const _searchResults = searchResults.getResponse() ?? [];
 
@@ -116,26 +148,34 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     else if (_searchResults.length == 0) type = "NO_MATCH";
     switch (type) {
       case "LESS_THAN_3_CHAR":
-        return "Please enter at least 3 characters for wildcard search.";
+        return "Please enter at least 3 characters for search.";
       case "LOADING":
         return "Loading...";
       case "NO_MATCH":
         return "No asset matches the search criteria. Please enter asset ISIN / Ticker only to start the search.";
       default:
-        return "";
+        return null;
     }
+  };
+
+  const renderLTVCalculation = (): LTVCalculationTypes => {
+    if (ltvCalculationResult.isLoading()) return "LOADING";
+    else if (ltvCalculationResult.hasResult()) return "SUCCESS";
+    else if (ltvCalculationResult.hasError()) return "FAILED";
+    else return "UNKNOWN";
   };
   return (
     <>
       <Autocomplete
+        ref={autocompleteRef}
+        value={selectedItem}
         id="search-autocomplete"
-        fullWidth
         popupIcon={null}
-        options={searchResults.getResponse() ?? []}
+        options={[...(searchResults.getResponse() ?? [])]}
         groupBy={(option) => option.securityType}
         getOptionLabel={(option) => option.isin}
-        onBlur={handleAutocompleteBlur} // onBlur event listener
         onChange={handleSearchSelect}
+        onInputChange={deBounceOnChangeListener}
         sx={{
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -157,7 +197,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
               {...params}
               placeholder="Search"
               variant="outlined"
-              onChange={deBounceOnChangeListener}
+              onClick={onClick}
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (
@@ -167,7 +207,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
                     <LTVCalculationView
                       className="absolute right-0 mr-4"
                       searchKey={""}
-                      loading="LOADING"
+                      loading={renderLTVCalculation()}
                     />
                   </>
                 ),
@@ -194,6 +234,8 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
         filterOptions={(options, { inputValue }) =>
           inputValue.length < 3 ? [] : options
         }
+        className={className}
+        // {...rest}
       />
     </>
   );

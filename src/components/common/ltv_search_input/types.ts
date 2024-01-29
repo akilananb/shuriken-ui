@@ -7,14 +7,15 @@ export type NoDataFoundOption =
   | "SUCCESS"
   | "FAILED";
 
+import { BaseDivAttributes } from "@/_utils/base";
 import { LTVSearch } from "@/services/search_services";
+import { HTMLAttributes } from "react";
 
-export interface LTVCalculationViewProps {
-  className?: string;
+export interface LTVCalculationViewProps extends BaseDivAttributes {
   searchKey: string;
   loading: LTVCalculationTypes;
 }
 
-export interface LTVSearchInputProps {
-  onSelect?: (selectedItem?: LTVSearch) => void;
+export interface LTVSearchInputProps extends BaseDivAttributes {
+  onSelectedItem?: (selectedItem?: LTVSearch | null) => void;
 }

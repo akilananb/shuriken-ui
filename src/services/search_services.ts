@@ -1,4 +1,4 @@
-import { SearchRes } from "@/types/search.types";
+import { SearchRes, LTVSearch } from "@/types/search.types";
 import responseJson from "./sampleResponse.json";
 class SearchService {
   private readonly baseUrl: string;
@@ -20,6 +20,24 @@ class SearchService {
       setTimeout(() => {
         resolve(responseJson);
       }, 1000);
+    });
+
+    return await fakeApiCall;
+  }
+
+  public async fetchLTVCalculation(item?: LTVSearch | null): Promise<string> {
+    console.log("Called fetchLTVCalculation-->", item);
+    //   const response = await fetch(`${this.baseUrl}${searchKey}`, options);
+
+    //   if (!response.ok) {
+    //     throw new Error(`API request failed with status ${response.status}`);
+    //   }
+
+    //   return response.json();
+    const fakeApiCall = new Promise<string>((resolve) => {
+      setTimeout(() => {
+        resolve("dummyValue");
+      }, 10000);
     });
 
     return await fakeApiCall;

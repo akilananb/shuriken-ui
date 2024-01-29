@@ -111,6 +111,13 @@ body {
     text-decoration: none;
 
     @apply hover:bg-nomura-red-300;
+    @apply disabled:pointer-events-none disabled:bg-noumura-grey;
+  }
+
+  .primary-button-disable {
+    @apply w-full px-4 py-2 rounded text-lg bg-nomura-off-grey text-white border-none cursor-pointer min-w-[104px];
+    text-decoration: none;
+    @apply pointer-events-none;
   }
 
   .secondary-button {

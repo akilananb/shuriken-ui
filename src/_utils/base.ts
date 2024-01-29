@@ -7,4 +7,8 @@ export type ApiError = {
   detail: string;
   meta?;
 };
+
+export type BaseDivAttributes = {
+  className?: string;
+};
 export type Loader = "UNKNOWN" | "LOADING" | "LOADED";
