@@ -9,7 +9,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import SearchService, { SearchRes } from "@/services/search_services";
 import LTVCalculationView from "./ltv_calculator_view";
-const SearchComponent = () => {
+import { LTVSearchInputProps } from "./types";
+const SearchComponent: React.FC<LTVSearchInputProps> = (
+  props: LTVSearchInputProps
+) => {
+  const { onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<SearchRes[]>([]);
   const searchService = new SearchService();
@@ -45,6 +49,7 @@ const SearchComponent = () => {
       setSearchTerm("");
     }
     console.log("Selected Value:--", selectedValue);
+    onSelect?.(selectedValue);
   };
 
   const renderOption = (
