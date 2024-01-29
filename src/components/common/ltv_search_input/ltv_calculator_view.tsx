@@ -1,3 +1,4 @@
+import React from "react";
 import { LTVCalculationViewProps } from "./types";
 const LTVCalculationView: React.FC<LTVCalculationViewProps> = (
   props: LTVCalculationViewProps
