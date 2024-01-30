@@ -33,7 +33,7 @@ const InfiniteScrollTable = ({
   return (
     <>
       <div className="pb-6 border-0 border-b border-solid border-gray-200 min-w-[1000px] ">
-        <table className="w-full divide-x">
+        <table className="w-full">
           <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
               {columns.map((column, index) => (
@@ -57,10 +57,9 @@ const InfiniteScrollTable = ({
           <tbody
             ref={elementRef}
             className="block table-fixed overflow-y-auto max-h-100  justify-between  w-full h-[50vh]"
-            
           >
             {data.length == 0 && (
-              <tr>
+              <tr className="h-full">
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
                     <Image
