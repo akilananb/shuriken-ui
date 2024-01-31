@@ -7,26 +7,6 @@ import InputComponent from "@/components/common/input";
 import LTVSearchInput from "@/components/common/ltv_search_input";
 import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
-export async function getLadingPageData() {
-  try {
-    const announcementResponse = await fetch(
-      `${process.env.API_BASE_URL}/announcement/fetch`,
-      { cache: "no-store" }
-    );
-
-    if (!announcementResponse.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    return {
-      announcementData: await announcementResponse.json(),
-    };
-  } catch (error) {
-    return {
-      announcementData: { size: 0 },
-    };
-  }
-}
 
 export default async function Home() {
   // const { announcementData } = await getLadingPageData();

@@ -1,6 +1,6 @@
 import Announcement from "@/components/layout/announcement";
 
-export async function getBondPageData() {
+async function getBondPageData() {
   try {
     const announcementResponse = await fetch(
       `${process.env.API_BASE_URL}/announcement/fetch`,
@@ -12,7 +12,7 @@ export async function getBondPageData() {
     }
 
     return {
-      announcementData: await announcementResponse.json(),
+      announcementData: announcementResponse.json(),
     };
   } catch (error) {
     return {
@@ -22,13 +22,16 @@ export async function getBondPageData() {
 }
 
 const page = async () => {
-  
   const { announcementData } = await getBondPageData();
 
   return (
     <div className="flex bg-white h-full p-16 pt-8">
       <div className="flex flex-col w-full gap-4">
-      <Announcement className={"w-full gap-4 flex flex-col"} modal={true} data={announcementData}/>
+        <Announcement
+          className={"w-full gap-4 flex flex-col"}
+          modal={true}
+          data={announcementData}
+        />
         <div className="inline-flex items-center justify-between w-full">
           <div className="flex justify-start items-center gap-6">
             <div className="flex gap-2 items-end justify-start">
