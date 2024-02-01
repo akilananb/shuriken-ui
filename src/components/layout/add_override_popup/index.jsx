@@ -1,6 +1,6 @@
 "use client";
 import Modal from "@/components/common/modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useModal from "@/hooks/useModal";
 import { Formik, Form } from "formik";
 import OverrideForm from "./overrideForm";
@@ -24,6 +24,9 @@ const AddOverridePopup = ({ onChange }) => {
   const [modalType, setModalType] = useState("overrides");
   const [commonError, setCommonError] = useState(null);
 
+  useEffect(() => {
+    setCommonError(null);
+  }, [isModalOpen]);
   function validateBE({ errors }) {
     const { field, defaultMessage } = errors[0];
 
@@ -54,6 +57,7 @@ const AddOverridePopup = ({ onChange }) => {
       }
     } catch (error) {
       console.error("Error:", error.message);
+      setCommonError("Oops! Something went wrong");
     }
   };
 
@@ -80,6 +84,7 @@ const AddOverridePopup = ({ onChange }) => {
             initialValues={initialState}
             validationSchema={AddOverrideSchema}
             onSubmit={onCreateOverride}
+            validateOnMount
           >
             {({ errors, touched, isValid }) => {
               return (

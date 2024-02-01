@@ -1,7 +1,6 @@
 "use client";
 
 import { formatDate } from "@/_utils/helper";
-import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import Image from "next/image";
@@ -32,34 +31,41 @@ const InfiniteScrollTable = ({
 
   return (
     <>
-      <div className="pb-6 border-0 border-b border-solid border-gray-200 min-w-[1000px] ">
-        <table className="w-full">
-          <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
+      <div className="overflow-x-auto border-1 border-b border-solid min-h-[50vh] ">
+        <table className="w-full ">
+          <thead className=" sticky top-0 z-10 border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
-              {columns.map((column, index) => (
-                <th
-                  key={index}
-                  style={{ width: column.width }}
-                  className="px-4 py-4 text-left"
-                >
-                  {column.name}
-                </th>
-              ))}
-              {actionItems?.map((actionItem, index) => (
-                <th
-                  key={index}
-                  style={{ width: actionItem.width }}
-                  className="px-4 py-4 text-left"
-                ></th>
-              ))}
+              {columns.map((column, index) => {
+                const { width = "", alignment = "text-left" } = column;
+                return (
+                  <th
+                    key={index}
+                    style={{ width: column.width }}
+                    className={`px-2 py-2 tracking-wide ${width} ${alignment} `}
+                  >
+                    {column.name}
+                  </th>
+                );
+              })}
+              {actionItems?.map((actionItem, index) => {
+                const { width = "", alignment = "text-left" } = actionItem;
+
+                return (
+                  <th
+                    key={index}
+                    style={{ width: actionItem.width }}
+                    className={`px-2 py-2 tracking-wide ${width} ${alignment} `}
+                  ></th>
+                );
+              })}
             </tr>
           </thead>
           <tbody
             ref={elementRef}
-            className="block table-fixed overflow-y-auto max-h-100  justify-between  w-full h-[50vh]"
+            className=" table-fixed overflow-y-auto max-h-100  justify-between  w-full"
           >
             {data.length == 0 && (
-              <tr className="h-full">
+              <tr className="w-full">
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
                     <Image
@@ -76,8 +82,10 @@ const InfiniteScrollTable = ({
               </tr>
             )}
             {data.map((row, index) => (
-              <tr key={index} className="px-4 pt-3">
+              <tr key={index}>
                 {columns.map((column, columnIndex) => {
+                  const { width = "", alignment = "text-left" } = column;
+
                   const dataFieldParts = column.dataField.split(".");
                   let value = row;
                   // Access nested properties
@@ -87,8 +95,7 @@ const InfiniteScrollTable = ({
                   return (
                     <td
                       key={columnIndex}
-                      className="px-4 pt-3"
-                      style={{ width: column.width }}
+                      className={`px-2 py-2 ${width} ${alignment} `}
                     >
                       {column.type === "date"
                         ? value
@@ -99,11 +106,12 @@ const InfiniteScrollTable = ({
                   );
                 })}
                 {actionItems?.map((actionItem, index) => {
+                  const { width = "", alignment = "text-left" } = actionItem;
+
                   return (
                     <td
                       key={index}
-                      className="px-4 pt-3"
-                      style={{ width: actionItem.width }}
+                      className={`px-2 py-2 ${width} ${alignment} `}
                     >
                       <ActionItem
                         actionType={actionItem.actionType}
