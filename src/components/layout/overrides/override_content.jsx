@@ -10,8 +10,7 @@ import { filtersToQueryString } from "@/_utils/helper";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
 export const fetchData = async (page, pageSize, filters) => {
-  let url = `/api/v1/instrument-override?page=${page-1
-  }&size=${pageSize}`;
+  let url = `/api/v1/instrument-override?page=${page - 1}&size=${pageSize}`;
 
   if (filters && Object.keys(filters).length > 0) {
     url += "&" + filtersToQueryString(filters);
@@ -122,7 +121,7 @@ const OverrideContent = ({ intialData }) => {
       <InfiniteScrollTable
         fetchData={fetchData}
         columns={columns}
-        pageSize={100}
+        pageSize={10}
         filters={filters}
         initialData={intialData}
         reload={reloadTable}
