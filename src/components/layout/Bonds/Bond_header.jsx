@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Button from '../button';
+import BackButton from '../../common/button/BackButton';
+import BondsTabs from './Bonds_tabs';
 
 const SearchIput = () => {
     return (
@@ -25,18 +26,8 @@ const Bond_header = ({ Itvfields }) => {
         <div className="flex flex-col w-full gap-4">
             <div className="inline-flex items-center justify-between w-full">
                 <div className="flex justify-start items-center gap-6">
-                    <div className="flex gap-2 items-end justify-start">
-                        <div>
-                            <Button
-                                type="text"
-                                data-testid="shuriken-notification"
-                                icon={<Image src="/static/images/ArrowBendDownLeft.svg" alt="hamburger" width="16" height="16" />}
-                                className="text-base dark:invert !w-10 h-10 text-white hover:text-white"
-                            />
-                        </div>
-                        <div className="">Back</div>
-                    </div>
-                    <div className="ltv-title">LTV Result</div>
+                    <BackButton />
+                    <div className="ltv-title">{Itvfields.header_info.result}</div>
                 </div>
                 <div>
                     <div className="flex gap-2">
@@ -82,24 +73,9 @@ const Bond_header = ({ Itvfields }) => {
                             <div>{Itvfields.header_info.currency}</div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-            <div className='inline-flex justify-between '>
-                <div className='inline-flex gap-4'>
-                    <button className='ltv-tabs active'>Summary</button>
-                    <button className='ltv-tabs '>Charts</button>
-                    <button className='ltv-tabs '>Financing Eligibility</button>
-                </div>
-                <div className='inline-flex items-center pb-3 gap-4'>
-                    <div className='text-gray-400'>This data is correct as of NASDAQ market close on DEC-12-2023</div>
-                    <div className='info-warning'>
-                        <Image src="/static/images/info.svg" width='16' height='16' alt='info' />
-                        Override Active
-                    </div>
-                </div>
-            </div>
+            <BondsTabs />
         </div>
     )
 }

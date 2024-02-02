@@ -1,5 +1,6 @@
 {
     "header_info": {
+        "result": "LTV Result",
         "name": "AAPL 4.450% 06May2044 Corp",
         "ltv": "50",
         "isin": "US037833AT77",
@@ -22,30 +23,69 @@
                 "value": "11"
             },
             {
-                "label": "Issue Rating",
+                "label": "S&P / Moody's Issue Rating",
                 "value": "BB"
             },
             {
-                "label": "Issue Rating",
+                "label": "S&P / Moody's Issuer Rating",
+                "value": "BB"
+            },
+            {
+                "label": "Rating Used",
                 "value": "BB"
             }
         ],
         "section_second": [
             {
-                "label": "Spread",
-                "value": "400"
+                "label": "Issuer Name",
+                "value": "APPL"
             },
             {
-                "label": "Coupon Type",
-                "value": "FIXED"
+                "label": "Loss Absorption",
+                "value": "N"
+            },
+            {
+                "label": "144A Flag",
+                "value": "N"
+            },
+            {
+                "label": "Private Placement",
+                "value": "N"
+            },
+            {
+                "label": "Market Sector",
+                "value": "N"
+            },
+            {
+                "label": "Bond Type",
+                "value": "N"
+            }
+        ],
+        "third_second": [
+            {
+                "label": "Bond Grade",
+                "value": "N"
+            },
+            {
+                "label": "Country Classification",
+                "value": "N"
             },
             {
                 "label": "Country of Risk",
                 "value": "Sweden"
             },
             {
-                "label": "Currency",
-                "value": "SEK"
+                "label": "Issue Size",
+                "value": "500"
+            },
+            {
+                "label": "Spread",
+                "value": "400"
+            },
+
+            {
+                "label": "Coupon Type",
+                "value": "FIXED"
             }
         ]
     },
@@ -146,15 +186,33 @@
         "Notes": "Quantity and LTV ratio is calculated based on financing with LP1 day."
     },
     "card_second": {
-        "section_first": {
-            "IM": "50",
-            "MC": "53",
-            "SL": "55"
-        },
-        "section_second": {
-            "Quantity": "10,000",
-            "MV": "123,223,485",
-            "CV": "123,123,123"
-        }
+        "section_first": [
+            {
+                "label": "At IM",
+                "value": "50%"
+            },
+            {
+                "label": "At MC",
+                "value": "53%"
+            },
+            {
+                "label": "At SL",
+                "value": "55%"
+            }
+        ],
+        "section_second": [
+            {
+                "label": "Quantity",
+                "value": "10,000"
+            },
+            {
+                "label": "MV",
+                "value": "123,223,485"
+            },
+            {
+                "label": "CV",
+                "value": "123,123,123"
+            }
+        ]
     }
 }

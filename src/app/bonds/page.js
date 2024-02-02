@@ -1,10 +1,6 @@
-import Bond_header from "@/components/common/Bonds/Bond_header";
-import "../../components/common/Bonds/bonds.css";
-import Ltvvalues from "@/components/common/Bonds/Itvvalues";
-import AssetsInfo from "@/components/common/Bonds/Assets_info";
-import Disclaimers from "@/components/common/Bonds/Disclaimers";
-import BondSummer from "@/components/common/Bonds/Bond_summer";
 import Itvfields from "@/components/common/Constants/ltvfields.json"
+import Bonds from "@/components/layout/Bonds/index"
+
 
 export async function getLtVSearchData() {
   try {
@@ -31,19 +27,7 @@ export async function getLtVSearchData() {
 const page = async () => {
   return (
     <div>
-      <div className="flex bg-white h-full p-16 pt-8 pb-0">
-        <Bond_header Itvfields={Itvfields} />
-      </div>
-      <div className="search-summary w-full">
-        <div className="inline-flex gap-4 w-full">
-          <BondSummer Itvfields={Itvfields} />
-          <Ltvvalues Itvfields={Itvfields} />
-        </div>
-        <div className="inline-flex gap-4 w-full">
-          <AssetsInfo Itvfields={Itvfields} />
-          <Disclaimers Itvfields={Itvfields} />
-        </div>
-      </div>
+      <Bonds Itvfields={Itvfields}/>
     </div>
   );
 };
