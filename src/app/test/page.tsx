@@ -1,7 +1,5 @@
 "use client";
-import Announcement from "@/components/layout/announcement";
-// import LtvSearch from "@/components/layout/ltvsearch";
-import { Input, Switch } from "antd";
+import { Switch } from "antd";
 import Link from "next/link";
 import InputComponent from "@/components/common/input";
 import LTVSearchInput from "@/components/common/ltv_search_input";
@@ -9,8 +7,6 @@ import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
 
 export default async function Home() {
-  // const { announcementData } = await getLadingPageData();
-
   const [selectedItem, setSelectedItem] = useState<
     LTVSearch | null | undefined
   >(null);
@@ -33,7 +29,6 @@ export default async function Home() {
             />
             <InputComponent
               className="w-[167px] "
-              // className="w-full"
               placeholder="Quantity (Optional)"
               inputType="NUMBER_WITH_COMMA"
             />

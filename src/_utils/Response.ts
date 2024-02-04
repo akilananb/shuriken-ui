@@ -1,14 +1,13 @@
 import { ApiError, Loader } from "./base";
 export class Response<RESULT = any> {
   private _result?: RESULT | null;
-  private _error?: ApiError[] | null;
+  private _error?: ApiError | null;
   private _loader?: Loader | null;
 
   constructor(result?: RESULT) {
     this._result = result;
   }
-  public applyError(err?: any) {
-    const error = err?.response?.data?.errors ?? [];
+  public applyError(error?: ApiError | null) {
     this._error = error;
     return this;
   }
@@ -41,34 +40,11 @@ export class Response<RESULT = any> {
     return this?._result;
   }
 
-  public getError(): ApiError[] | null | undefined {
-    return this?._error;
+  public getError(): ApiError | null {
+    return this?._error ?? null;
   }
 
   public getLoader(): Loader | null | undefined {
     return this?._loader;
-  }
-
-  public getErrorMessage(
-    customMessages?: { code: string; message: string }[]
-  ): string | null | undefined {
-    return this?._error
-      ?.map((err) => {
-        let customMessage = customMessages?.find(
-          (cusErr) => cusErr?.code == err?.code
-        );
-        if (customMessage) {
-          return { ...err, ...{ detail: customMessage?.message } };
-        }
-        return err;
-      })
-      ?.flatMap((err) => err?.detail)
-      .join(" | ");
-  }
-  public throwError(customMessages?: { code: string; message: string }[]) {
-    if (this.hasError()) {
-      const msg = this.getErrorMessage(customMessages);
-      throw { errorMsg: msg };
-    }
   }
 }

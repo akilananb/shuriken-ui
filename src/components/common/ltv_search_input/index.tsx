@@ -79,14 +79,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   };
   const onClick = (event) => {
     console.log("onClick Value:--", event.target.value);
-    // setSearchTerm("");
     clearAll();
-    // Clear the selected item when clicked
-    // if (autocompleteRef.current) {
-    //   autocompleteRef.current.clear();
-    // }
-    // setSearchTerm("");
-    // setSearchTerm(event.target.value);
   };
 
   const handleSearchSelect = (_, selectedValue) => {
@@ -109,7 +102,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   ) => {
     const { index, inputValue, selected } = state;
 
-    // const regex = new RegExp(`(${inputValue})`, "gi");
     const regex = new RegExp(`(${inputValue.replace(/\s+/g, "\\s+")})`, "gi");
 
     return (
@@ -215,16 +207,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
             />
           </>
         )}
-        // ListboxComponent={(props) => (
-        //   <ul {...props} style={{ padding: 0 }}>
-        //     <ListSubheader>{`${searchTerm} -Search database`}</ListSubheader>
-        //     {props.children}
-        //   </ul>
-        // )}
-        // ListboxComponent={(props) => {
-        //   const { children, ...other } = props;
-        //   return <List {...other}>{children}</List>;
-        // }}
         renderOption={renderOption}
         noOptionsText={
           <Typography variant="body2" color="textSecondary">
@@ -235,7 +217,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
           inputValue.length < 3 ? [] : options
         }
         className={className}
-        // {...rest}
       />
     </>
   );
