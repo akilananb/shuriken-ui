@@ -6,6 +6,8 @@ import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import Image from "next/image";
 import ActionItem from "./actionItem";
+import { BASE_NAME } from "@/config/appConfig";
+
 const InfiniteScrollTable = ({
   columns,
   fetchData,
@@ -70,7 +72,7 @@ const InfiniteScrollTable = ({
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
                     <Image
-                      src="/static/images/NoResults.png"
+                      src={`${BASE_NAME}/static/images/NoResults.png`}
                       alt="no data"
                       width="50"
                       height="50"
