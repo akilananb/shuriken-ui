@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "../button";
+import { BASE_NAME } from "@/config/appConfig";
 
 function Modal({ isOpen, onClose, title, children }) {
   return (
@@ -11,7 +12,7 @@ function Modal({ isOpen, onClose, title, children }) {
             <Button
               icon={
                 <Image
-                  src="/static/images/Close.svg"
+                  src={`${BASE_NAME}/static/images/Close.svg`}
                   alt="close"
                   width="20"
                   height="20"
