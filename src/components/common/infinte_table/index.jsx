@@ -1,4 +1,5 @@
 "use client";
+import "./infinite.style.css";
 
 import { formatDate } from "@/_utils/helper";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
@@ -31,9 +32,9 @@ const InfiniteScrollTable = ({
 
   return (
     <>
-      <div className="overflow-x-auto border-1 border-b border-solid min-h-[50vh] ">
+      <div className="overflow-y-hidden border-1 border-b border-solid  ">
         <table className="w-full ">
-          <thead className=" sticky top-0 z-10 border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
+          <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
               {columns.map((column, index) => {
                 const { width = "", alignment = "text-left" } = column;
@@ -62,10 +63,10 @@ const InfiniteScrollTable = ({
           </thead>
           <tbody
             ref={elementRef}
-            className=" table-fixed overflow-y-auto max-h-100  justify-between  w-full"
+            className=" overflow-y-auto justify-between  w-full  h-[35vh]"
           >
             {data.length == 0 && (
-              <tr className="w-full">
+              <tr className="w-full h-full">
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
                     <Image
