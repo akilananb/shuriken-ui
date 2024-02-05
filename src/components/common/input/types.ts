@@ -6,7 +6,7 @@ export interface BaseInputProps extends BaseElementAttributes {
   inputtype: InputType;
   placeholder?: string;
   value?: string;
-  onChangeListener?: (value?: string) => void;
+  onChangeListener?: (value: string) => void;
 }
 
 export interface NumberInputProps extends BaseInputProps {

@@ -17,5 +17,5 @@ export interface LTVCalculationViewProps extends BaseElementAttributes {
 }
 
 export interface LTVSearchInputProps extends BaseElementAttributes {
-  onSelectedItem?: (selectedItem?: LTVSearch | null) => void;
+  onSelectedItem?: (selectedItem: LTVSearch | null) => void;
 }
