@@ -1,0 +1,21 @@
+{
+  "size": 2,
+  "payLoad": [
+    {
+      "securityName": "Nomura Global Bond 1",
+      "isin": "JP1234567890",
+      "ticker": "NGB101",
+      "securityType": "Bond",
+      "status": "Active",
+      "exchange": "Tokyo Stock Exchange"
+    },
+    {
+      "securityName": "Nomura Global Equities 1",
+      "isin": "JP0987654321",
+      "ticker": "NGB101",
+      "securityType": "Equities",
+      "status": "Active",
+      "exchange": "Tokyo Stock Exchange"
+    }
+  ]
+}

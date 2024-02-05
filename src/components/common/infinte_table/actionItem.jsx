@@ -1,14 +1,13 @@
 import Image from "next/image";
-import EditIcon from "../../../../public/static/images/editIcon.svg";
-import DeleteIcon from "../../../../public/static/images/deleteIcon.svg";
+import { BASE_NAME } from "@/config/appConfig";
 
 const ActionItem = ({ actionType, onClick }) => {
   function renderIcon(actionType) {
     switch (actionType) {
       case "Edit":
-        return EditIcon;
+        return `${BASE_NAME}/static/images/editIcon.svg`;
       case "Delete":
-        return DeleteIcon;
+        return `${BASE_NAME}/static/images/deleteIcon.svg`;
 
       default:
         return "";
