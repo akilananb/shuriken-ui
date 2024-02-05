@@ -37,7 +37,7 @@ const AddOverridePopup = ({ onChange }) => {
     setCommonError(null);
     try {
       const response = await fetch(
-        "/api/v1/instrument-override/create-override",
+        "/shuriken/api/v1/instrument-override/create-override",
         {
           method: "POST",
           body: JSON.stringify(values),

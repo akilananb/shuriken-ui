@@ -10,7 +10,7 @@ class SearchService {
   public async fetchSearch(searchKey: string): Promise<SearchRes> {
     console.log("Called fetch Search-->", searchKey);
     const response = await fetch(
-      `${this.baseUrl}api/v1/asset_class_query/search/${searchKey}`,
+      `/shuriken/api/v1/asset_class_query/search/${searchKey}`,
       { cache: "no-store" }
     );
 
