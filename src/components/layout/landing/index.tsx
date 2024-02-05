@@ -1,7 +1,9 @@
 import Announcement from "@/components/layout/announcement";
-import LtvSearch from "@/components/layout/ltvsearch";
+import InputComponent from "@/components/common/input";
+import LTVSearchInput from "@/components/common/ltv_search_input";
 import { Input, Switch } from "antd";
 import Link from "next/link";
+import SearchView from "./searchView";
 
 export async function getLadingPageData() {
   try {
@@ -33,30 +35,10 @@ export default async function Home() {
           LTV Search
         </div>
         <Announcement
-          className={"gap-4 flex flex-col max-w-[550px]"}
           statementClass={"min-w-[550px]"}
-          modal={true}
           data={announcementData}
         />
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex gap-2  self-streach relative">
-            <LtvSearch />
-            <Input
-              className="w-[167px] !h-[50px]"
-              type="number"
-              placeholder="Quantity(Optional)"
-            />
-          </div>
-          <div className="flex gap-2 align-items-center">
-            <Switch size="small" className="bg-grey" />
-            Multiple Security Search
-          </div>
-        </div>
-        <div>
-          <Link href="/bonds" className="asset-add-override-button">
-            Search
-          </Link>
-        </div>
+        <SearchView />
       </div>
     </div>
   );
