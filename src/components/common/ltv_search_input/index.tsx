@@ -78,7 +78,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     setLTVCalculationResult(new Response().applyLoader("UNKNOWN"));
   };
   const onClick = (event) => {
-    console.log("onClick Value:--", event.target.value);
     clearAll();
   };
 
@@ -89,7 +88,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     if (!selectedValue) {
       setSearchTerm("");
     }
-    console.log("Selected Value:--", selectedValue);
     onSelectedItem?.(selectedValue);
     setSelectedItem(selectedValue);
     performCalculation();

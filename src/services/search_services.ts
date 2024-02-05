@@ -8,7 +8,6 @@ class SearchService {
   }
 
   public async fetchSearch(searchKey: string): Promise<SearchRes> {
-    console.log("Called fetch Search-->", searchKey);
     const response = await fetch(
       `/shuriken/api/v1/asset_class_query/search/${searchKey}`,
       { cache: "no-store" }
@@ -22,7 +21,6 @@ class SearchService {
   }
 
   public async fetchLTVCalculation(item?: LTVSearch | null): Promise<string> {
-    console.log("Called fetchLTVCalculation-->", item);
     //   const response = await fetch(`${this.baseUrl}${searchKey}`, options);
 
     //   if (!response.ok) {
