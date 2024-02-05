@@ -68,13 +68,13 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     performSearch();
   }, [searchTerm]);
 
-  const deBounceOnChangeListener = debounce((event, value) => {
-    setSearchTerm(value);
+  const deBounceOnChangeListener = debounce((event) => {
+    setSearchTerm(event.target.value);
   }, 400 ?? 0);
 
   const clearAll = () => {
-    setSelectedItem(null);
-    onSelectedItem?.(null);
+    // setSelectedItem(null);
+    // onSelectedItem?.(null);
     setLTVCalculationResult(new Response().applyLoader("UNKNOWN"));
   };
   const onClick = (event) => {
@@ -167,7 +167,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
         groupBy={(option) => option.securityType}
         getOptionLabel={(option) => option.isin}
         onChange={handleSearchSelect}
-        onInputChange={deBounceOnChangeListener}
         sx={{
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -190,6 +189,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
               placeholder="Search"
               variant="outlined"
               onClick={onClick}
+              onChange={deBounceOnChangeListener}
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (
@@ -213,9 +213,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
             {renderNoMatchOption()}
           </Typography>
         }
-        filterOptions={(options, { inputValue }) =>
-          inputValue.length < 3 ? [] : options
-        }
+        filterOptions={(options, { inputValue }) => options}
         className={className}
       />
     </>

@@ -24,13 +24,13 @@ export default async function Home() {
               className="w-[565px]"
               onSelectedItem={(selectedItem) => {
                 console.log("SEL", selectedItem);
-                setSelectedItem(selectedItem);
+                // setSelectedItem(selectedItem);
               }}
             />
             <InputComponent
               className="w-[167px] "
               placeholder="Quantity (Optional)"
-              inputType="NUMBER_WITH_COMMA"
+              inputtype="NUMBER_WITH_COMMA"
             />
           </div>
           <div className="flex gap-2 align-items-center">

@@ -9,20 +9,16 @@ class SearchService {
 
   public async fetchSearch(searchKey: string): Promise<SearchRes> {
     console.log("Called fetch Search-->", searchKey);
-    //   const response = await fetch(`${this.baseUrl}${searchKey}`, options);
+    const response = await fetch(
+      `${this.baseUrl}api/v1/asset_class_query/search/${searchKey}`,
+      { cache: "no-store" }
+    );
 
-    //   if (!response.ok) {
-    //     throw new Error(`API request failed with status ${response.status}`);
-    //   }
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
 
-    //   return response.json();
-    const fakeApiCall = new Promise<SearchRes>((resolve) => {
-      setTimeout(() => {
-        resolve(responseJson);
-      }, 1000);
-    });
-
-    return await fakeApiCall;
+    return response.json();
   }
 
   public async fetchLTVCalculation(item?: LTVSearch | null): Promise<string> {
