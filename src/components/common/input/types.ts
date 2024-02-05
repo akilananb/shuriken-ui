@@ -1,8 +1,8 @@
-import { BaseDivAttributes } from "@/_utils/base";
+import { BaseElementAttributes } from "@/_utils/base";
 import { HTMLAttributes } from "react";
 
 export type InputType = "NUMBER_WITH_COMMA";
-export interface BaseInputProps extends BaseDivAttributes {
+export interface BaseInputProps extends BaseElementAttributes {
   inputtype: InputType;
   placeholder?: string;
   value?: string;
