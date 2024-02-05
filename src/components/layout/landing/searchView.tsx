@@ -10,6 +10,11 @@ export default function SearchView() {
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [quantity, setQuantity] = useState<string>("");
 
+  const classValue = () => {
+    if (selectedItem != null) return "primary-button";
+    else return `primary-button-disable`;
+  };
+
   return (
     <div className="flex flex-col gap-8 bg-white h-full justify-center items-center">
       <div className="flex gap-2  self-streach relative">
@@ -35,7 +40,7 @@ export default function SearchView() {
           href={`/bonds?isin=${selectedItem?.isin}&securityType=${
             selectedItem?.securityType
           }${![null, ""].includes(quantity) ? `&quantity=${quantity}` : ""}`}
-          className={`primary-button${selectedItem == null ? "-disable" : ""}`}
+          className={classValue()}
         >
           Search
         </Link>
