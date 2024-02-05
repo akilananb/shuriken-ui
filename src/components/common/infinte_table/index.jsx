@@ -1,66 +1,133 @@
-"use client"
+"use client";
+import "./infinite.style.css";
 
 import { formatDate } from "@/_utils/helper";
-import "./infinte_table.css";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useScrollPosition from "@/hooks/useScrollPosition";
-import Image from 'next/image'
+import Image from "next/image";
+import ActionItem from "./actionItem";
+import { BASE_NAME } from "@/config/appConfig";
 
-const InfiniteScrollTable = ({ columns, fetchData, disableScrollToTop , pageSize, filters, reload, initialData}) => {
-  const { data,  loading, setHasMore } = useInfiniteScroll(fetchData, pageSize, filters, reload, initialData);
+const InfiniteScrollTable = ({
+  columns,
+  fetchData,
+  disableScrollToTop,
+  pageSize,
+  filters,
+  reload,
+  initialData,
+  actionItems,
+  actionOnClick,
+}) => {
+  const { data, loading, setHasMore } = useInfiniteScroll(
+    fetchData,
+    pageSize,
+    filters,
+    reload,
+    initialData
+  );
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
-      setHasMore(true);
+      setHasMore(new Date().getTime());
     }
   });
 
   return (
     <>
-      <div className="pb-6 border-0 border-b border-solid border-gray-200 min-w-[1000px] overflow-x-auto">
-        <table className="w-full divide-x">
+      <div className="overflow-y-hidden border-1 border-b border-solid  ">
+        <table className="w-full ">
           <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
-              {columns.map((column, index) => (
-                <th
-                  key={index}
-                  style={{ width: column.width }}
-                  className="px-4 py-4 text-left"
-                >
-                  {column.name}
-                </th>
-              ))}
+              {columns.map((column, index) => {
+                const { width = "", alignment = "text-left" } = column;
+                return (
+                  <th
+                    key={index}
+                    style={{ width: column.width }}
+                    className={`px-2 py-2 tracking-wide ${width} ${alignment} `}
+                  >
+                    {column.name}
+                  </th>
+                );
+              })}
+              {actionItems?.map((actionItem, index) => {
+                const { width = "", alignment = "text-left" } = actionItem;
+
+                return (
+                  <th
+                    key={index}
+                    style={{ width: actionItem.width }}
+                    className={`px-2 py-2 tracking-wide ${width} ${alignment} `}
+                  ></th>
+                );
+              })}
             </tr>
           </thead>
           <tbody
             ref={elementRef}
-            className="block table-fixed overflow-y-auto max-h-100 hide-scrollbar border-none"
+            className=" overflow-y-auto justify-between  w-full  h-[35vh]"
           >
             {data.length == 0 && (
-              <tr >
+              <tr className="w-full h-full">
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
-                    <Image src="/static/images/NoResults.png" alt="no data" width="50" height="50" />
-                    <p className="text-gray-600 mt-2 text-lg p-2">No Data Found!</p>
+                    <Image
+                      src={`${BASE_NAME}/static/images/NoResults.png`}
+                      alt="no data"
+                      width="50"
+                      height="50"
+                    />
+                    <p className="text-gray-600 mt-2 text-lg p-2">
+                      No Data Found!
+                    </p>
                   </div>
                 </td>
               </tr>
             )}
             {data.map((row, index) => (
-              <tr key={index} className="px-4 pt-3">
+              <tr key={index}>
                 {columns.map((column, columnIndex) => {
-                  const dataFieldParts = column.dataField.split('.');
+                  const { width = "", alignment = "text-left" } = column;
+
+                  const dataFieldParts = column.dataField.split(".");
                   let value = row;
                   // Access nested properties
                   for (const part of dataFieldParts) {
-                    value = value[part]
+                    value = value[part];
                   }
                   return (
-                    <td key={columnIndex} className="px-4 pt-3" style={{ width: column.width }}>
-                      {column.type === "date" ? formatDate(value) : value}
+                    <td
+                      key={columnIndex}
+                      className={`px-2 py-2 ${width} ${alignment} `}
+                    >
+                      {column.type === "date"
+                        ? value
+                          ? formatDate(value)
+                          : "-"
+                        : value}
                     </td>
-                  )
-                }
-                )}
+                  );
+                })}
+                {actionItems?.map((actionItem, index) => {
+                  const { width = "", alignment = "text-left" } = actionItem;
+
+                  return (
+                    <td
+                      key={index}
+                      className={`px-2 py-2 ${width} ${alignment} `}
+                    >
+                      <ActionItem
+                        actionType={actionItem.actionType}
+                        onClick={() => {
+                          actionOnClick(
+                            actionItem.actionType,
+                            row.instrumentOverrideId
+                          );
+                        }}
+                      />
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

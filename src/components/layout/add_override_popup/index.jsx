@@ -1,156 +1,118 @@
-"use client"
+"use client";
 import Modal from "@/components/common/modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useModal from "@/hooks/useModal";
-import { useEffect } from "react";
+import { Formik, Form } from "formik";
+import OverrideForm from "./overrideForm";
+import NoteForm from "./noteForm";
 
+import { AddOverrideSchema } from "./validation";
 const initialState = {
   instrumentId: "",
   instrumentType: "BOND",
   overrideType: "OVERRIDE_LTV",
-  ltvOverrideNote: '',
-  ltvOverrideValue: '',
-  generalNote: 'some Test',
-  status: 'ACTIVE',
-  startDate: '',
-  endDate: '',
+  ltvOverrideNote: "",
+  ltvOverrideValue: "",
+  generalNote: "some Test",
+  status: "ACTIVE",
+  startDate: "",
+  endDate: "",
 };
 
-const OverridesForm = ({ formData, handleInputChange }) => (
-  <>
-    <div>
-      <input
-        type="text"
-        placeholder="LTV at IM"
-        className="override-input"
-        value={formData.ltvOverrideValue}
-        onChange={handleInputChange}
-        name="ltvOverrideValue"
-      />
-    </div>
-    <div className="overrider-dates">
-      <div>
-        <input
-          type="date"
-          placeholder="Valid From"
-          className="override-input"
-          value={formData.startDate}
-          onChange={handleInputChange}
-          name="startDate"
-        />
-      </div>
-      <div>
-        <input
-          type="date"
-          placeholder="Valid Till"
-          className="override-input"
-          value={formData.endDate}
-          onChange={handleInputChange}
-          name="endDate"
-        />
-      </div>
-    </div>
-    <div>
-      <input
-        type="text"
-        placeholder="Why are you adding this override?"
-        className="override-input"
-        value={formData.ltvOverrideNote}
-        onChange={handleInputChange}
-        name="ltvOverrideNote"
-      />
-    </div>
-  </>
-);
-
-
-
-const NotesForm = ({ formData, handleInputChange }) => (
-  <>
-    <div>
-      <input
-        type="text"
-        placeholder="Add Note"
-        className="h-12 w-104 px-6 py-4 bg-white text-black border-1 border-solid border-nomura-off-grey rounded"
-        value={formData.generalNote}
-        onChange={handleInputChange}
-        name="generalNote"
-      />
-    </div>
-  </>
-);
-
-
-const AddOverridePopup = ({onChange}) => {
+const AddOverridePopup = ({ onChange }) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
-  const [modalType, setModalType] = useState('overrides');
-  const [formData, setFormData] = useState(initialState);
+  const [modalType, setModalType] = useState("overrides");
+  const [commonError, setCommonError] = useState(null);
 
   useEffect(() => {
-    if (!isModalOpen) {
-      setFormData(initialState);
-    }
+    setCommonError(null);
   }, [isModalOpen]);
+  function validateBE({ errors }) {
+    const { field, defaultMessage } = errors[0];
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    setCommonError(defaultMessage);
+  }
 
-  const onCreateOverride = async (e) => {
-    e.preventDefault();
+  const onCreateOverride = async (values) => {
+    setCommonError(null);
     try {
-      const response = await fetch('/api/v1/instrument-override/create-override', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        "/shuriken/api/v1/instrument-override/create-override",
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (response.status === 400) {
+        response.json().then((err) => validateBE(err));
+      } else if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        onChange();
+        closeModal();
       }
-      onChange();
-      closeModal();
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
+      setCommonError("Oops! Something went wrong");
     }
   };
 
   return (
     <>
       <div className="flex">
-        <button className="asset-add-override-button me-3" onClick={() => { setModalType('overrides'); openModal(); }}>
+        <button
+          className="asset-add-override-button me-3"
+          onClick={() => {
+            setModalType("overrides");
+            openModal();
+          }}
+        >
           Add Override
         </button>
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={'overrides' ? "Add Override" : "Add Note"}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={"overrides" ? "Add Override" : "Add Note"}
+      >
         <div className="min-w-[600px] m-20 ">
-          <form onSubmit={onCreateOverride} className="w-full ">
-            <div className="flex flex-col gap-4 w-full">
-              <div>
-                <input
-                  className="override-input"
-                  type="text"
-                  placeholder="Search"
-                  value={formData.instrumentId}
-                  onChange={handleInputChange}
-                  name="instrumentId"
-                />
-              </div>
-              {modalType === 'overrides' && <OverridesForm formData={formData} handleInputChange={handleInputChange} />}
-              {modalType === 'notes' && <NotesForm formData={formData} handleInputChange={handleInputChange} />} {/* Use the NotesForm component */}
-            </div>
-            <div className="mt-10 w-full flex justify-center">
-              <div className="flex justify-center asset-add-override-button">
-                <button>Create</button>
-              </div>
-            </div>
-          </form>
+          <Formik
+            initialValues={initialState}
+            validationSchema={AddOverrideSchema}
+            onSubmit={onCreateOverride}
+            validateOnMount
+          >
+            {({ errors, touched, isValid }) => {
+              return (
+                <Form>
+                  <div className="flex flex-col gap-4 w-full">
+                    {modalType === "overrides" && (
+                      <OverrideForm errors={errors} touched={touched} />
+                    )}
+                    {modalType === "notes" && (
+                      <NoteForm errors={errors} touched={touched} />
+                    )}
+                  </div>
+                  {commonError && (
+                    <span className="text-red-600">{commonError}</span>
+                  )}
+                  <div className="mt-10 w-full flex justify-center">
+                    <button
+                      type="submit"
+                      className="asset-add-override-button"
+                      disabled={!isValid}
+                    >
+                      Create
+                    </button>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
         </div>
       </Modal>
     </>

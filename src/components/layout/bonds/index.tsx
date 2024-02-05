@@ -1,12 +1,12 @@
 import "@/components/common/Bonds/bonds.css";
-import Ltvvalues from "@/components/layout/Bonds/Itvvalues";
-import AssetsInfo from "@/components/layout/Bonds/Assets_info";
-import Disclaimers from "@/components/layout/Bonds/Disclaimers";
-import BondSummer from "@/components/layout/Bonds/Bond_summer";
+import Ltvvalues from "@/components/layout/bonds/Itvvalues";
+import AssetsInfo from "@/components/layout/bonds/Assets_info";
+import Disclaimers from "@/components/layout/bonds/Disclaimers";
+import BondSummer from "@/components/layout/bonds/Bond_summer";
 import Bond_header from "./Bond_header";
+import Itvfields from "@/components/common/Constants/ltvfields.json";
 
-
-const page = async ({Itvfields}) => {
+const page = async () => {
   return (
     <div>
       <div className="flex bg-white h-full p-16 pt-8 pb-0">

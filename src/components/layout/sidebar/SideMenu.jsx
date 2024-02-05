@@ -11,30 +11,15 @@ const SideMenu = ({ onClose }) => {
     {
       key: "1",
       icon: <SearchOutlined />,
-      label: "LTV Security Search",
+      label: "LTV Search",
       path: "/",
     },
     {
       key: "2",
-      icon: <SearchOutlined />,
-      label: "Margin Ratio Search",
-    },
-    {
-      key: "3",
-      icon: <SearchOutlined />,
-      label: "ELN Search",
-    },
-    {
-      key: "4",
       icon: <CopyOutlined />,
       label: "Override",
       path: "/overrides",
-    },
-    {
-      key: "5",
-      icon: <SoundOutlined />,
-      label: "Announcements",
-    },
+    }
   ];
 
   const handleClick = ({ key }) => {

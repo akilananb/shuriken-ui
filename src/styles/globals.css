@@ -43,7 +43,7 @@ body {
   margin: 0px;
   padding: 0px;
   font-size: 14px;
-  background: #F9F9F9;
+  background: #f9f9f9;
 }
 
 .sider-enter {
@@ -106,12 +106,43 @@ body {
     @apply active:bg-red-200;
   }
 
+  .primary-button {
+    @apply w-full px-12 py-4 rounded  text-16px font-bold bg-nomura-red text-white border-none cursor-pointer min-w-[104px];
+    text-decoration: none;
+
+    @apply hover:bg-nomura-red-300;
+    @apply disabled:pointer-events-none disabled:bg-noumura-grey;
+  }
+
+  .primary-button-disable {
+    @apply w-full px-12 py-4 rounded bg-nomura-off-grey text-white text-16px font-bold border-none cursor-pointer min-w-[104px];
+    text-decoration: none;
+    @apply pointer-events-none;
+  }
+
+  .secondary-button {
+    @apply w-full px-4 py-2 rounded text-lg bg-noumura-light-red-500 border border-solid border-nomura-red text-black cursor-pointer min-w-[104px];
+    @apply hover:bg-noumura-light-red-300;
+  }
+
   .asset-add-override-button {
-    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2  border-none font-bold text-base text-white;
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 border-none font-bold text-base text-white disabled:bg-nomura-off-grey;
+  }
+
+  .nomura-red-button {
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 border-none font-bold text-base text-white;
+  }
+
+  .asset-add-override-button-disabled {
+    @apply flex w-40 h-12 py-4 px-6 rounded justify-center items-center gap-2 border-none font-bold text-base text-white bg-nomura-dark-grey;
   }
 
   .override-input {
-    @apply h-12 w-full px-6 py-4 bg-white text-black border border-solid border-nomura-off-grey focus:border-nomura-red rounded
+    @apply h-12 w-full px-6 py-4 bg-white text-black border border-solid border-nomura-off-grey focus:border-nomura-red rounded;
+  }
+
+  .nomura-14px-regular {
+    @apply font-normal text-14px;
   }
 }
 
@@ -173,7 +204,7 @@ input[type="number"] {
   right: -12px;
   border-style: solid;
   border-width: 0 2px 65px 0;
-  border-color: transparent #D71133 transparent transparent;
+  border-color: transparent #d71133 transparent transparent;
   transform: skewX(-20deg);
 }
 .asset-add-override-button {
