@@ -1,97 +1,97 @@
 {
-  "securityName": "AAPL 4.450% 06May2044 Corp",
-  "isin": "US037833CH21",
-  "ticker": "AAPL44",
+  "securityName": "ABU DHABI GOVT",
+  "isin": "X52125308242",
+  "ticker": "1022337Z",
   "exchange": "OTC",
-  "securityType": "Corporate Bond",
+  "securityType": "BOND",
   "status": "Active",
   "marketData": {
     "exchangeRate": "1.00",
-    "yasIspreadToGovt": "1.50",
-    "discMrgnAsk": "2.00",
+    "yasIspreadToGovt": "93.004",
+    "discMrgnAsk": "-",
     "calledDt": "",
     "currency": "USD",
-    "pxLast": 12345.78,
-    "marketCloseDate": "06May2044"
+    "pxLast":79.577,
+    "marketCloseDate": "08JAN2024"
   },
   "bondDetail": {
     "securityId": "123456789",
     "cusip": "037833CH2",
     "totoro": "123ABC",
     "pdpId": "PDP123",
-    "maturityDate": "06 May 2044",
+    "maturityDate": "06 May 2055",
     "issuerId": "AAPL",
-    "sectype": "Corporate",
+    "sectype": "GOVT",
     "rule144aFlag": "N",
     "privatePlacementFlag": "N",
-    "amountIssue": 4000,
-    "marketSectorDes": "Technology",
-    "mtyTyp": "Regular",
-    "cpnTyp": "Fixed",
+    "amountIssue": 4000000000,
+    "marketSectorDes": "Govt",
+    "mtyTyp": "AT MATURITY",
+    "cpnTyp": "FIXED",
     "isSubordinated": false,
     "capContSec": "None",
     "isDepositCert": false,
     "realIssuerId": "",
-    "ultParentCountryOfRisk": "United States",
+    "ultParentCountryOfRisk": "AE",
     "assetTypeId": "Bond",
     "assetTypeCode": "C",
     "maturityType": "Bullet",
     "couponDividentType": "Standard",
     "capitalContingentSecurity": true,
-    "countryOfRisk": "United States",
-    "industrySectorCode": "T",
-    "industryGroupCode": "T",
+    "countryOfRisk": "AE",
+    "industrySectorCode": "Government",
+    "industryGroupCode": "Sovereign",
     "securityIdMap": ["MAP1", "MAP2"],
-    "ultParentTickerExchange": "NASDAQ",
+    "ultParentTickerExchange": "UH",
     "issuerRatingSp": "AA",
-    "issuerName": "Apple",
+    "issuerName": "ABU DHABI GOVT",
     "lossAbsorption": "Y",
     "cdo": "Y",
     "issuerRatingMoody": ["Aa3"],
     "securityRating": ["AA", "Aa3"],
 
     "guarantor": {
-      "ticker": "AAPL44",
-      "exchange": "HK",
+      "ticker": "1022337Z",
+      "exchange": "UH",
       "rating": {
         "rtgSpIssuerCredit": "AA",
         "rtgMdyLtFcDebitRating": "",
-        "rtgMoodyLongTerm": "AA"
+        "rtgMoodyLongTerm": "Aa2"
       }
     },
     "issueParent": {
-      "ticker": "AAPL44",
-      "exchange": "HK",
+      "ticker": "-",
+      "exchange": "-",
       "rating": {
-        "rtgSpIssuerCredit": "BB",
+        "rtgSpIssuerCredit": "AA",
         "rtgMdyLtFcDebitRating": "",
-        "rtgMoodyLongTerm": "BB"
+        "rtgMoodyLongTerm": "Aa2"
       }
     },
     "ultimateIssuerParent": {
-      "ticker": "AAPL44",
-      "exchange": "HK",
+      "ticker": "1022337Z",
+      "exchange": "UH",
       "rating": {
-        "rtgSpIssuerCredit": "AAA",
+        "rtgSpIssuerCredit": "AA",
         "rtgMdyLtFcDebitRating": "",
-        "rtgMoodyLongTerm": "Aa3"
+        "rtgMoodyLongTerm": "Aa2"
       }
     },
     "issueRating": {
-      "rtgSp": "AAA",
-      "rtgMoody": "Aa3",
+      "rtgSp": "AA",
+      "rtgMoody": "Aa2",
       "calledDt": ""
     }
   },
   "ltvCalculation": {
-    "ltvAtIm": 70.0,
-    "ltvAtMc": 80.0,
-    "ltvAtSl": 60.0,
+    "ltvAtIm": 75,
+    "ltvAtMc": 78.75,
+    "ltvAtSl": 82.5,
     "override": {
-      "ltvAtIm": 70.0,
-      "ltvAtMc": 60.0,
-      "ltvAtSl": 90.0,
-      "reason": "dummy reason"
+      "ltvAtIm": 50.0,
+      "ltvAtMc": 52.5,
+      "ltvAtSl": 55,
+      "reason": "Spread Too High"
     },
     "financingEligibility": {
       "isEligible": true,
@@ -106,10 +106,10 @@
       "isCapApplied": false,
       "reason": ""
     },
-    "bondType": "Stright",
+    "bondType": "Straight",
     "bondGrade": "IMG",
-    "countryClassification": "DM",
-    "issueSizeUsd": 12345.876,
-    "spread": 1233
+    "countryClassification": "EM",
+    "issueSizeUsd": 4000,
+    "spread": 93.0047
   }
 }

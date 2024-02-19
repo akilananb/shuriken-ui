@@ -3,7 +3,7 @@ import { LTVCalculationRes } from "@/types/LTVCalculation";
 export interface BondsProps {
   isin?: string;
   securityType?: string;
-  quantity?: string;
+  quantity?: Number;
 }
 
 export interface BondsChildProps extends BondsProps {

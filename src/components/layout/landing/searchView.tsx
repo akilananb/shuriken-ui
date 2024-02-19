@@ -2,7 +2,6 @@
 import InputComponent from "@/components/common/input";
 import LTVSearchInput from "@/components/common/ltv_search_input";
 import Link from "next/link";
-import { Switch } from "antd";
 import ToggleButton from "@/components/common/toggleButton";
 import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";

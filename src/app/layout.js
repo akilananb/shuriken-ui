@@ -5,6 +5,7 @@ import { useState, Suspense } from "react";
 import NavBar from "@/components/layout/navbar";
 import "@/styles/globals.css";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import Spinner from "@/components/common/spinner";
 
 export default function RootLayout({ children }) {
@@ -24,11 +25,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AntdRegistry>
+          <AppRouterCacheProvider>
           <SideBar onClose={onClose} open={open} />
             <NavBar showDrawer={showDrawer} />
             <Suspense fallback={<Spinner fullPage={true}/>}>
                 <div className="content-height">{children}</div>
             </Suspense>
+            </AppRouterCacheProvider>
         </AntdRegistry>
       </body>
     </html>

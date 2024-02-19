@@ -23,6 +23,7 @@ const AddOverridePopup = ({ onChange }) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
   const [modalType, setModalType] = useState("overrides");
   const [commonError, setCommonError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setCommonError(null);
@@ -35,9 +36,10 @@ const AddOverridePopup = ({ onChange }) => {
 
   const onCreateOverride = async (values) => {
     setCommonError(null);
+    setIsSubmitting(true);
     try {
       const response = await fetch(
-        "/shuriken/api/v1/instrument-override/create-override",
+        "/shuriken/api/asset-query-svc/api/v1/instrument-override/create-override",
         {
           method: "POST",
           body: JSON.stringify(values),
@@ -58,6 +60,8 @@ const AddOverridePopup = ({ onChange }) => {
     } catch (error) {
       console.error("Error:", error.message);
       setCommonError("Oops! Something went wrong");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -104,7 +108,7 @@ const AddOverridePopup = ({ onChange }) => {
                     <button
                       type="submit"
                       className="asset-add-override-button"
-                      disabled={!isValid}
+                      disabled={!isValid || isSubmitting}
                     >
                       Create
                     </button>

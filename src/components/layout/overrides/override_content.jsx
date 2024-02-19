@@ -10,7 +10,7 @@ import { filtersToQueryString } from "@/_utils/helper";
 import AddOverridePopup from "@/components/layout/add_override_popup";
 
 export const fetchData = async (page, pageSize, filters) => {
-  let url = `/shuriken/api/v1/instrument-override?page=${
+  let url = `/shuriken/api/asset-query-svc/api/v1/instrument-override?page=${
     page - 1
   }&size=${pageSize}`;
 
@@ -24,7 +24,7 @@ export const fetchData = async (page, pageSize, filters) => {
 };
 
 export const fetchDeleteData = async (instrumentId) => {
-  let url = `/shuriken/api/v1/instrument-override/${instrumentId}`;
+  let url = `/shuriken/api/asset-query-svc/api/v1/instrument-override/${instrumentId}`;
   await fetch(url, { cache: "no-store", method: "DELETE" });
 };
 

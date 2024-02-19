@@ -306,6 +306,7 @@ input[type="number"] {
   border-radius: 0.5rem;
   border: 1px solid var(--Nomura-Red, #d71133);
   background: rgba(215, 17, 51, 0.1);
+  white-space: pre-line;
 }
 .w-343 {
   width: 34.375rem;

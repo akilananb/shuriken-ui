@@ -3,7 +3,7 @@ import OverrideContent from "./override_content";
 export async function getOverrideIntialData() {
   try {
     const tableResponse = fetch(
-      `${process.env.API_BASE_URL}/instrument-override?page=0&size=100`,
+      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/instrument-override?page=0&size=100`,
       { cache: "no-store" }
     );
 

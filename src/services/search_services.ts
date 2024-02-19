@@ -12,7 +12,7 @@ class SearchService {
 
   public async fetchSearch(searchKey: string): Promise<SearchRes> {
     const response = await fetch(
-      `/shuriken/api/v1/asset_class_query/search/${searchKey}`,
+      `/shuriken/api/asset-query-svc/api/v1/asset_class_query/search/${searchKey}`,
       { cache: "no-store" }
     );
 
@@ -56,18 +56,10 @@ class SearchService {
   public async fetchLTVCalculationDetail(
     isin: string
   ): Promise<LTVCalculationRes> {
-    const fakeApiCall = new Promise<LTVCalculationRes>((resolve) => {
-      setTimeout(() => {
-        resolve(responseJson);
-      }, 4000);
-    });
-    return await fakeApiCall;
-
     const response = await fetch(
-      `${process.env.API_BASE_URL}/shuriken/api/v1/asset_class_query/fetch/ltv?isin=${isin}`,
+      `${process.env.API_BASE_URL}/api/v1/asset_class_query/ltv/bond?isin=${isin}`,
       { cache: "no-store" }
     );
-
     if (!response.ok) {
       throw new Error(`API request failed with status ${response.status}`);
     }

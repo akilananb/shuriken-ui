@@ -20,10 +20,12 @@ import {
 import BondsTabs from "./Bonds_tabs";
 
 const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
+  const { isin, quantity } = props;
+
   const searchService = new SearchService();
 
   const _results = await searchService.fetchLTVCalculationDetail(
-    props?.isin ?? ""
+    isin ?? ""
   );
 
   return (
@@ -47,7 +49,7 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
           />
           <div className="w-[31rem] flex flex-col items-start gap-4">
             <Ltvvalues data={toLTVValuesData(_results)} title="LTV" />
-            <Ltvvalues data={toSummaryValuesData(_results)} title="Value" />
+            <Ltvvalues data={toSummaryValuesData(_results, quantity)} title="Value" />
           </div>
         </div>
         <div className="inline-flex gap-4 w-full">

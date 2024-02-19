@@ -15,7 +15,7 @@ export const toHeaderData = (result?: LTVCalculationRes): HeaderData => {
     : ltvCalculation?.ltvAtIm;
 
   const _ltvToolTip = ltvCalculation?.override
-    ? `Generic LTV: ${ltvCalculation?.override.ltvAtIm}%`
+    ? `Generic LTV: ${ltvCalculation?.ltvAtIm}%`
     : "";
 
   return {
@@ -242,7 +242,7 @@ export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
     : ltvCalculation?.ltvAtIm;
 
   const _ltvToolTip = isOverride
-    ? `Generic LTV: ${ltvCalculation?.override.ltvAtIm}%`
+    ? `Generic LTV: ${ltvCalculation?.ltvAtIm}%`
     : "";
 
   const _ltvAtMc = isOverride
@@ -269,20 +269,26 @@ export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
 };
 
 export const toSummaryValuesData = (
-  result?: LTVCalculationRes
+  result?: LTVCalculationRes,
+  quantity?: Number
 ): DisplayItem[] => {
+  const mv = result?.marketData?.pxLast ? toSetCommaFormat(String(result.marketData.pxLast/100 * Number(quantity || 0))) : "-";
+  const cv = quantity != undefined && result?.ltvCalculation?.ltvAtIm
+    ? toSetCommaFormat(String(result.ltvCalculation.ltvAtIm * Number(mv)))
+    : "-";
+  
   return [
     {
       label: "Quantity",
-      value: "10,000",
+      value: quantity?.toString() ?? "-",
     },
     {
       label: "MV",
-      value: "123,223,485",
+      value: mv,
     },
     {
       label: "CV",
-      value: "123,123,123",
+      value: cv,
     },
   ];
 };
@@ -290,6 +296,6 @@ export const toSummaryValuesData = (
 export const toDisclaimerData = (result?: LTVCalculationRes): DisplayItem => {
   return {
     label: "Disclaimers",
-    value: "Generic LTV → Override Reason Override Reason 123",
+    value: result?.ltvCalculation?.override?.reason ?? "-",
   };
 };
