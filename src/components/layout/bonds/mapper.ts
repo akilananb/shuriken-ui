@@ -294,8 +294,15 @@ export const toSummaryValuesData = (
 };
 
 export const toDisclaimerData = (result?: LTVCalculationRes): DisplayItem => {
+  const { ltvCalculation } = result || {};
+  const { override } = ltvCalculation || {};
+
+  const reason = override?.reason !== null && override?.reason !== undefined && override?.reason !== "null"
+    ? override.reason
+    : "-";
+
   return {
     label: "Disclaimers",
-    value: result?.ltvCalculation?.override?.reason ?? "-",
+    value: reason,
   };
 };

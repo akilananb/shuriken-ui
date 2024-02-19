@@ -123,7 +123,7 @@ const OverrideContent = ({ intialData }) => {
       <InfiniteScrollTable
         fetchData={fetchData}
         columns={columns}
-        pageSize={10}
+        pageSize={20}
         filters={filters}
         initialData={intialData}
         reload={reloadTable}

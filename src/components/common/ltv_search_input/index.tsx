@@ -128,7 +128,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     return (
       <div {...props} key={index}>
         <div className="w-full flex flex-row">
-          {option.isin
+          {(option.isin ?? "")
             .split(regex)
             .map((part, index) =>
               regex.test(part) ? (

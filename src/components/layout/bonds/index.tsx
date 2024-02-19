@@ -2,11 +2,13 @@
 import "@/components/common/Bonds/bonds.css";
 import Ltvvalues from "@/components/layout/bonds/Itvvalues";
 import Disclaimers from "@/components/layout/bonds/Disclaimers";
+import Image from "next/image";
 import Bond_header from "./Bond_header";
 import Itvfields from "@/components/common/Constants/ltvfields.json";
 import { BondsProps } from "./types";
 import SearchService from "@/services/search_services";
 import DetailVerticalDisplayCard from "./DetailVerticalDisplayCard";
+import { BASE_NAME } from "@/config/appConfig";
 
 import {
   toDisclaimerData,
@@ -27,6 +29,22 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
   const _results = await searchService.fetchLTVCalculationDetail(
     isin ?? ""
   );
+
+  if (Object.keys(_results).length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <Image
+          src={`${BASE_NAME}/static/images/NoResults.png`}
+          alt="no data"
+          width="50"
+          height="50"
+        />
+        <p className="text-gray-600 mt-2 text-lg p-2">
+          No Results Found!
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

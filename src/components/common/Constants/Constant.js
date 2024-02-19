@@ -19,10 +19,6 @@ const columns = [
     width: "w-20",
     alignment: "text-center",
   },
-  // {
-  //   name: "ISIN",
-  //   dataField: "url",
-  // },
   {
     name: "Ticker",
     dataField: "overrideInstrumentDetail.ticker",
@@ -54,6 +50,12 @@ const columns = [
     width: "w-20",
     alignment: "text-center",
     type: "text",
+  },
+  {
+    name: "LTV Override Note",
+    dataField: "ltvOverrideNote",
+    type: "text",
+    width: "min-w-[10rem]",
   },
   {
     name: "Creator",
@@ -88,12 +90,7 @@ const columns = [
     width: "w-28",
     type: "date",
   },
-  {
-    name: "LTV Override Note",
-    dataField: "ltvOverrideNote",
-    type: "text",
-    width: "min-w-[10rem]",
-  },
+
 ];
 
 export default columns;

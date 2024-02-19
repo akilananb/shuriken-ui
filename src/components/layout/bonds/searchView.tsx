@@ -8,7 +8,7 @@ import { BondsChildProps } from "./types";
 const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
   const { quantity, isin } = props;
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
-  const [_quantity, setQuantity] = useState<string>(quantity ?? "");
+  const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
 
   const classValue = () => {
     if (selectedItem != null) return "primary-button flex-none w-[167px]";

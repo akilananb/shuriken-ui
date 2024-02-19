@@ -61,7 +61,7 @@ class SearchService {
       { cache: "no-store" }
     );
     if (!response.ok) {
-      throw new Error(`API request failed with status ${response.status}`);
+      return {} as LTVCalculationRes;
     }
 
     return response.json();
