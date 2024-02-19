@@ -7,7 +7,10 @@ import Autocomplete, {
 } from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
-import SearchService, { LTVSearch } from "@/services/search_services";
+import SearchService, {
+  CalculationRes,
+  LTVSearch,
+} from "@/services/search_services";
 import { Response } from "@/_utils/Response";
 import { debounce } from "@mui/material/utils";
 
@@ -22,16 +25,33 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 ) => {
   const autocompleteRef = useRef<any>(null);
 
-  const { onSelectedItem, className } = props;
+  const { onSelectedItem, className, value } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(null);
   const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
     new Response().applyLoader("UNKNOWN")
   );
   const [ltvCalculationResult, setLTVCalculationResult] = useState<
-    Response<string>
+    Response<CalculationRes>
   >(new Response().applyLoader("UNKNOWN"));
   const searchService = new SearchService();
+
+  const initialCalculation = async (searchKey) => {
+    if (searchKey && searchKey.trim().length >= 3) {
+      setSearchResults(new Response().applyLoader("LOADING"));
+
+      const _results = await searchService.fetchSearch(searchKey);
+      const results = _results?.payLoad?.sort((a, b) =>
+        b.securityType.localeCompare(a.securityType)
+      );
+
+      setSearchResults(new Response(results).applyLoader("LOADED"));
+      setSelectedItem(results.find((val) => val.isin == searchKey) ?? null);
+    } else {
+      // Handle the case when the search term is empty
+      setSearchResults(new Response([]).applyLoader("LOADED"));
+    }
+  };
 
   const performSearch = async () => {
     if (searchTerm && searchTerm.trim().length >= 3) {
@@ -56,11 +76,14 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
       const result = await searchService.fetchLTVCalculation(selectedItem);
 
       setLTVCalculationResult(new Response(result).applyLoader("LOADED"));
-    } else {
-      // Handle the case when the search term is empty
-      setLTVCalculationResult(new Response("").applyLoader("LOADED"));
     }
   };
+
+  useEffect(() => {
+    if (value) {
+      initialCalculation(value);
+    }
+  }, []);
 
   useEffect(() => {
     // Perform API call when searchTerm changes
@@ -90,7 +113,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     }
     onSelectedItem?.(selectedValue);
     setSelectedItem(selectedValue);
-    performCalculation();
+    // performCalculation(); //TODO Hide the calcuation logic in relese 1
   };
 
   const renderOption = (
@@ -196,7 +219,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
                     {params.InputProps.startAdornment}
                     <LTVCalculationView
                       className="absolute right-0 mr-4"
-                      searchKey={""}
+                      calculationData={ltvCalculationResult.getResponse()}
                       loading={renderLTVCalculation()}
                     />
                   </>

@@ -8,14 +8,15 @@ export type NoDataFoundOption =
   | "FAILED";
 
 import { BaseElementAttributes } from "@/_utils/base";
-import { LTVSearch } from "@/services/search_services";
+import { CalculationRes, LTVSearch } from "@/services/search_services";
 import { HTMLAttributes } from "react";
 
 export interface LTVCalculationViewProps extends BaseElementAttributes {
-  searchKey: string;
   loading: LTVCalculationTypes;
+  calculationData?: CalculationRes | null;
 }
 
 export interface LTVSearchInputProps extends BaseElementAttributes {
+  value?: string;
   onSelectedItem?: (selectedItem: LTVSearch | null) => void;
 }

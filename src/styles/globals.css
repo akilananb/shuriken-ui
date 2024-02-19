@@ -107,7 +107,7 @@ body {
   }
 
   .primary-button {
-    @apply w-full px-12 py-4 rounded  text-16px font-bold bg-nomura-red text-white border-none cursor-pointer min-w-[104px];
+    @apply w-full px-12 py-4 rounded  text-16px text-center font-bold bg-nomura-red text-white border-none cursor-pointer min-w-[104px];
     text-decoration: none;
 
     @apply hover:bg-nomura-red-300;
@@ -115,13 +115,13 @@ body {
   }
 
   .primary-button-disable {
-    @apply w-full px-12 py-4 rounded bg-nomura-off-grey text-white text-16px font-bold border-none cursor-pointer min-w-[104px];
+    @apply w-full px-12 py-4 rounded bg-nomura-off-grey text-center text-white text-16px font-bold border-none cursor-pointer min-w-[104px];
     text-decoration: none;
     @apply pointer-events-none;
   }
 
   .secondary-button {
-    @apply w-full px-12 py-4  rounded text-16px font-bold bg-noumura-light-red-500 border border-solid border-nomura-red text-black cursor-pointer min-w-[104px];
+    @apply w-full px-12 py-4 rounded text-16px font-bold text-center bg-noumura-light-red-500 border border-solid border-nomura-red text-black cursor-pointer min-w-[104px];
     @apply hover:bg-noumura-light-red-300;
   }
 
@@ -143,6 +143,33 @@ body {
 
   .nomura-14px-regular {
     @apply font-normal text-14px;
+  }
+
+  .nomura-14px-bold {
+    @apply font-bold text-14px;
+  }
+
+  .nomura-16px-regular {
+    @apply font-normal text-16px;
+  }
+
+  .nomura-16px-bold {
+    @apply font-bold text-16px;
+  }
+
+  .nomura-18px-regular {
+    @apply font-normal text-18px;
+  }
+  .nomura-18px-bold {
+    @apply font-bold text-18px;
+  }
+
+  .nomura-24px-regular {
+    @apply font-normal text-24px;
+  }
+
+  .nomura-24px-bold {
+    @apply font-bold text-24px;
   }
 }
 

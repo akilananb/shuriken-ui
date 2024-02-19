@@ -1,21 +1,115 @@
 {
-  "size": 2,
-  "payLoad": [
-    {
-      "securityName": "Nomura Global Bond 1",
-      "isin": "JP1234567890",
-      "ticker": "NGB101",
-      "securityType": "Bond",
-      "status": "Active",
-      "exchange": "Tokyo Stock Exchange"
+  "securityName": "AAPL 4.450% 06May2044 Corp",
+  "isin": "US037833CH21",
+  "ticker": "AAPL44",
+  "exchange": "OTC",
+  "securityType": "Corporate Bond",
+  "status": "Active",
+  "marketData": {
+    "exchangeRate": "1.00",
+    "yasIspreadToGovt": "1.50",
+    "discMrgnAsk": "2.00",
+    "calledDt": "",
+    "currency": "USD",
+    "pxLast": 12345.78,
+    "marketCloseDate": "06May2044"
+  },
+  "bondDetail": {
+    "securityId": "123456789",
+    "cusip": "037833CH2",
+    "totoro": "123ABC",
+    "pdpId": "PDP123",
+    "maturityDate": "06 May 2044",
+    "issuerId": "AAPL",
+    "sectype": "Corporate",
+    "rule144aFlag": "N",
+    "privatePlacementFlag": "N",
+    "amountIssue": 4000,
+    "marketSectorDes": "Technology",
+    "mtyTyp": "Regular",
+    "cpnTyp": "Fixed",
+    "isSubordinated": false,
+    "capContSec": "None",
+    "isDepositCert": false,
+    "realIssuerId": "",
+    "ultParentCountryOfRisk": "United States",
+    "assetTypeId": "Bond",
+    "assetTypeCode": "C",
+    "maturityType": "Bullet",
+    "couponDividentType": "Standard",
+    "capitalContingentSecurity": true,
+    "countryOfRisk": "United States",
+    "industrySectorCode": "T",
+    "industryGroupCode": "T",
+    "securityIdMap": ["MAP1", "MAP2"],
+    "ultParentTickerExchange": "NASDAQ",
+    "issuerRatingSp": "AA",
+    "issuerName": "Apple",
+    "lossAbsorption": "Y",
+    "cdo": "Y",
+    "issuerRatingMoody": ["Aa3"],
+    "securityRating": ["AA", "Aa3"],
+
+    "guarantor": {
+      "ticker": "AAPL44",
+      "exchange": "HK",
+      "rating": {
+        "rtgSpIssuerCredit": "AA",
+        "rtgMdyLtFcDebitRating": "",
+        "rtgMoodyLongTerm": "AA"
+      }
     },
-    {
-      "securityName": "Nomura Global Equities 1",
-      "isin": "JP0987654321",
-      "ticker": "NGB101",
-      "securityType": "Equities",
-      "status": "Active",
-      "exchange": "Tokyo Stock Exchange"
+    "issueParent": {
+      "ticker": "AAPL44",
+      "exchange": "HK",
+      "rating": {
+        "rtgSpIssuerCredit": "BB",
+        "rtgMdyLtFcDebitRating": "",
+        "rtgMoodyLongTerm": "BB"
+      }
+    },
+    "ultimateIssuerParent": {
+      "ticker": "AAPL44",
+      "exchange": "HK",
+      "rating": {
+        "rtgSpIssuerCredit": "AAA",
+        "rtgMdyLtFcDebitRating": "",
+        "rtgMoodyLongTerm": "Aa3"
+      }
+    },
+    "issueRating": {
+      "rtgSp": "AAA",
+      "rtgMoody": "Aa3",
+      "calledDt": ""
     }
-  ]
+  },
+  "ltvCalculation": {
+    "ltvAtIm": 70.0,
+    "ltvAtMc": 80.0,
+    "ltvAtSl": 60.0,
+    "override": {
+      "ltvAtIm": 70.0,
+      "ltvAtMc": 60.0,
+      "ltvAtSl": 90.0,
+      "reason": "dummy reason"
+    },
+    "financingEligibility": {
+      "isEligible": true,
+      "reason": ""
+    },
+    "ratingUsed": "Issuer Rating",
+    "issueRating": "BB",
+    "issuerRating": "AA",
+    "indicativeLtv1AdjMade": [],
+    "indicativeLtv2AdjMade": [],
+    "ltvCaps": {
+      "isCapApplied": false,
+      "reason": ""
+    },
+    "bondType": "Stright",
+    "bondGrade": "IMG",
+    "countryClassification": "DM",
+    "issueSizeUsd": 12345.876,
+    "spread": 1233
+  }
 }

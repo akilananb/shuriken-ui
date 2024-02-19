@@ -11,3 +11,7 @@ export const toRemoveCommaFormat = (value) => {
     .replace(/\./g, "")
     .replace(/\,/g, "");
 };
+
+export const toCommaSeprated = (value: number | string) => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};

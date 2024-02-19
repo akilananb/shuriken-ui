@@ -3,15 +3,18 @@ import { LTVCalculationViewProps } from "./types";
 const LTVCalculationView: React.FC<LTVCalculationViewProps> = (
   props: LTVCalculationViewProps
 ) => {
-  const { className, loading } = props;
+  const { className, loading, calculationData } = props;
 
+  const ltv = calculationData?.data?.result?.ltv ?? null;
   const renderContent = () => {
     switch (loading) {
       case "SUCCESS": {
-        return (
+        return ltv != null ? (
           <>
-            LTV @ IM: <span className="font-bold">50%</span>
+            LTV @ IM: <span className="font-bold">{ltv}%</span>
           </>
+        ) : (
+          <></>
         );
       }
       case "LOADING": {

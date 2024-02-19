@@ -13,3 +13,13 @@ export interface SearchRes {
   size: number;
   payLoad: LTVSearch[];
 }
+
+export interface CalculationRes {
+  status: string;
+  message: string;
+  data: {
+    result: {
+      ltv: number;
+    };
+  };
+}

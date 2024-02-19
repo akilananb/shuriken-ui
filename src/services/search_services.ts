@@ -1,5 +1,8 @@
-import { SearchRes, LTVSearch } from "@/types/search.types";
+import { SearchRes, LTVSearch, CalculationRes } from "@/types/search.types";
 import responseJson from "./sampleResponse.json";
+import { LTVCalculationRes } from "@/types/LTVCalculation";
+import { Response } from "@/_utils/Response";
+
 class SearchService {
   private readonly baseUrl: string;
 
@@ -20,21 +23,56 @@ class SearchService {
     return response.json();
   }
 
-  public async fetchLTVCalculation(item?: LTVSearch | null): Promise<string> {
-    //   const response = await fetch(`${this.baseUrl}${searchKey}`, options);
+  public async fetchLTVCalculation(
+    item?: LTVSearch | null
+  ): Promise<CalculationRes> {
+    // const response = await fetch(
+    //   `/shuriken/api/v1/asset_class_query/fetch/ltv?isin=sss`,
+    //   { cache: "no-store" }
+    // );
 
-    //   if (!response.ok) {
-    //     throw new Error(`API request failed with status ${response.status}`);
-    //   }
+    // if (!response.ok) {
+    //   throw new Error(`API request failed with status ${response.status}`);
+    // }
 
-    //   return response.json();
-    const fakeApiCall = new Promise<string>((resolve) => {
+    // return response.json();
+    const fakeApiCall = new Promise<CalculationRes>((resolve) => {
       setTimeout(() => {
-        resolve("dummyValue");
-      }, 10000);
+        resolve({
+          status: "success",
+          message: "Value retrieved successfully",
+          data: {
+            result: {
+              ltv: 34.42,
+            },
+          },
+        });
+      }, 4000);
     });
 
     return await fakeApiCall;
+  }
+
+  public async fetchLTVCalculationDetail(
+    isin: string
+  ): Promise<LTVCalculationRes> {
+    const fakeApiCall = new Promise<LTVCalculationRes>((resolve) => {
+      setTimeout(() => {
+        resolve(responseJson);
+      }, 4000);
+    });
+    return await fakeApiCall;
+
+    const response = await fetch(
+      `${process.env.API_BASE_URL}/shuriken/api/v1/asset_class_query/fetch/ltv?isin=${isin}`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+
+    return response.json();
   }
 }
 
