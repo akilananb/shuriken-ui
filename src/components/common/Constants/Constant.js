@@ -14,7 +14,7 @@ const columns = [
   },
   {
     name: "Status",
-    dataField: "overrideInstrumentDetail.status",
+    dataField: "overrideStatus",
     type: "text",
     width: "w-20",
     alignment: "text-center",

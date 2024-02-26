@@ -11,9 +11,13 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
   const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
 
   const classValue = () => {
+
+  const numericQuantity = quantity !== undefined ? quantity : 0;
+  const numeric_Quantity = _quantity !== "" ? Number(_quantity) : NaN;
+
     if (selectedItem != null) {
       return "primary-button flex-none w-[167px]";
-    } else if (quantity !== _quantity && _quantity !== "") {
+    } else if (!isNaN(numeric_Quantity) && numericQuantity !== numeric_Quantity) {
       return "primary-button flex-none w-[167px]";
     } else {
       return `primary-button-disable flex-none w-[167px]`;

@@ -8,7 +8,7 @@ import SearchView from "./searchView";
 export async function getLadingPageData() {
   try {
     const announcementResponse = await fetch(
-      `${process.env.API_BASE_URL}/announcement/fetch`,
+      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/announcement/fetch`,
       { cache: "no-store" }
     );
 

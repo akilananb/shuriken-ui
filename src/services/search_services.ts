@@ -57,7 +57,7 @@ class SearchService {
     isin: string
   ): Promise<LTVCalculationRes> {
     const response = await fetch(
-      `${process.env.API_BASE_URL}/api/v1/asset_class_query/ltv/bond?isin=${isin}`,
+      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/bond?isin=${isin}`,
       { cache: "no-store" }
     );
 
