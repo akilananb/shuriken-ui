@@ -60,11 +60,12 @@ class SearchService {
       `${process.env.API_BASE_URL}/api/v1/asset_class_query/ltv/bond?isin=${isin}`,
       { cache: "no-store" }
     );
+
     if (!response.ok) {
       return {} as LTVCalculationRes;
     }
 
-    return response.json();
+    return  response.json();
   }
 }
 

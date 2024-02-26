@@ -11,8 +11,13 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
   const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
 
   const classValue = () => {
-    if (selectedItem != null) return "primary-button flex-none w-[167px]";
-    else return `primary-button-disable flex-none w-[167px]`;
+    if (selectedItem != null) {
+      return "primary-button flex-none w-[167px]";
+    } else if (quantity !== _quantity && _quantity !== "") {
+      return "primary-button flex-none w-[167px]";
+    } else {
+      return `primary-button-disable flex-none w-[167px]`;
+    }
   };
 
   return (

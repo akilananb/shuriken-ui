@@ -6,6 +6,14 @@ export interface BondsProps {
   quantity?: Number;
 }
 
+export interface SearchInput{
+  isin: string;
+  quantity: Number;
+}
+export interface MutiSearchInput{
+  searchInput: SearchInput[];
+}
+
 export interface BondsChildProps extends BondsProps {
   Itvfields: any;
   ltvData?: LTVCalculationRes;

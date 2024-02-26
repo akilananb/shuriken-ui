@@ -26,6 +26,7 @@ interface LtvCalculation {
   countryClassification: string;
   issueSizeUsd: number;
   spread: number;
+  disclaimer: string;
 }
 interface LtvCaps {
   isCapApplied: boolean;
@@ -39,7 +40,8 @@ interface Override {
   ltvAtIm: number;
   ltvAtMc: number;
   ltvAtSl: number;
-  reason: string;
+  status: string;
+  hasOverride: boolean;
 }
 interface BondDetail {
   cdo: string;
@@ -52,7 +54,7 @@ interface BondDetail {
   sectype: string;
   rule144aFlag: string;
   privatePlacementFlag: string;
-  amountIssue: number;
+  amountIssued: number;
   marketSectorDes: string;
   issuerName: string;
   lossAbsorption: string;
@@ -67,7 +69,7 @@ interface BondDetail {
   assetTypeCode: string;
   maturityType: string;
   couponDividentType: string;
-  capitalContingentSecurity: boolean;
+  capitalContingentSecurity: string;
   countryOfRisk: string;
   industrySectorCode: string;
   industryGroupCode: string;
@@ -82,7 +84,7 @@ interface BondDetail {
   issueRating: IssueRating;
 }
 interface MarketData {
-  exchangeRate: string;
+  exchangeRate: number;
   yasIspreadToGovt: string;
   discMrgnAsk: string;
   calledDt: string;

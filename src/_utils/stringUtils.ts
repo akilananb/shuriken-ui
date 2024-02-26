@@ -5,6 +5,13 @@ export const toSetCommaFormat = (value) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+export const toSetCommaFormatPercentage = (value) => {
+  return value
+    .replace(/[^0-9\.]/g, "")
+    .replace(/^0+/, '')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 export const toRemoveCommaFormat = (value) => {
   return value
     .replace(/[^0-9\.]/g, "")
