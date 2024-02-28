@@ -295,11 +295,11 @@ export const toSummaryValuesData = (
       value: quantity ? toCommaSeprated(String(quantity) ?? "") : "-",
     },
     {
-      label: "MV",
+      label: "MV (USD)",
       value: mv,
     },
     {
-      label: "CV",
+      label: "CV (USD)",
       value: cv,
     },
   ];
