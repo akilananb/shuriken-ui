@@ -3,12 +3,12 @@ const columns = [
     name: "Security Name",
     dataField: "overrideInstrumentDetail.securityName",
     type: "text",
-    width: "min-w-[10rem]",
+    width: "min-w-[10rem] max-w-[10rem]",
   },
   {
     name: "ISIN",
     dataField: "overrideInstrumentDetail.isin",
-    width: "w-24",
+    width: "w-[7.5rem] min-w-[7.5rem]",
     type: "text",
     alignment: "text-left",
   },
@@ -30,7 +30,7 @@ const columns = [
     name: "Exchange",
     dataField: "overrideInstrumentDetail.exchange",
     type: "text",
-    width: "min-w-[10rem]",
+    width: "min-w-[10rem] max-w-[10rem]",
   },
   {
     name: "Security Type",

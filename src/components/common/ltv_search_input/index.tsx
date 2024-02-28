@@ -106,7 +106,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 
   const handleSearchSelect = (_, selectedValue) => {
     /*TODO
-    Call second API and display LTV calculation in UI 
+    Call second API and display LTV calculation in UI
     */
     if (!selectedValue) {
       setSearchTerm("");
