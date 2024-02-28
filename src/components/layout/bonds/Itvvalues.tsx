@@ -11,12 +11,12 @@ const LTVValueCard: React.FC<LTVValueCardProps> = (
 
   return (
     <BondCards className="w-full flex-1" header={title}>
-      <div className="inline-flex gap-4 items-start justify-center w-full">
+      <div className="inline-flex gap-4 items-start justify-center w-full ">
         {data.map((item, i) => {
           const { label, value, tooltipMsg } = item;
           return (
             <>
-              <div className="flex-1 p-2 flex-col inline-flex justify-between items-center">
+              <div className="flex-1 p-2 flex-col inline-flex justify-between items-center break-all">
                 <div className="nomura-16px-regular text-noumura-grey w-full">
                   {label}
                 </div>

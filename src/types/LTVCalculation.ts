@@ -40,6 +40,7 @@ interface Override {
   ltvAtIm: number;
   ltvAtMc: number;
   ltvAtSl: number;
+  reason: string;
   status: string;
   hasOverride: boolean;
 }

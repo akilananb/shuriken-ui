@@ -11,9 +11,16 @@ const Disclaimers: React.FC<DisclaimerProps> = (props: DisclaimerProps) => {
             <div className="nomura-18px-regular text-noumura-grey w-full">
               {disclaimer.label}
             </div>
-            <div className="flex-1 text-right nomura-14px-regular text-black">
-              {disclaimer.value}
-            </div>
+            {
+                disclaimer.value.length > 0 ?
+                  disclaimer.value.filter(value => value == null || value === "" || value != "null").map((value, index) => (
+                    <div key={index} className="flex-1 text-right nomura-14px-regular text-black">
+                      {value}
+                    </div>
+                  )) : <div className="flex-1 text-right nomura-14px-regular text-black">
+                    -
+                  </div>
+              }
           </div>
           {/* <div className="flex flex-col gap-2 items-start">
             <div className="nomura-18px-regular text-noumura-grey w-full">

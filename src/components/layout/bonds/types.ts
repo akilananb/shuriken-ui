@@ -49,6 +49,15 @@ export interface DisplayItem {
   color?: "RED" | "BLACK";
   tooltipMsg?: string;
 }
+
+export interface DisplayListItem {
+  label: string;
+  value: string[];
+  key?: string;
+  color?: "RED" | "BLACK";
+  tooltipMsg?: string;
+}
+
 export interface DetailVerticalDisplayCardProps {
   data: DisplayItem[];
   colSize: number;
@@ -64,5 +73,6 @@ export interface LTVValueCardProps {
 
 export interface DisclaimerProps {
   title: string;
-  disclaimer: DisplayItem;
+  disclaimer: DisplayListItem;
 }
+

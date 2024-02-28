@@ -27,7 +27,8 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
   const searchService = new SearchService();
 
   const _results = await searchService.fetchLTVCalculationDetail(
-    isin ?? ""
+    isin ?? "",
+    quantity ?? 0
   );
 
   if (Object.keys(_results).length === 0) {

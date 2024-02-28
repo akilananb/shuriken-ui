@@ -19,6 +19,7 @@ export default function SearchView() {
       <div className="flex gap-2  self-streach relative">
         <LTVSearchInput
           className="w-[565px]"
+          value={selectedItem?.isin}
           onSelectedItem={(selectedItem) => {
             setSelectedItem(selectedItem);
           }}

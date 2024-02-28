@@ -1,5 +1,5 @@
 import { LTVCalculationRes } from "@/types/LTVCalculation";
-import { DisplayItem, HeaderData, OverrideData } from "./types";
+import { DisplayItem, HeaderData, OverrideData, DisplayListItem } from "./types";
 import {
   toCommaSeprated,
   toSetCommaFormat,
@@ -120,7 +120,7 @@ export const toSummaryDetailData = (
     },
     {
       label: "Issue Size",
-      value: `${toCommaSeprated(result?.ltvCalculation?.issueSizeUsd ?? 0)} (USD Mil)`,
+      value: `${toCommaSeprated(result?.ltvCalculation?.issueSizeUsd && result?.marketData?.exchangeRate? result.ltvCalculation.issueSizeUsd / 1000000 : "-")} (USD Mil)`,
     },
     {
       label: "Spread",
@@ -158,7 +158,7 @@ export const toOtherInfoData = (result?: LTVCalculationRes): DisplayItem[] => {
     },
     {
       label: "CDO",
-      value: result?.bondDetail?.cdo ?? "-",
+      value: result?.bondDetail?.marketSectorDes &&  result?.bondDetail?.marketSectorDes.toUpperCase() === "MTGE" ? "Y": "N",
     },
     {
       label: "Industry Sector",
@@ -305,12 +305,14 @@ export const toSummaryValuesData = (
   ];
 };
 
-export const toDisclaimerData = (result?: LTVCalculationRes): DisplayItem => {
+export const toDisclaimerData = (result?: LTVCalculationRes): DisplayListItem => {
   const { ltvCalculation } = result || {};
   const { disclaimer } = ltvCalculation || {};
+  const reason = ltvCalculation?.override?.reason
+  const disclaimers:string[] = [disclaimer??"", reason??""]
 
   return {
     label: "Disclaimers",
-    value: disclaimer ? disclaimer: "-"
+    value: disclaimers
   };
 };
