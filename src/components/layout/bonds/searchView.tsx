@@ -6,18 +6,20 @@ import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
 import { BondsChildProps } from "./types";
 const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
-  const { quantity, isin } = props;
+  const { quantity, isin, securityType } = props;
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
 
   const classValue = () => {
-
-  const numericQuantity = quantity !== undefined ? quantity : 0;
-  const numeric_Quantity = _quantity !== "" ? Number(_quantity) : NaN;
+    const numericQuantity = quantity !== undefined ? quantity : 0;
+    const numeric_Quantity = _quantity !== "" ? Number(_quantity) : NaN;
 
     if (selectedItem != null) {
       return "primary-button flex-none w-[167px]";
-    } else if (!isNaN(numeric_Quantity) && numericQuantity !== numeric_Quantity) {
+    } else if (
+      !isNaN(numeric_Quantity) &&
+      numericQuantity !== numeric_Quantity
+    ) {
       return "primary-button flex-none w-[167px]";
     } else {
       return `primary-button-disable flex-none w-[167px]`;
@@ -43,8 +45,8 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         }}
       />
       <Link
-        href={`/bonds?isin=${selectedItem?.isin}&securityType=${
-          selectedItem?.securityType
+        href={`/bonds?isin=${selectedItem?.isin || isin}&securityType=${
+          selectedItem?.securityType || securityType
         }${![null, ""].includes(_quantity) ? `&quantity=${_quantity}` : ""}`}
         className={classValue()}
         replace

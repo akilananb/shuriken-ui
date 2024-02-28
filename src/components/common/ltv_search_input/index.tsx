@@ -27,7 +27,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 
   const { onSelectedItem, className, value } = props;
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(null);
+  const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(value);
   const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
     new Response().applyLoader("UNKNOWN")
   );
@@ -177,16 +177,17 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     else if (ltvCalculationResult.hasError()) return "FAILED";
     else return "UNKNOWN";
   };
+
   return (
     <>
       <Autocomplete
         ref={autocompleteRef}
-        value={selectedItem}
+        value={selectedItem || value}
         id="search-autocomplete"
         popupIcon={null}
         options={[...(searchResults.getResponse() ?? [])]}
         groupBy={(option) => option.securityType}
-        getOptionLabel={(option) => option.isin}
+        getOptionLabel={(option) => option.isin || value}
         onChange={handleSearchSelect}
         sx={{
           "& .MuiOutlinedInput-root": {
@@ -210,6 +211,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
               placeholder="Search"
               variant="outlined"
               onClick={onClick}
+              value={selectedItem}
               onChange={deBounceOnChangeListener}
               InputProps={{
                 ...params.InputProps,
