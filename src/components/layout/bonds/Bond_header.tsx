@@ -33,7 +33,7 @@ const Bond_header: React.FC<HeaderProps> = (props: HeaderProps) => {
                 {ltvTooltipMsg && (
                   <TooltipComponent tooltipMsg={ltvTooltipMsg}>
                     <Image
-                      src={`${BASE_NAME}/static/images/info.svg`}
+                      src={`${BASE_NAME}/static/images/Info.svg`}
                       alt="hamburger"
                       width="24"
                       height="24"
