@@ -5,6 +5,7 @@ import Link from "next/link";
 import ToggleButton from "@/components/common/toggleButton";
 import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
+
 export default function SearchView() {
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [quantity, setQuantity] = useState<string>("");

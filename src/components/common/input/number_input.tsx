@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import TextField from "@mui/material/TextField";
 import { toRemoveCommaFormat, toSetCommaFormat } from "@/_utils/stringUtils";
+import TooltipComponent from "../tooltip";
 
 const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
   const { onChangeListener, value, placeholder, className, ...rest } = props;
@@ -21,29 +22,31 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
 
   return (
     <div className={className}>
-      <TextField
-        fullWidth
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "#D1D3D4",
+      <TooltipComponent tooltipMsg="Face value" placement="bottom">
+        <TextField
+          fullWidth
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#D1D3D4",
+              },
+              "&:hover fieldset": {
+                borderColor: "#d71133",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#D1D3D4",
+              },
             },
-            "&:hover fieldset": {
-              borderColor: "#D1D3D4",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#D1D3D4",
-            },
-          },
-        }}
-        placeholder={placeholder}
-        variant="outlined"
-        value={numberValue}
-        onChange={handleNumberChange}
-        type="text"
-        inputProps={{ inputMode: "numeric" }} // Allow numeric input
-        {...rest}
-      />
+          }}
+          placeholder={placeholder}
+          variant="outlined"
+          value={numberValue}
+          onChange={handleNumberChange}
+          type="text"
+          inputProps={{ inputMode: "numeric" }} // Allow numeric input
+          {...rest}
+        />
+      </TooltipComponent>
     </div>
   );
 };

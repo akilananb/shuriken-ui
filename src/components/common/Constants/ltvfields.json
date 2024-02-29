@@ -82,7 +82,6 @@
         "label": "Spread",
         "value": "400"
       },
-
       {
         "label": "Coupon Type",
         "value": "FIXED"
@@ -162,10 +161,6 @@
       {
         "label": "S&P Rating (Guarantor)",
         "value": "BB"
-      },
-      {
-        "label": "Called",
-        "value": "N"
       },
       {
         "label": "Called Date",
