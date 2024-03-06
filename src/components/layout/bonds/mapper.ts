@@ -296,20 +296,32 @@ export const toSummaryValuesData = (
   result?: LTVCalculationRes,
   quantity?: Number
 ): DisplayItem[] => {
-  const mvCalc = result?.marketData?.pxLast
-    ? (result.marketData.pxLast / result.marketData.exchangeRate / 100) *
+  const ltvCalculation = result?.ltvCalculation;
+  const override = ltvCalculation?.override;
+  const marketData = result?.marketData;
+
+  const mvCalc = marketData?.pxLast
+    ? (marketData.pxLast / marketData.exchangeRate / 100) *
       Number(quantity || 0)
     : 0;
   const mv =
-    result?.marketData?.pxLast && quantity
+    marketData?.pxLast && quantity
       ? toSetCommaFormatPercentage(String(Math.round(mvCalc)))
       : "-";
-  const cvCalc =
-    quantity != undefined && result?.ltvCalculation?.ltvAtIm
-      ? (result.ltvCalculation.ltvAtIm / 100) * mvCalc
-      : 0;
+
+  let cvCalc = 0;
+  if (quantity != undefined) {
+    const ltvAtIm = override?.hasOverride
+      ? override?.ltvAtIm
+      : ltvCalculation?.ltvAtIm;
+    if (ltvAtIm) {
+      cvCalc = (ltvAtIm / 100) * mvCalc;
+    }
+  }
+
   const cv =
-    quantity && result?.ltvCalculation?.ltvAtIm
+    (quantity && ltvCalculation?.ltvAtIm) ||
+    (quantity && override && override?.hasOverride)
       ? toSetCommaFormatPercentage(String(Math.round(cvCalc)))
       : "-";
 
