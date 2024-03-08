@@ -9,6 +9,7 @@ import { BondsProps } from "./types";
 import SearchService from "@/services/search_services";
 import DetailVerticalDisplayCard from "./DetailVerticalDisplayCard";
 import { BASE_NAME } from "@/config/appConfig";
+import Announcement from "@/components/layout/announcement";
 
 import {
   toDisclaimerData,
@@ -21,10 +22,33 @@ import {
 } from "./mapper";
 import BondsTabs from "./Bonds_tabs";
 
+export async function getLadingPageData() {
+  try {
+    const announcementResponse = await fetch(
+      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/announcement/fetch`,
+      { cache: "no-store" }
+    );
+
+    if (!announcementResponse.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return {
+      announcementData: await announcementResponse.json(),
+    };
+  } catch (error) {
+    return {
+      announcementData: { size: 0 },
+    };
+  }
+}
+
 const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
   const { isin, quantity } = props;
 
   const searchService = new SearchService();
+
+  const { announcementData } = await getLadingPageData();
 
   const _results = await searchService.fetchLTVCalculationDetail(
     isin ?? "",
@@ -50,6 +74,10 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col bg-white h-full p-16 pt-8 pb-0">
+      <Announcement
+          statementClass={"min-w-[550px] !mb-4"}
+          data={announcementData}
+        />
         <Bond_header
           Itvfields={Itvfields}
           {...props}

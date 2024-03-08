@@ -17,7 +17,7 @@ const BondsTabs: React.FC<TabsProps> = ({ overrideData }: TabsProps) => {
             {tooltipMsg && (
               <TooltipComponent tooltipMsg={tooltipMsg}>
                 <Image
-                  src={`${BASE_NAME}/static/images/info.svg`}
+                  src={`${BASE_NAME}/static/images/Info.svg`}
                   width="16"
                   height="16"
                   alt="info"

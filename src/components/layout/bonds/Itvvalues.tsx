@@ -27,7 +27,7 @@ const LTVValueCard: React.FC<LTVValueCardProps> = (
                   {tooltipMsg && (
                     <TooltipComponent tooltipMsg={tooltipMsg}>
                       <Image
-                        src={`${BASE_NAME}/static/images/info.svg`}
+                        src={`${BASE_NAME}/static/images/Info.svg`}
                         alt="hamburger"
                         width="24"
                         height="24"
