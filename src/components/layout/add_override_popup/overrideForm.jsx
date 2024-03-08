@@ -14,8 +14,8 @@ const OverridesForm = ({ errors, touched }) => {
       >
         <LTVSearchInput
           name="instrumentId"
-          value={instrumentField.value}
-          onSelectedItem={(value) => instrumentHelpers.setValue(value)}
+          value={instrumentField.value.isin}
+          onSelectedItem={(value) => instrumentHelpers.setValue(value.isin)}
           error={instrumentMeta.touched && instrumentMeta.error}
         />
       </ErrorField>
