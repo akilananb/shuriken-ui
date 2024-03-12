@@ -309,21 +309,17 @@ export const toSummaryValuesData = (
       ? toSetCommaFormatPercentage(String(Math.round(mvCalc)))
       : "-";
 
-  let cvCalc = 0;
-  if (quantity != undefined) {
+  let cvCalculation = 0;
+  if (quantity !== undefined || quantity !== null) {
     const ltvAtIm = override?.hasOverride
       ? override?.ltvAtIm
       : ltvCalculation?.ltvAtIm;
     if (ltvAtIm) {
-      cvCalc = (ltvAtIm / 100) * mvCalc;
+      cvCalculation = (ltvAtIm / 100) * mvCalc;
     }
   }
 
-  const cv =
-    (quantity && ltvCalculation?.ltvAtIm) ||
-    (quantity && override && override?.hasOverride)
-      ? toSetCommaFormatPercentage(String(Math.round(cvCalc)))
-      : "-";
+  const cv = quantity ? String(Math.round(cvCalculation)) : "-";
 
   return [
     {

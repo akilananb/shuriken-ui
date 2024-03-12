@@ -16,7 +16,7 @@ const OverridesForm = ({ errors, touched }) => {
           name="instrumentId"
           value={instrumentField.value.isin}
           onSelectedItem={(value) => instrumentHelpers.setValue(value.isin)}
-          error={instrumentMeta.touched && instrumentMeta.error}
+          error={instrumentMeta.touched}
         />
       </ErrorField>
       <ErrorField
