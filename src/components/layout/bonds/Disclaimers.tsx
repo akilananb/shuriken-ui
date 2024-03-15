@@ -4,8 +4,8 @@ import { DisclaimerProps } from "./types";
 const Disclaimers: React.FC<DisclaimerProps> = (props: DisclaimerProps) => {
   const { disclaimer, title } = props;
   return (
-    <div className="flex flex-col items-start gap-4 flex-1">
-      <BondCards className="w-full h-full" header="Disclaimer">
+    <div className="flex flex-col items-start gap-4 flex-1 mb-4">
+      <BondCards className="w-full h-full" header="Disclaimer and Notes">
         <div className="inline-flex gap-8 items-start justify-center w-full flex-col">
           <div className="flex flex-col gap-2 items-start">
             <div className="nomura-18px-regular text-noumura-grey w-full">

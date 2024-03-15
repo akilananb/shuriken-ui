@@ -245,14 +245,14 @@ export const toOtherInfoData = (result?: LTVCalculationRes): DisplayItem[] => {
       label: "Called Date",
       value: result?.marketData?.calledDt ?? "-",
     },
-    {
-      label: "Defaulted",
-      value: "N",
-    },
-    {
-      label: "Sovereign",
-      value: "N",
-    },
+    // {
+    //   label: "Defaulted",
+    //   value: "N",
+    // },
+    // {
+    //   label: "Sovereign",
+    //   value: "N",
+    // },
   ];
 };
 
@@ -277,16 +277,16 @@ export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
     : ltvCalculation?.ltvAtSl;
   return [
     {
-      label: "At IM",
+      label: "Initial Margin",
       value: `${_ltvAtIm}%`,
       tooltipMsg: _ltvToolTip,
     },
     {
-      label: "At MC",
+      label: "Margin Call",
       value: `${_ltvAtMc}%`,
     },
     {
-      label: "At SL",
+      label: "Stop Loss",
       value: `${_ltvAtSl}%`,
     },
   ];
@@ -323,15 +323,15 @@ export const toSummaryValuesData = (
 
   return [
     {
-      label: "Quantity",
+      label: "Quantity (Face Value)",
       value: quantity ? toCommaSeprated(String(quantity) ?? "") : "-",
     },
     {
-      label: "MV (USD)",
+      label: "Market Value (USD)",
       value: mv,
     },
     {
-      label: "CV (USD)",
+      label: "Collateral Value (USD)",
       value: cv,
     },
   ];

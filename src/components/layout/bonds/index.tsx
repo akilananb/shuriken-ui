@@ -73,7 +73,7 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col bg-white h-full p-16 pt-8 pb-0">
+      <div className="flex flex-col bg-white h-full p-16 pt-8 pb-4">
       <Announcement
           statementClass={"min-w-[550px] !mb-4"}
           data={announcementData}
@@ -85,24 +85,22 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
         />
         <BondsTabs overrideData={toOverrideData(_results)} />
       </div>
-      <div className="search-summary w-full">
-        <div className="inline-flex gap-4 w-full">
-          <DetailVerticalDisplayCard
+      <div className="search-summary w-full bg-nomura-off-white">
+        <div className="flex flex-wrap gap-8 w-full">
+          {/* <DetailVerticalDisplayCard
             title="Summary"
             colSize={6}
             data={toSummaryDetailData(_results)}
             labelClassName="nomura-18px-regular text-noumura-grey"
             valueClassName="nomura-18px-bold text-black"
-          />
-          <div className="w-[31rem] flex flex-col items-start gap-4">
-            <Ltvvalues data={toLTVValuesData(_results)} title="LTV" />
-            <Ltvvalues data={toSummaryValuesData(_results, quantity)} title="Value" />
-          </div>
+          /> */}
+            <Ltvvalues data={toLTVValuesData(_results)} title="LTV" subTitle='Loan-To-Value' className="bg-noumura-light-red " cardValue="1" />
+            <Ltvvalues data={toSummaryValuesData(_results, quantity)} title="Key Metrics" subTitle='' className="bg-nomura-secondary-grey" cardValue="2" />
         </div>
-        <div className="inline-flex gap-4 w-full">
+        <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard
-            title="Other"
-            colSize={8}
+            title="Bond Information"
+            colSize={10}
             data={toOtherInfoData(_results)}
             labelClassName="nomura-14px-regular text-noumura-grey"
             valueClassName="nomura-14px-bold text-black"

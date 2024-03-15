@@ -11,9 +11,9 @@ const DetailVerticalDisplayCard: React.FC<DetailVerticalDisplayCardProps> = (
 
   return (
     <BondCards className="w-full flex-1" header={title}>
-      <div className="w-full content-center items-start gap-4 inline-flex ">
+      <div className="w-full content-center items-start gap-6 inline-flex ">
         {dataChunks.map((chunk, columnIndex) => (
-          <div className="inline-flex content-start gap-4 flex-col flex-1">
+          <div className="inline-flex content-start gap-4 flex-col flex-1 ">
             <div className="flex-col flex items-stretch">
               {chunk.map((item, rowIndex) => {
                 const _valueClass = `${valueClassName} ${
@@ -21,7 +21,7 @@ const DetailVerticalDisplayCard: React.FC<DetailVerticalDisplayCardProps> = (
                 }`;
                 return (
                   <div
-                    className="p-2 inline-flex justify-between items-start"
+                    className="p-2 inline-flex justify-between items-start border-dotted border-b-2 border-noumura-grey"
                     key={`${columnIndex}-${rowIndex}`}
                   >
                     <div className={labelClassName}>{item.label}</div>

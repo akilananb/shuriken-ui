@@ -69,6 +69,9 @@ export interface DetailVerticalDisplayCardProps {
 export interface LTVValueCardProps {
   data: DisplayItem[];
   title: string;
+  subTitle: string;
+  className: string;
+  cardValue: string;
 }
 
 export interface DisclaimerProps {

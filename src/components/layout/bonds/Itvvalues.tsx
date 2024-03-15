@@ -7,23 +7,35 @@ import { BASE_NAME } from "@/config/appConfig";
 const LTVValueCard: React.FC<LTVValueCardProps> = (
   props: LTVValueCardProps
 ) => {
-  const { data, title } = props;
+  const { data, title, subTitle, className, cardValue} = props;
 
   return (
-    <BondCards className="w-full flex-1" header={title}>
-      <div className="inline-flex gap-4 items-start justify-center w-full ">
-        {data.map((item, i) => {
-          const { label, value, tooltipMsg } = item;
-          return (
-            <>
-              <div className="flex-1 p-2 flex-col inline-flex justify-between items-center break-all">
-                <div className="nomura-16px-regular text-noumura-grey w-full">
-                  {label}
-                </div>
-                <div className="inline-flex gap-1 items-center w-full text-black">
-                  <div className="flex-1 nomura-24px-bold text-right ">
-                    {value}
+    <>
+      <div className={`p-6 rounded-2xl border border-nomura-light-grey box-shadow-card flex flex-1 max-w-full ${className}`}>
+        <div className="inline-flex justify-around w-full items-center flex-1  break-all gap-4 max-sm:flex-wrap">
+          <div className="w-[25rem] flex justify-center">
+            <div className="w-[175px]">
+              <div className={" text-50px font-semibold"} style={{wordBreak:"break-word"}}>{title}</div>
+              <div className="text-xl">{subTitle}</div>
+              </div>
+          </div>
+          <div
+            className="mr-5 h-[170px] max-sm:hidden "
+            style={{
+              width: 2,
+              background: "#000",
+            }}
+          />
+          <div className="inline-flex flex-col w-full">
+            {data.map((item, i) => {
+              const { label, value, tooltipMsg } = item;
+              return (
+                <div className={`flex ${i === 0 ? "items-start " : "items-center"} justify-between border-dashed border-b-2 border-noumura-grey p-1`}>
+                  <div className={`nomura-16px-regular text-nomura-dark-grey w-full ${i === 0 && cardValue == '1' ? "font-bold" : ""}`}>
+                    {label}
                   </div>
+                  <div className="inline-flex w-full">
+                  <div className={`${i === 0 && cardValue == "1" ? "text-40px" : "text-32px"} w-full text-right font-semibold`}>{value}</div>
                   {tooltipMsg && (
                     <TooltipComponent tooltipMsg={tooltipMsg}>
                       <Image
@@ -34,22 +46,16 @@ const LTVValueCard: React.FC<LTVValueCardProps> = (
                         className="ms-1"
                       />
                     </TooltipComponent>
-                  )}
+                 )}
+                  </div>
                 </div>
-              </div>
-              <div
-                className="vertical-line"
-                style={{
-                  width: 1,
-                  alignSelf: "stretch",
-                  background: "#F3F3F3",
-                }}
-              />
-            </>
-          );
-        })}
+
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </BondCards>
+    </>
   );
 };
 
