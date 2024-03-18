@@ -1,12 +1,12 @@
 export {};
 declare global {
   interface Number {
-    isNullToDefaultValue(defaultValue: Number): string;
+    isNullToDefaultValue(defaultValue: number): string;
   }
 }
 
 Number.prototype.isNullToDefaultValue = function (
-  defaultValue: Number
+  defaultValue: number
 ): string {
   const num: number | null | undefined = null;
 

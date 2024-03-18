@@ -3,7 +3,7 @@ export {};
 declare global {
   interface String {
     toPublicPath(): string;
-    isNullOrEmpty(): Boolean;
+    isNullOrEmpty(): boolean;
     toNullOrDefault(defaultValue: string): string;
   }
 }

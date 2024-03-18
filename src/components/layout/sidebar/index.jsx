@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import Footer from "./Footer";
-import SideMenu from "./SideMenu";
+import Footer from "@/components/layout/sidebar/Footer";
+import SideMenu from "@/components/layout/sidebar/SideMenu";
 import BrandLogoFull from "@/components/common/brand_logo_full";
 
 const drawerStyle = {

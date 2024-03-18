@@ -1,10 +1,14 @@
-'use client';
+"use client";
+import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
+import { SessionContext } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 import PropTypes from "prop-types";
-import { SearchOutlined, CopyOutlined, SoundOutlined } from "@ant-design/icons";
-import { useRouter } from 'next/navigation';
+import { useContext } from "react";
 
 const SideMenu = ({ onClose }) => {
+  const { session } = useContext(SessionContext);
+
   const router = useRouter();
 
   const items = [
@@ -14,25 +18,25 @@ const SideMenu = ({ onClose }) => {
       label: "LTV Search",
       path: "/",
     },
-    {
+  ];
+
+  session?.roles?.includes("shuriken_admin") &&
+    items.push({
       key: "2",
       icon: <CopyOutlined />,
       label: "Override",
       path: "/overrides",
-    }
-  ];
+    });
 
   const handleClick = ({ key }) => {
     router.push(items[parseInt(key) - 1].path);
-    onClose()
+    onClose();
   };
 
   return (
     <div className="flex items-center h-full justify-center overflow-auto hide-scrollbar">
       <Menu
-        onClick={
-          handleClick
-        }
+        onClick={handleClick}
         defaultSelectedKeys={["1"]}
         mode="inline"
         items={items}
