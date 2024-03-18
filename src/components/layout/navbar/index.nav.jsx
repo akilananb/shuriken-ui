@@ -2,7 +2,6 @@ import { Layout, Button } from "antd";
 import PropTypes from "prop-types";
 import { MenuOutlined, BellOutlined } from "@ant-design/icons";
 const { Header } = Layout;
-import { useNavigate } from "react-router-dom";
 import BrandLogoFull from "@/components/common/brand_logo_full";
 import Link from "next/link";
 
@@ -11,7 +10,6 @@ NavBar.propTypes = {
 };
 
 function NavBar({ showDrawer }) {
-
   return (
     <Header
       data-testid="shuriken-header"
@@ -27,9 +25,7 @@ function NavBar({ showDrawer }) {
         />
         <div className="relative">
           <Link href="/">
-            <div
-              className="bg-nomura-off-white h-16 p-4 w-[120px] flex items-center logo-bannar cursor-pointer"
-            >
+            <div className="bg-nomura-off-white h-16 p-4 w-[120px] flex items-center logo-bannar cursor-pointer">
               <BrandLogoFull />
             </div>
           </Link>

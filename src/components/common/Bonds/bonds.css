@@ -1,53 +1,52 @@
-.search-summary{
-    display: inline-flex;
-padding: 24px 64px 0px 64px;
-align-items: flex-start;
-flex-direction: column;
-gap: 16px;
-flex-shrink: 0;
+.search-summary {
+  display: inline-flex;
+  padding: 24px 64px 0px 64px;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
 }
-.card-title{
-    color: var(--RB-Dark-Grey, #333);
-font-family: Arial;
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-}
-.vertical-line{
-    width:  1px;
-    align-self: stretch;
-    background: #F3F3F3;
-}
-.ltv-tabs{
-  color:  #323232;
-text-align: center;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-display: flex;
-padding: 0px 4px 12px 4px;
-align-items: center;
-gap: 10px;
-align-self: stretch;
-}
-.ltv-tabs.active{
-  color: #D71133;
+.card-title {
+  color: var(--RB-Dark-Grey, #333);
+  font-family: Arial;
+  font-size: 16px;
+  font-style: normal;
   font-weight: 700;
-  border-bottom: 1px solid var(--Nomura-Red, #D71133);
+  line-height: normal;
 }
-.info-warning{
+.vertical-line {
+  width: 1px;
+  align-self: stretch;
+  background: #f3f3f3;
+}
+.ltv-tabs {
+  color: #323232;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   display: flex;
-padding: 2px 8px;
-align-items: center;
-gap: 8px;
-border-radius: 8px;
-background: rgba(215, 17, 51, 0.10);
-align-items: center;
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-color: var(--Nomura-Red, #D71133)
+  padding: 0px 4px 12px 4px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+.ltv-tabs.active {
+  color: #d71133;
+  font-weight: 700;
+  border-bottom: 1px solid var(--Nomura-Red, #d71133);
+}
+.info-warning {
+  display: flex;
+  padding: 2px 8px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: rgba(215, 17, 51, 0.1);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--Nomura-Red, #d71133);
 }

@@ -1,13 +1,11 @@
 import { SearchRes, LTVSearch, CalculationRes } from "@/types/search.types";
-import responseJson from "./sampleResponse.json";
 import { LTVCalculationRes } from "@/types/LTVCalculation";
-import { Response } from "@/_utils/Response";
 
 class SearchService {
   private readonly baseUrl: string;
 
   constructor() {
-    this.baseUrl = process.env.API_BASE_URLL || "";
+    this.baseUrl = process.env.API_BASE_URLL ?? "";
   }
 
   public async fetchSearch(searchKey: string): Promise<SearchRes> {
@@ -26,16 +24,6 @@ class SearchService {
   public async fetchLTVCalculation(
     item?: LTVSearch | null
   ): Promise<CalculationRes> {
-    // const response = await fetch(
-    //   `/shuriken/api/v1/asset_class_query/fetch/ltv?isin=sss`,
-    //   { cache: "no-store" }
-    // );
-
-    // if (!response.ok) {
-    //   throw new Error(`API request failed with status ${response.status}`);
-    // }
-
-    // return response.json();
     const fakeApiCall = new Promise<CalculationRes>((resolve) => {
       setTimeout(() => {
         resolve({
@@ -66,7 +54,7 @@ class SearchService {
       return {} as LTVCalculationRes;
     }
 
-    return  response.json();
+    return response.json();
   }
 }
 

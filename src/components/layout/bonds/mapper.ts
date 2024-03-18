@@ -60,13 +60,30 @@ export const toOverrideData = (result?: LTVCalculationRes): OverrideData => {
 export const toSummaryDetailData = (
   result?: LTVCalculationRes
 ): DisplayItem[] => {
+  const getValueOrDefault = (
+    value: any,
+    defaultValue: string = "-"
+  ): string => {
+    return value !== undefined && value !== null ? value : defaultValue;
+  };
+
+  const getIssueSize = (
+    issueSizeUsd?: number,
+    exchangeRate?: number
+  ): string => {
+    if (issueSizeUsd !== undefined && exchangeRate !== undefined) {
+      const issueSizeMilUSD = issueSizeUsd / 1000000;
+      return `${toCommaSeprated(issueSizeMilUSD)} (USD Mil)`;
+    }
+    return "-";
+  };
+
   return [
     {
       label: "Security Type",
-      value: result?.securityType ?? "-",
+      value: getValueOrDefault(result?.securityType),
       color: "RED",
     },
-
     {
       label: "Last Close Price",
       value: toCommaSeprated(result?.marketData?.pxLast ?? 0),
@@ -77,59 +94,58 @@ export const toSummaryDetailData = (
     },
     {
       label: "S&P / Moody's Issue Rating",
-      value: result?.ltvCalculation?.issueRating ?? "-",
+      value: getValueOrDefault(result?.ltvCalculation?.issueRating),
     },
     {
       label: "S&P / Moody's Issuer Rating",
-      value: result?.ltvCalculation?.issuerRating ?? "-",
+      value: getValueOrDefault(result?.ltvCalculation?.issuerRating),
     },
     {
       label: "Rating Used",
-      value: result?.ltvCalculation?.ratingUsed ?? "-",
+      value: getValueOrDefault(result?.ltvCalculation?.ratingUsed),
     },
     {
       label: "Issuer Name",
-      value: result?.bondDetail?.issuerName ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.issuerName),
     },
     {
       label: "Loss Absorption",
-      value: result?.bondDetail?.lossAbsorption ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.lossAbsorption),
     },
     {
       label: "144A Flag",
-      value: result?.bondDetail?.rule144aFlag ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.rule144aFlag),
     },
     {
       label: "Private Placement",
-      value: result?.bondDetail?.privatePlacementFlag ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.privatePlacementFlag),
     },
     {
       label: "Market Sector",
-      value: result?.bondDetail?.marketSectorDes ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.marketSectorDes),
     },
     {
       label: "Bond Type",
-      value: result?.ltvCalculation?.bondType ?? "-",
+      value: getValueOrDefault(result?.ltvCalculation?.bondType),
     },
     {
       label: "Bond Grade",
-      value: result?.ltvCalculation?.bondGrade ?? "-",
+      value: getValueOrDefault(result?.ltvCalculation?.bondGrade),
     },
     {
       label: "Country Classification",
-      value: result?.ltvCalculation?.countryClassification ?? "-",
+      value: getValueOrDefault(result?.ltvCalculation?.countryClassification),
     },
     {
       label: "Country of Risk",
-      value: result?.bondDetail?.countryOfRisk ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.countryOfRisk),
     },
     {
       label: "Issue Size",
-      value: `${toCommaSeprated(
-        result?.ltvCalculation?.issueSizeUsd && result?.marketData?.exchangeRate
-          ? result.ltvCalculation.issueSizeUsd / 1000000
-          : "-"
-      )} (USD Mil)`,
+      value: getIssueSize(
+        result?.ltvCalculation?.issueSizeUsd,
+        result?.marketData?.exchangeRate
+      ),
     },
     {
       label: "Spread",
@@ -138,12 +154,18 @@ export const toSummaryDetailData = (
 
     {
       label: "Coupon Type",
-      value: result?.bondDetail?.cpnTyp ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.cpnTyp),
     },
   ];
 };
 
 export const toOtherInfoData = (result?: LTVCalculationRes): DisplayItem[] => {
+  const getValueOrDefault = (
+    value: any,
+    defaultValue: string = "-"
+  ): string => {
+    return value !== undefined && value !== null ? value : defaultValue;
+  };
   return [
     {
       label: "Exchange Rate",
@@ -157,7 +179,7 @@ export const toOtherInfoData = (result?: LTVCalculationRes): DisplayItem[] => {
     },
     {
       label: "Maturity Type",
-      value: result?.bondDetail?.mtyTyp ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.mtyTyp),
     },
     {
       label: "Subordinated",
@@ -181,69 +203,79 @@ export const toOtherInfoData = (result?: LTVCalculationRes): DisplayItem[] => {
     },
     {
       label: "Industry Sector",
-      value: result?.bondDetail?.industrySectorCode ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.industrySectorCode),
     },
     {
       label: "Industry Group",
-      value: result?.bondDetail?.industryGroupCode ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.industryGroupCode),
     },
     {
       label: "Guarantor Ticker",
-      value: `${result?.bondDetail?.guarantor?.ticker ?? "-"} ${
-        result?.bondDetail?.guarantor?.exchange ?? "-"
-      }`,
+      value: `${getValueOrDefault(
+        result?.bondDetail?.guarantor?.ticker
+      )} ${getValueOrDefault(result?.bondDetail?.guarantor?.exchange)}`,
     },
     {
       label: "Issuer Parent Ticker",
-      value: `${result?.bondDetail?.issueParent?.ticker ?? "-"} ${
-        result?.bondDetail?.issueParent?.exchange ?? "-"
-      }`,
+      value: `${getValueOrDefault(
+        result?.bondDetail?.issueParent?.ticker
+      )} ${getValueOrDefault(result?.bondDetail?.issueParent?.exchange)}`,
     },
     {
       label: "Ultimate Parent Ticker",
-      value: `${result?.bondDetail?.ultimateIssuerParent?.ticker ?? "-"} ${
-        result?.bondDetail?.ultimateIssuerParent?.exchange ?? "-"
-      }`,
+      value: `${getValueOrDefault(
+        result?.bondDetail?.ultimateIssuerParent?.ticker
+      )} ${getValueOrDefault(
+        result?.bondDetail?.ultimateIssuerParent?.exchange
+      )}`,
     },
     {
       label: "Moody's Rating (Ultimate Parent)",
-      value:
-        result?.bondDetail?.ultimateIssuerParent?.rating?.rtgMoodyLongTerm ??
-        "-",
+      value: getValueOrDefault(
+        result?.bondDetail?.ultimateIssuerParent?.rating?.rtgMoodyLongTerm
+      ),
     },
     {
       label: "S&P Rating (Ultimate Parent)",
-      value:
-        result?.bondDetail?.ultimateIssuerParent?.rating?.rtgSpIssuerCredit ??
-        "-",
+      value: getValueOrDefault(
+        result?.bondDetail?.ultimateIssuerParent?.rating?.rtgSpIssuerCredit
+      ),
     },
     {
       label: "Moody’s Rating (Issue)",
-      value: result?.bondDetail?.issueRating.rtgMoody ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.issueRating.rtgMoody),
     },
     {
       label: "S&P Rating (Issue)",
-      value: result?.bondDetail?.issueRating.rtgSp ?? "-",
+      value: getValueOrDefault(result?.bondDetail?.issueRating.rtgSp),
     },
     {
       label: "Moody’s Rating (Issuer Parent)",
-      value: result?.bondDetail?.issueParent?.rating?.rtgMoodyLongTerm ?? "-",
+      value: getValueOrDefault(
+        result?.bondDetail?.issueParent?.rating?.rtgMoodyLongTerm
+      ),
     },
     {
       label: "S&P Rating (Issuer Parent)",
-      value: result?.bondDetail?.issueParent?.rating?.rtgSpIssuerCredit ?? "-",
+      value: getValueOrDefault(
+        result?.bondDetail?.issueParent?.rating?.rtgSpIssuerCredit
+      ),
     },
     {
       label: "Moody’s Rating (Guarantor)",
-      value: result?.bondDetail?.guarantor?.rating?.rtgMoodyLongTerm ?? "-",
+      value: getValueOrDefault(
+        result?.bondDetail?.guarantor?.rating?.rtgMoodyLongTerm
+      ),
     },
     {
       label: "S&P Rating (Guarantor)",
-      value: result?.bondDetail?.guarantor?.rating?.rtgSpIssuerCredit ?? "-",
+      value: getValueOrDefault(
+        result?.bondDetail?.guarantor?.rating?.rtgSpIssuerCredit
+      ),
     },
     {
       label: "Called Date",
-      value: result?.marketData?.calledDt ?? "-",
+      value: getValueOrDefault(result?.marketData?.calledDt),
     },
     // {
     //   label: "Defaulted",
