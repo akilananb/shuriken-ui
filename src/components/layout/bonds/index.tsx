@@ -15,8 +15,8 @@ import {
   toDisclaimerData,
   toHeaderData,
   toLTVValuesData,
-  toOtherInfoData,
   toOverrideData,
+  toSummaryDetailData,
   toSummaryValuesData,
 } from "./mapper";
 import BondsTabs from "./Bonds_tabs";
@@ -84,13 +84,6 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
       </div>
       <div className="search-summary w-full bg-nomura-off-white">
         <div className="flex flex-wrap gap-8 w-full">
-          {/* <DetailVerticalDisplayCard
-            title="Summary"
-            colSize={6}
-            data={toSummaryDetailData(_results)}
-            labelClassName="nomura-18px-regular text-noumura-grey"
-            valueClassName="nomura-18px-bold text-black"
-          /> */}
           <Ltvvalues
             data={toLTVValuesData(_results)}
             title="LTV"
@@ -109,8 +102,8 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
         <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard
             title="Bond Information"
-            colSize={10}
-            data={toOtherInfoData(_results)}
+            colSize={15}
+            data={toSummaryDetailData(_results)}
             labelClassName="nomura-14px-regular text-noumura-grey"
             valueClassName="nomura-14px-bold text-black"
           />

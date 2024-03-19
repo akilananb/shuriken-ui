@@ -15,8 +15,8 @@ interface LtvCalculation {
   ltvAtSl: number;
   override: Override;
   financingEligibility: FinancingEligibility;
-  issueRating: string;
-  issuerRating: string;
+  issueRating: IssueRating;
+  issuerRating: IssuerRating;
   ratingUsed: string;
   indicativeLtv1AdjMade: string[];
   indicativeLtv2AdjMade: string[];
@@ -27,6 +27,7 @@ interface LtvCalculation {
   issueSizeUsd: number;
   spread: number;
   disclaimer: string;
+  isPerpetual:boolean;
 }
 interface LtvCaps {
   isCapApplied: boolean;
@@ -82,7 +83,7 @@ interface BondDetail {
   guarantor: BaseSecurityDetails;
   ultimateIssuerParent: BaseSecurityDetails;
   issueParent: BaseSecurityDetails;
-  issueRating: IssueRating;
+  // issueRating: IssueRating;
 }
 interface MarketData {
   exchangeRate: number;
@@ -94,9 +95,13 @@ interface MarketData {
   marketCloseDate: string;
 }
 interface IssueRating {
-  rtgSp: string;
-  rtgMoody: string;
-  calledDt: string;
+  snp: string;
+  moodys: string;
+  // calledDt: string;
+}
+interface IssuerRating {
+  snp: string;
+  moodys: string;
 }
 interface BaseRating {
   rtgSpIssuerCredit: string;
