@@ -7,7 +7,6 @@ import {
 } from "./types";
 import {
   toCommaSeprated,
-  toSetCommaFormat,
   toSetCommaFormatPercentage,
 } from "@/_utils/stringUtils";
 import { getDifferenceInYears } from "@/_utils/dateUtils";
@@ -326,7 +325,7 @@ export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
 
 export const toSummaryValuesData = (
   result?: LTVCalculationRes,
-  quantity?: Number
+  quantity?: number
 ): DisplayItem[] => {
   const ltvCalculation = result?.ltvCalculation;
   const override = ltvCalculation?.override;

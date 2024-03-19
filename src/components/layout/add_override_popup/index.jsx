@@ -29,7 +29,7 @@ const AddOverridePopup = ({ onChange }) => {
     setCommonError(null);
   }, [isModalOpen]);
   function validateBE({ errors }) {
-    const { field, defaultMessage } = errors[0];
+    const { defaultMessage } = errors[0];
 
     setCommonError(defaultMessage);
   }
@@ -58,12 +58,13 @@ const AddOverridePopup = ({ onChange }) => {
         closeModal();
       }
     } catch (error) {
-      console.error("Error:", error.message);
       setCommonError("Oops! Something went wrong");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const overrideCondition = true;
 
   return (
     <>
@@ -81,7 +82,7 @@ const AddOverridePopup = ({ onChange }) => {
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
-        title={"overrides" ? "Add Override" : "Add Note"}
+        title={overrideCondition ? "Add Override" : "Add Note"}
       >
         <div className="min-w-[600px] m-20 ">
           <Formik

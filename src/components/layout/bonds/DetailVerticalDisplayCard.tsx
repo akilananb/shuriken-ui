@@ -13,7 +13,10 @@ const DetailVerticalDisplayCard: React.FC<DetailVerticalDisplayCardProps> = (
     <BondCards className="w-full flex-1" header={title}>
       <div className="w-full content-center items-start gap-6 inline-flex ">
         {dataChunks.map((chunk, columnIndex) => (
-          <div className="inline-flex content-start gap-4 flex-col flex-1 ">
+          <div
+            key={columnIndex}
+            className="inline-flex content-start gap-4 flex-col flex-1 "
+          >
             <div className="flex-col flex items-stretch">
               {chunk.map((item, rowIndex) => {
                 const _valueClass = `${valueClassName} ${

@@ -43,10 +43,14 @@ class SearchService {
 
   public async fetchLTVCalculationDetail(
     isin: string,
-    quantity: Number
+    quantity: number
   ): Promise<LTVCalculationRes> {
     const response = await fetch(
-      `${process.env.API_BASE_URL}/api/v1/asset_class_query/ltv/bond?isin=${isin}${quantity.valueOf() > 0 ? "&quantity=" + quantity : ""}`,
+      `${
+        process.env.API_BASE_URL
+      }/api/v1/asset_class_query/ltv/bond?isin=${isin}${
+        quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
+      }`,
       { cache: "no-store" }
     );
 

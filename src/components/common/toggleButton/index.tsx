@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { AntSwitch } from "./style";
 import { ToggleButtonProps } from "./types";
 
@@ -11,7 +11,7 @@ export default function ToggleButton(props: ToggleButtonProps) {
       <AntSwitch
         checked={_isChecked}
         inputProps={{ "aria-label": "ant design" }}
-        onChange={(e, c) => {
+        onChange={() => {
           setChecked(!_isChecked);
           onCheckListener?.(!_isChecked);
         }}

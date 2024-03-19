@@ -17,7 +17,6 @@ import {
   toLTVValuesData,
   toOtherInfoData,
   toOverrideData,
-  toSummaryDetailData,
   toSummaryValuesData,
 } from "./mapper";
 import BondsTabs from "./Bonds_tabs";
@@ -64,9 +63,7 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
           width="50"
           height="50"
         />
-        <p className="text-gray-600 mt-2 text-lg p-2">
-          No Results Found!
-        </p>
+        <p className="text-gray-600 mt-2 text-lg p-2">No Results Found!</p>
       </div>
     );
   }
@@ -74,7 +71,7 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col bg-white h-full p-16 pt-8 pb-4">
-      <Announcement
+        <Announcement
           statementClass={"min-w-[550px] !mb-4"}
           data={announcementData}
         />
@@ -94,8 +91,20 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
             labelClassName="nomura-18px-regular text-noumura-grey"
             valueClassName="nomura-18px-bold text-black"
           /> */}
-            <Ltvvalues data={toLTVValuesData(_results)} title="LTV" subTitle='Loan-To-Value' className="bg-noumura-light-red " cardValue="1" />
-            <Ltvvalues data={toSummaryValuesData(_results, quantity)} title="Key Metrics" subTitle='' className="bg-nomura-secondary-grey" cardValue="2" />
+          <Ltvvalues
+            data={toLTVValuesData(_results)}
+            title="LTV"
+            subTitle="Loan-To-Value"
+            className="bg-noumura-light-red "
+            cardValue="1"
+          />
+          <Ltvvalues
+            data={toSummaryValuesData(_results, quantity)}
+            title="Key Metrics"
+            subTitle=""
+            className="bg-nomura-secondary-grey"
+            cardValue="2"
+          />
         </div>
         <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard

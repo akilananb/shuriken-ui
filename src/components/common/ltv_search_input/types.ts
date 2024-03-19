@@ -9,7 +9,6 @@ export type NoDataFoundOption =
 
 import { BaseElementAttributes } from "@/_utils/base";
 import { CalculationRes, LTVSearch } from "@/services/search_services";
-import { HTMLAttributes } from "react";
 
 export interface LTVCalculationViewProps extends BaseElementAttributes {
   loading: LTVCalculationTypes;

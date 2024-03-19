@@ -23,7 +23,7 @@ import {
 const SearchComponent: React.FC<LTVSearchInputProps> = (
   props: LTVSearchInputProps
 ) => {
-  const autocompleteRef = useRef<any>(null);
+  const autocompleteRef = useRef<HTMLInputElement>(null);
 
   const { onSelectedItem, className, value } = props;
   const [searchTerm, setSearchTerm] = useState("");
@@ -69,15 +69,15 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     }
   };
 
-  const performCalculation = async () => {
-    if (searchTerm && searchTerm.trim().length >= 3) {
-      setLTVCalculationResult(new Response().applyLoader("LOADING"));
+  // const performCalculation = async () => {
+  //   if (searchTerm && searchTerm.trim().length >= 3) {
+  //     setLTVCalculationResult(new Response().applyLoader("LOADING"));
 
-      const result = await searchService.fetchLTVCalculation(selectedItem);
+  //     const result = await searchService.fetchLTVCalculation(selectedItem);
 
-      setLTVCalculationResult(new Response(result).applyLoader("LOADED"));
-    }
-  };
+  //     setLTVCalculationResult(new Response(result).applyLoader("LOADED"));
+  //   }
+  // };
 
   useEffect(() => {
     if (value) {
@@ -100,7 +100,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     // onSelectedItem?.(null);
     setLTVCalculationResult(new Response().applyLoader("UNKNOWN"));
   };
-  const onClick = (event) => {
+  const onClick = (_event) => {
     clearAll();
   };
 
@@ -121,23 +121,25 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     option: LTVSearch,
     state: AutocompleteRenderOptionState
   ) => {
-    const { index, inputValue, selected } = state;
+    const { index, inputValue } = state;
 
     const regex = new RegExp(`(${inputValue.replace(/\s+/g, "\\s+")})`, "gi");
 
     return (
       <div {...props} key={index}>
         <div className="w-full flex flex-row">
-          {(option.isin ?? "")
-            .split(regex)
-            .map((part, index) =>
-              regex.test(part) ? (
-                <div className="text-lg text-nomura-dark-grey">{part}</div>
-              ) : (
-                <div className="text-lg text-nomura-off-grey">{part}</div>
-              )
-            )}
-          <div className="text-lg pl-4 text-nomura-dark-grey">
+          {(option.isin ?? "").split(regex).map((part, index) =>
+            regex.test(part) ? (
+              <div key={index} className="text-lg text-nomura-dark-grey">
+                {part}
+              </div>
+            ) : (
+              <div key={index} className="text-lg text-nomura-off-grey">
+                {part}
+              </div>
+            )
+          )}
+          <div key={index} className="text-lg pl-4 text-nomura-dark-grey">
             {option.securityName}
           </div>
         </div>
@@ -236,7 +238,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
             {renderNoMatchOption()}
           </Typography>
         }
-        filterOptions={(options, { inputValue }) => options}
+        filterOptions={(options) => options}
         className={className}
       />
     </>

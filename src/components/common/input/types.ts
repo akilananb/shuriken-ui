@@ -1,5 +1,4 @@
 import { BaseElementAttributes } from "@/_utils/base";
-import { HTMLAttributes } from "react";
 
 export type InputType = "NUMBER_WITH_COMMA";
 export interface BaseInputProps extends BaseElementAttributes {

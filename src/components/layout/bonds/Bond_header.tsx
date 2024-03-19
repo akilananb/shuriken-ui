@@ -1,6 +1,5 @@
 import Image from "next/image";
 import BackButton from "../../common/button/BackButton";
-import BondsTabs from "./Bonds_tabs";
 import { BASE_NAME } from "@/config/appConfig";
 import SearchView from "@/components/layout/bonds/searchView";
 import { HeaderProps } from "./types";

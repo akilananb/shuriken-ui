@@ -3,14 +3,14 @@ import { LTVCalculationRes } from "@/types/LTVCalculation";
 export interface BondsProps {
   isin?: string;
   securityType?: string;
-  quantity?: Number;
+  quantity?: number;
 }
 
-export interface SearchInput{
+export interface SearchInput {
   isin: string;
-  quantity: Number;
+  quantity: number;
 }
-export interface MutiSearchInput{
+export interface MutiSearchInput {
   searchInput: SearchInput[];
 }
 
@@ -78,4 +78,3 @@ export interface DisclaimerProps {
   title: string;
   disclaimer: DisplayListItem;
 }
-
