@@ -15,6 +15,14 @@ export default function SearchView() {
     else return `primary-button-disable`;
   };
 
+  const isin = selectedItem?.isin;
+  const securityType = selectedItem?.securityType;
+  const quantityParam = ![null, ""].includes(quantity)
+    ? `&quantity=${quantity}`
+    : "";
+
+  const href = `/bonds?isin=${isin}&securityType=${securityType}${quantityParam}`;
+
   return (
     <div className="flex flex-col gap-8 bg-white h-full justify-center items-center">
       <div className="flex gap-2  self-streach relative">
@@ -37,12 +45,7 @@ export default function SearchView() {
 
       <ToggleButton title="Multiple Security Search" />
       <div>
-        <Link
-          href={`/bonds?isin=${selectedItem?.isin}&securityType=${
-            selectedItem?.securityType
-          }${![null, ""].includes(quantity) ? `&quantity=${quantity}` : ""}`}
-          className={classValue()}
-        >
+        <Link href={href} className={classValue()}>
           Search
         </Link>
       </div>

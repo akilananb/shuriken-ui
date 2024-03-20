@@ -26,6 +26,14 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
     }
   };
 
+  const quantityParam = ![null, ""].includes(_quantity)
+    ? `&quantity=${_quantity}`
+    : "";
+
+  const href = `/bonds?isin=${selectedItem?.isin || isin}&securityType=${
+    selectedItem?.securityType || securityType
+  }${quantityParam}`;
+
   return (
     <div className="flex gap-2 w-1/2">
       <LTVSearchInput
@@ -44,13 +52,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
           setQuantity(value);
         }}
       />
-      <Link
-        href={`/bonds?isin=${selectedItem?.isin || isin}&securityType=${
-          selectedItem?.securityType || securityType
-        }${![null, ""].includes(_quantity) ? `&quantity=${_quantity}` : ""}`}
-        className={classValue()}
-        replace
-      >
+      <Link href={href} className={classValue()} replace>
         Update
       </Link>
     </div>
