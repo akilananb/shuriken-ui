@@ -48,7 +48,7 @@ class SearchService {
     const response = await fetch(
       `${
         process.env.API_BASE_URL
-      }/api/v1/asset_class_query/ltv/bond?isin=${isin}${
+      }/shuriken/asset_query-svc/api/v1/asset_class_query/ltv/bond?isin=${isin}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }`,
       { cache: "no-store" }
