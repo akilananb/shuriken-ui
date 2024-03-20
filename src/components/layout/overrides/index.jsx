@@ -13,7 +13,6 @@ export async function getOverrideIntialData() {
 
     return {
       overrideData: await tableResponse.json(),
-      announcementData,
     };
   } catch (error) {
     return {

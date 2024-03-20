@@ -1,20 +1,23 @@
-import { Avatar } from "antd";
+import Avatar from "@mui/material/Avatar";
 import { useContext } from "react";
-import { UserOutlined } from "@ant-design/icons";
-import { SessionContext } from '@/context/AuthContext';
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { SessionContext } from "@/context/AuthContext";
 
 function Footer() {
   const { session } = useContext(SessionContext);
-  
+
   return (
     <div>
       <div className="px-4 py-3">
         <div className="flex gap-2">
-          <Avatar size={40} icon={<UserOutlined />} />
+          <Avatar size={40} icon={<PersonOutlineIcon />} />
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-gray-900"> {session?.commonName}</span>
+            <span className="text-sm font-bold text-gray-900">
+              {" "}
+              {session?.commonName}
+            </span>
             <span className="text-xs font-normal text-gray-400">
-             {session?.roles?.map(role => role).join(', ')}
+              {session?.roles?.map((role) => role).join(", ")}
             </span>
           </div>
         </div>

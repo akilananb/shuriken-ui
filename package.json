@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ant-design/nextjs-registry": "^1.0.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -17,7 +16,6 @@
     "@mui/material": "^5.15.3",
     "@mui/material-nextjs": "^5.15.9",
     "@mui/system": "^5.15.6",
-    "antd": "^5.11.5",
     "build": "^0.1.4",
     "formik": "^2.4.5",
     "next": "14.0.4",

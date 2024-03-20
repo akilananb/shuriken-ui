@@ -1,38 +1,49 @@
 import PropTypes from "prop-types";
-import { Drawer } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import Drawer from "@mui/material/Drawer";
+import CloseIcon from "@mui/icons-material/Close";
 import Footer from "@/components/layout/sidebar/Footer";
 import SideMenu from "@/components/layout/sidebar/SideMenu";
 import BrandLogoFull from "@/components/common/brand_logo_full";
+import { Divider } from "@mui/material";
 
-const drawerStyle = {
-  header: "flex !pb-4 !px-0 !pt-0 items-center gap-[106px] self-stretch",
-  content: "pt-8 px-4 pb-0",
-  body: "!p-0",
+const SideBar = ({ open, onClose }) => {
+  const drawerWidth = 352;
+
+  const handleDrawerClose = () => {
+    onClose();
+  };
+
+  return (
+    <Drawer
+      open={open}
+      onClose={handleDrawerClose}
+      anchor="left"
+      variant="persistent"
+      id="shuriken-sidebar"
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          boxSizing: "border-box",
+        },
+      }}
+    >
+      <div className="flex flex-col h-full p-4">
+        <div className="flex items-center justify-between">
+          <BrandLogoFull className="brand-logo-sidebar mt-3.5 w-[88] h-[16]" />
+          <CloseIcon sx={{ cursor: "pointer" }} onClick={handleDrawerClose} />
+        </div>
+        <Divider />
+        <div className="flex-grow">
+          <SideMenu onClose={handleDrawerClose} />
+        </div>
+        <Divider />
+        <Footer />
+      </div>
+    </Drawer>
+  );
 };
-
-const SideBar = ({ open, onClose }) => (
-  <Drawer
-    id="shuriken-sidebar"
-    width={352}
-    title={<BrandLogoFull className="brand-logo-sidebar" />}
-    placement="left"
-    extra={
-      <CloseOutlined
-        className="absolute top-4 right-4"
-        width={24}
-        height={24}
-        onClick={onClose}
-      />
-    }
-    open={open}
-    closable={false}
-    classNames={drawerStyle}
-    footer={<Footer />}
-  >
-    <SideMenu onClose={onClose} />
-  </Drawer>
-);
 
 SideBar.propTypes = {
   open: PropTypes.bool.isRequired,

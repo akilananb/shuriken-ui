@@ -1,10 +1,15 @@
 "use client";
-import { CopyOutlined, SearchOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
+import List from "@mui/material/List";
 import { SessionContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import PropTypes from "prop-types";
 import { useContext } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { ListItemButton } from "@mui/material";
 
 const SideMenu = ({ onClose }) => {
   const { session } = useContext(SessionContext);
@@ -14,7 +19,7 @@ const SideMenu = ({ onClose }) => {
   const items = [
     {
       key: "1",
-      icon: <SearchOutlined />,
+      icon: <SearchIcon />,
       label: "LTV Search",
       path: "/",
     },
@@ -23,25 +28,29 @@ const SideMenu = ({ onClose }) => {
   session?.roles?.includes("shuriken_admin") &&
     items.push({
       key: "2",
-      icon: <CopyOutlined />,
+      icon: <ContentCopyIcon />,
       label: "Override",
       path: "/overrides",
     });
 
-  const handleClick = ({ key }) => {
+  function handleClick(key) {
+    console.log(key);
     router.push(items[parseInt(key) - 1].path);
     onClose();
-  };
+  }
 
   return (
     <div className="flex items-center h-full justify-center overflow-auto hide-scrollbar">
-      <Menu
-        onClick={handleClick}
-        defaultSelectedKeys={["1"]}
-        mode="inline"
-        items={items}
-        className="!items-center !self-sttretch !px-4 !p-3 !border-none !justify-around w-80"
-      />
+      <List className="!items-center !self-sttretch !px-4 !p-3 !border-none !justify-around w-80">
+        {items.map((item) => (
+          <ListItem key={item.key} onClick={() => handleClick(item.key)}>
+            <ListItemButton selected={item.key === "1"}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
     </div>
   );
 };
