@@ -63,7 +63,7 @@ export const toSummaryDetailData = (
   return [
     {
       label: "Maturity date",
-      value: result?.ltvCalculation?.isPerpetual === true ? "Perpetual" : getDifferenceInYears(result?.bondDetail?.maturityDate ?? ""),
+      value: result?.ltvCalculation?.isPerpetual === true ? "Perpetual" : result?.bondDetail?.maturityDate ?? "",
     },
     {
       label: "Maturity Type",
@@ -71,11 +71,12 @@ export const toSummaryDetailData = (
     },
     {
       label: "Issue Rating (S&P / Moody's)",
-      value: `${result?.ltvCalculation?.issueRating?.snp ?? "AA"} / ${result?.ltvCalculation?.issueRating?.moodys ?? "-"}`,
+      value: `${(result?.ltvCalculation?.issueRating?.snp !== "" && result?.ltvCalculation?.issueRating?.snp !== undefined) ? result?.ltvCalculation?.issueRating?.snp : "Unrated"} /
+      ${(result?.ltvCalculation?.issueRating?.moodys !== "" && result?.ltvCalculation?.issueRating?.moodys !== undefined) ? result?.ltvCalculation?.issueRating?.moodys : "Unrated"}`,
     },
     {
       label: "Issuer Rating (S&P / Moody's)",
-      value: `${result?.ltvCalculation?.issuerRating?.snp ?? "AA"} / ${result?.ltvCalculation?.issuerRating?.moodys ?? "-"}`,
+      value: `${result?.ltvCalculation?.issuerRating?.snp !== "" && result?.ltvCalculation?.issuerRating?.snp !== undefined ? result?.ltvCalculation?.issuerRating?.snp : "Unrated"} / ${result?.ltvCalculation?.issuerRating?.moodys !== "" && result?.ltvCalculation?.issuerRating?.moodys !== undefined ? result?.ltvCalculation?.issuerRating?.moodys : "Unrated"}`,
     },
     {
       label: "Subordinated",
@@ -179,18 +180,15 @@ export const toSummaryDetailData = (
     },
     {
       label: "Guarantor Ticker",
-      value: `${result?.bondDetail?.guarantor?.ticker ?? "-"} ${result?.bondDetail?.guarantor?.exchange ?? "-"
-        }`,
+      value: `${result?.bondDetail?.guarantor?.ticker ?? "-"}`,
     },
     {
       label: "Issuer Parent Ticker",
-      value: `${result?.bondDetail?.issueParent?.ticker ?? "-"} ${result?.bondDetail?.issueParent?.exchange ?? "-"
-        }`,
+      value: `${result?.bondDetail?.issueParent?.ticker ?? "-"}`,
     },
     {
       label: "Ultimate Parent Ticker",
-      value: `${result?.bondDetail?.ultimateIssuerParent?.ticker ?? "-"} ${result?.bondDetail?.ultimateIssuerParent?.exchange ?? "-"
-        }`,
+      value: `${result?.bondDetail?.ultimateIssuerParent?.ticker ?? "-"}`,
     },
     {
       label: "Defaulted",
