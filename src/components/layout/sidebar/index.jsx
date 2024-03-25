@@ -30,11 +30,13 @@ const SideBar = ({ open, onClose }) => {
       }}
     >
       <div className="flex flex-col h-full p-4">
-        <div className="flex items-center justify-between">
-          <BrandLogoFull className="brand-logo-sidebar mt-3.5 w-[88] h-[16]" />
+        <div className="flex justify-end">
           <CloseIcon sx={{ cursor: "pointer" }} onClick={handleDrawerClose} />
         </div>
-        <Divider />
+        <div className="flex">
+          <BrandLogoFull className="brand-logo-sidebar mt-3.5 w-[88] h-[16]" />
+        </div>
+        <Divider sx={{ marginTop: "16px" }} />
         <div className="flex-grow">
           <SideMenu onClose={handleDrawerClose} />
         </div>
