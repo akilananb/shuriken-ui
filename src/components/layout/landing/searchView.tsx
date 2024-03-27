@@ -5,8 +5,10 @@ import Link from "next/link";
 import ToggleButton from "@/components/common/toggleButton";
 import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function SearchView() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [quantity, setQuantity] = useState<string>("");
 
@@ -44,9 +46,23 @@ export default function SearchView() {
       </div>
 
       <ToggleButton title="Multiple Security Search" />
-      <div>
-        <Link href={href} className={classValue()}>
-          Search
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Link
+          href={href}
+          className={classValue()}
+          onClick={() => setLoading(true)}
+        >
+          {loading ? (
+            <CircularProgress thickness={4} size={25} sx={{ color: "white" }} />
+          ) : (
+            "Search"
+          )}
         </Link>
       </div>
     </div>
