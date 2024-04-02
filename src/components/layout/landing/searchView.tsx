@@ -34,6 +34,7 @@ export default function SearchView() {
           onSelectedItem={(selectedItem) => {
             setSelectedItem(selectedItem);
           }}
+          quantity={quantity}
         />
         <InputComponent
           className="w-[167px] "
@@ -42,6 +43,7 @@ export default function SearchView() {
           onChangeListener={(value) => {
             setQuantity(value);
           }}
+          selectedItem={{isin:isin , securityType:securityType}}
         />
       </div>
 

@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { toRemoveCommaFormat, toSetCommaFormat } from "@/_utils/stringUtils";
 import TooltipComponent from "../tooltip";
+import { useRouter } from "next/navigation";
 
 const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
-  const { onChangeListener, value, placeholder, className, ...rest } = props;
+  const { onChangeListener, value, placeholder, className,selectedItem, ...rest } = props;
   const [numberValue, setNumberValue] = useState("");
+  const router = useRouter()
 
   useEffect(() => {
     if (value) {
@@ -19,6 +21,16 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
     setNumberValue(toSetCommaFormat(event.target.value));
     onChangeListener?.(toRemoveCommaFormat(event.target.value));
   };
+
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if(selectedItem?.isin !== undefined && selectedItem?.securityType !== undefined){
+        router.push(`/bonds?isin=${selectedItem?.isin}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`)
+      }
+    }
+  }
 
   return (
     <div className={className}>
@@ -38,6 +50,7 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
               },
             },
           }}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           variant="outlined"
           value={numberValue}

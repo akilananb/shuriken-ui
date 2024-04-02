@@ -20,17 +20,19 @@ import {
   LTVSearchInputProps,
   NoDataFoundOption,
 } from "./types";
+import { useRouter } from "next/navigation";
 const SearchComponent: React.FC<LTVSearchInputProps> = (
   props: LTVSearchInputProps
 ) => {
   const autocompleteRef = useRef<HTMLInputElement>(null);
-
-  const { onSelectedItem, className, value } = props;
+  const router = useRouter()
+  const { onSelectedItem, className, value , quantity } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(value);
   const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
     new Response().applyLoader("UNKNOWN")
   );
+  const [openAutocomplete, setOpenAutocomplete] = useState(false);
   const [ltvCalculationResult, setLTVCalculationResult] = useState<
     Response<CalculationRes>
   >(new Response().applyLoader("UNKNOWN"));
@@ -93,6 +95,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 
   const deBounceOnChangeListener = debounce((event) => {
     setSearchTerm(event.target.value);
+    setOpenAutocomplete(true)
   }, 400 ?? 0);
 
   const clearAll = () => {
@@ -113,7 +116,26 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
     }
     onSelectedItem?.(selectedValue);
     setSelectedItem(selectedValue);
+    setOpenAutocomplete(false)
     // performCalculation(); //TODO Hide the calcuation logic in relese 1
+  };
+  const quantityParam = ![null, "",undefined].includes(quantity)
+    ? `&quantity=${quantity}`
+    : "";
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      // Check if the entered value matches an option exactly
+      const matchedOption = searchResults.getResponse()?.find(option =>
+        option.isin === searchTerm.trim() || (selectedItem && option.isin === selectedItem.isin)
+      );
+      if (matchedOption) {
+        onSelectedItem?.(matchedOption);
+        setOpenAutocomplete(false)
+        router.push(`/bonds?isin=${matchedOption?.isin}&securityType=${matchedOption?.securityType}${quantityParam}`)
+      }
+    }
   };
 
   const renderOption = (
@@ -183,6 +205,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   return (
     <>
       <Autocomplete
+      open={openAutocomplete}
         ref={autocompleteRef}
         value={selectedItem || value}
         id="search-autocomplete"
@@ -191,6 +214,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
         groupBy={(option) => option.securityType}
         getOptionLabel={(option) => option.isin || value}
         onChange={handleSearchSelect}
+        onKeyDown={handleKeyDown}
         sx={{
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
