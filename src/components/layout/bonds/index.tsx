@@ -65,19 +65,17 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
   ) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-        {code === errorCode ? null : (
-          <Image
-            src={`${BASE_NAME}/static/images/NoResults.png`}
-            alt="no data"
-            width="50"
-            height="50"
-          />
-        )}
+        <Image
+          src={`${BASE_NAME}/static/images/NoResults.png`}
+          alt="no data"
+          width="50"
+          height="50"
+        />
         {code === errorCode ? (
           <>
             <p className="text-gray-600 mt-2 text-lg p-2">
-              We are currently processing LTV request pls try again after
-              sometime.
+              We are currently processing your LTV request. Please try again
+              later.
             </p>
           </>
         ) : (
