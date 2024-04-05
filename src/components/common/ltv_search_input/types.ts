@@ -19,4 +19,5 @@ export interface LTVSearchInputProps extends BaseElementAttributes {
   value;
   onSelectedItem?: (selectedItem: LTVSearch | null) => void;
   quantity:string;
+  isUpdate:boolean
 }

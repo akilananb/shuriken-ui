@@ -7,7 +7,7 @@ import TooltipComponent from "../tooltip";
 import { useRouter } from "next/navigation";
 
 const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
-  const { onChangeListener, value, placeholder, className,selectedItem, ...rest } = props;
+  const { onChangeListener, value, placeholder, className,selectedItem,isUpdate , ...rest } = props;
   const [numberValue, setNumberValue] = useState("");
   const router = useRouter()
 
@@ -27,7 +27,12 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if(selectedItem?.isin !== undefined && selectedItem?.securityType !== undefined){
-        router.push(`/bonds?isin=${selectedItem?.isin}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`)
+        if(isUpdate){
+          router.push(`/bonds?isin=${selectedItem?.isin}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`)
+        }else{
+          const url = `/shuriken/bonds?isin=${selectedItem?.isin}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`;
+          window.open(url, '_blank')
+        }
       }
     }
   }

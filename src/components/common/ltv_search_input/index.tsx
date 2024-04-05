@@ -21,12 +21,13 @@ import {
   NoDataFoundOption,
 } from "./types";
 import { useRouter } from "next/navigation";
+import { BASE_NAME } from "@/config/appConfig";
 const SearchComponent: React.FC<LTVSearchInputProps> = (
   props: LTVSearchInputProps
 ) => {
   const autocompleteRef = useRef<HTMLInputElement>(null);
   const router = useRouter()
-  const { onSelectedItem, className, value , quantity } = props;
+  const { onSelectedItem, className, value , quantity , isUpdate } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(value);
   const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
@@ -133,7 +134,12 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
       if (matchedOption) {
         onSelectedItem?.(matchedOption);
         setOpenAutocomplete(false)
-        router.push(`/bonds?isin=${matchedOption?.isin}&securityType=${matchedOption?.securityType}${quantityParam}`)
+        const url= `${isUpdate === false ? BASE_NAME : ''}/bonds?isin=${matchedOption?.isin}&securityType=${matchedOption?.securityType}${quantityParam}`
+        if(isUpdate){
+          router.push(url)
+        }else{
+          window.open(url, '_blank')
+        }
       }
     }
   };

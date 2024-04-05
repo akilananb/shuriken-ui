@@ -48,6 +48,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         value={isin}
         onSelectedItem={onSerachInput}
         quantity={_quantity}
+        isUpdate={true}
       />
       <InputComponent
         value={_quantity}
@@ -58,6 +59,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
           setQuantity(value);
         }}
         selectedItem={onChangeSelect ? {isin : selectedItem?.isin , securityType:selectedItem?.securityType} : {isin:isin, securityType:securityType}}
+        isUpdate={true}
       />
       <Link href={href} className={classValue()} replace>
         Update

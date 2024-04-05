@@ -7,6 +7,7 @@ export interface BaseInputProps extends BaseElementAttributes {
   value?: string;
   onChangeListener?: (value: string) => void;
   selectedItem?: HeaderData | null
+  isUpdate:boolean
 }
 
 export interface NumberInputProps extends BaseInputProps {

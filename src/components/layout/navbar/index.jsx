@@ -17,7 +17,7 @@ function NavBar({ showDrawer }) {
   return (
     <Header
       data-testid="shuriken-header"
-      className="flex p-3 !bg-nomura-white h-16 justify-between bg-shuriken-img"
+      className="flex p-3 !bg-nomura-white h-16 justify-between bg-shuriken-img sticky top-0 left-0 z-50"
     >
       <div className="flex items-center gap-6 ">
         <Button

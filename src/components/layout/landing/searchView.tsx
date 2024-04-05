@@ -35,6 +35,7 @@ export default function SearchView() {
             setSelectedItem(selectedItem);
           }}
           quantity={quantity}
+          isUpdate={false}
         />
         <InputComponent
           className="w-[167px] "
@@ -44,6 +45,7 @@ export default function SearchView() {
             setQuantity(value);
           }}
           selectedItem={{isin:isin , securityType:securityType}}
+          isUpdate={false}
         />
       </div>
 
@@ -59,12 +61,13 @@ export default function SearchView() {
           href={href}
           className={classValue()}
           onClick={() => setLoading(true)}
+          target="_blank"
         >
-          {loading ? (
+          {/* {loading ? (
             <CircularProgress thickness={4} size={25} sx={{ color: "white" }} />
-          ) : (
-            "Search"
-          )}
+          ) : ( */}
+            Search
+          {/* )} */}
         </Link>
       </div>
     </div>
