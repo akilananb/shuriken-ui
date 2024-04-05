@@ -54,16 +54,37 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
     quantity ?? 0
   );
 
-  if (Object.keys(_results).length === 0) {
+  const resultJSON = JSON.parse(_results as any);
+  const errorCode = "shuriken-asset-class-query-404-data-not-ready";
+  const { code } = resultJSON.errors[0];
+
+  if (
+    Object.keys(_results).length === 0 ||
+    code === errorCode ||
+    resultJSON.errors.length > 0
+  ) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-        <Image
-          src={`${BASE_NAME}/static/images/NoResults.png`}
-          alt="no data"
-          width="50"
-          height="50"
-        />
-        <p className="text-gray-600 mt-2 text-lg p-2">No Results Found!</p>
+        {code === errorCode ? null : (
+          <Image
+            src={`${BASE_NAME}/static/images/NoResults.png`}
+            alt="no data"
+            width="50"
+            height="50"
+          />
+        )}
+        {code === errorCode ? (
+          <>
+            <p className="text-gray-600 mt-2 text-lg p-2">
+              We are currently processing LTV request pls try again after
+              sometime.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="text-gray-600 mt-2 text-lg p-2">No Results Found!</p>
+          </>
+        )}
       </div>
     );
   }
