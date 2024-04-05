@@ -25,16 +25,18 @@ export async function getLadingPageData() {
 export default async function Home() {
   const { announcementData } = await getLadingPageData();
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex flex-row bg-white justify-center items-center h-full min-h-96 pt-10">
-        <div className="flex flex-col items-center justify-center gap-10 w-[746px] relative -top-16">
-          <div className="text-justify leading-normal text-2xl font-bold ">
-            LTV Search
-          </div>
+    <div className="flex flex-col h-full bg-white">
+       <div className="pt-10 pb-4 p-16">
           <Announcement
             statementClass={"min-w-[550px]"}
             data={announcementData}
           />
+        </div>
+      <div className="flex flex-row  justify-center items-center h-full min-h-96 ">
+        <div className="flex flex-col items-center justify-center gap-10 w-[746px] relative -top-16">
+          <div className="text-justify leading-normal text-2xl font-bold ">
+            LTV Search
+          </div>
           <SearchView />
         </div>
       </div>

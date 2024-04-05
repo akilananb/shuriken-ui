@@ -5,8 +5,10 @@ import Link from "next/link";
 import ToggleButton from "@/components/common/toggleButton";
 import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function SearchView() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [quantity, setQuantity] = useState<string>("");
 
@@ -32,6 +34,8 @@ export default function SearchView() {
           onSelectedItem={(selectedItem) => {
             setSelectedItem(selectedItem);
           }}
+          quantity={quantity}
+          isUpdate={false}
         />
         <InputComponent
           className="w-[167px] "
@@ -40,13 +44,30 @@ export default function SearchView() {
           onChangeListener={(value) => {
             setQuantity(value);
           }}
+          selectedItem={{isin:isin , securityType:securityType}}
+          isUpdate={false}
         />
       </div>
 
       <ToggleButton title="Multiple Security Search" />
-      <div>
-        <Link href={href} className={classValue()}>
-          Search
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Link
+          href={href}
+          className={classValue()}
+          onClick={() => setLoading(true)}
+          target="_blank"
+        >
+          {/* {loading ? (
+            <CircularProgress thickness={4} size={25} sx={{ color: "white" }} />
+          ) : ( */}
+            Search
+          {/* )} */}
         </Link>
       </div>
     </div>

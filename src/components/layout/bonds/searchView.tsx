@@ -9,6 +9,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
   const { quantity, isin, securityType } = props;
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
+  const [onChangeSelect , setChangeSelect] = useState(false)
 
   const classValue = () => {
     const numericQuantity = quantity !== undefined ? quantity : 0;
@@ -34,14 +35,20 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
     selectedItem?.securityType || securityType
   }${quantityParam}`;
 
+  const onSerachInput = (selectedItem) => {
+    setSelectedItem(selectedItem);
+    if(selectedItem !== null){
+      setChangeSelect(true)
+    }
+  }
   return (
     <div className="flex gap-2 w-1/2">
       <LTVSearchInput
         className="w-full grow"
         value={isin}
-        onSelectedItem={(selectedItem) => {
-          setSelectedItem(selectedItem);
-        }}
+        onSelectedItem={onSerachInput}
+        quantity={_quantity}
+        isUpdate={true}
       />
       <InputComponent
         value={_quantity}
@@ -51,6 +58,8 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         onChangeListener={(value) => {
           setQuantity(value);
         }}
+        selectedItem={onChangeSelect ? {isin : selectedItem?.isin , securityType:selectedItem?.securityType} : {isin:isin, securityType:securityType}}
+        isUpdate={true}
       />
       <Link href={href} className={classValue()} replace>
         Update

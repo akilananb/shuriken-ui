@@ -5,7 +5,7 @@ class SearchService {
   private readonly baseUrl: string;
 
   constructor() {
-    this.baseUrl = process.env.API_BASE_URLL ?? "";
+    this.baseUrl = process.env.API_BASE_URL ?? "";
   }
 
   public async fetchSearch(searchKey: string): Promise<SearchRes> {
@@ -55,9 +55,8 @@ class SearchService {
     );
 
     if (!response.ok) {
-      return {} as LTVCalculationRes;
+      return response.text() as any;
     }
-
     return response.json();
   }
 }
