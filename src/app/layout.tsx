@@ -3,10 +3,7 @@ import NavigationContainer from "@/components/layout/navigationContainer";
 import "@/styles/globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Suspense } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Nomura Shuriken",
@@ -20,7 +17,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <AppRouterCacheProvider>
           <NavigationContainer />
           <Suspense fallback={<Spinner fullPage={true} />}>
