@@ -54,14 +54,13 @@ const Bonds: React.FC<BondsProps> = async (props: BondsProps) => {
     quantity ?? 0
   );
 
-  const resultJSON = JSON.parse(_results as any);
   const errorCode = "shuriken-asset-class-query-404-data-not-ready";
-  const { code } = resultJSON.errors[0];
+  const { code } = _results.errors[0];
 
   if (
     Object.keys(_results).length === 0 ||
     code === errorCode ||
-    resultJSON.errors.length > 0
+    _results.errors.length > 0
   ) {
     return (
       <div className="flex flex-col items-center justify-center h-full">

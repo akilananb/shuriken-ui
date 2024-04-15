@@ -55,7 +55,7 @@ class SearchService {
     );
 
     if (!response.ok) {
-      return response.text() as any;
+      return response.json() as any;
     }
     return response.json();
   }
