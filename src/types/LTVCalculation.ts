@@ -8,6 +8,7 @@ export interface LTVCalculationRes {
   marketData?: MarketData;
   bondDetail?: BondDetail;
   ltvCalculation?: LtvCalculation;
+  errors?: any[];
 }
 interface LtvCalculation {
   ltvAtIm: number;
@@ -27,7 +28,7 @@ interface LtvCalculation {
   issueSizeUsd: number;
   spread: number;
   disclaimer: string;
-  isPerpetual:boolean;
+  isPerpetual: boolean;
 }
 interface LtvCaps {
   isCapApplied: boolean;
