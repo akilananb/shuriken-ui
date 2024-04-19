@@ -1,37 +1,36 @@
+"use client";
+import React, { useState, useEffect } from "react";
 import Announcement from "@/components/layout/announcement";
 import SearchView from "./searchView";
+import SearchService, { AnnouncementRes } from "@/services/search_services";
 
-export async function getLadingPageData() {
-  try {
-    const announcementResponse = await fetch(
-      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/announcement/fetch`,
-      { cache: "no-store" }
-    );
+export default function Home() {
+  const [announcementData, setAnnouncementData] =
+    useState<AnnouncementRes | null>(null);
 
-    if (!announcementResponse.ok) {
-      throw new Error("Failed to fetch data");
+  useEffect(() => {
+    async function fetchAnnouncementData() {
+      try {
+        const searchService = new SearchService();
+        const data = await searchService.fetchAnnouncement();
+        setAnnouncementData(data);
+      } catch (error) {
+        console.error("Error fetching announcement data:", error);
+        setAnnouncementData(null);
+      }
     }
 
-    return {
-      announcementData: await announcementResponse.json(),
-    };
-  } catch (error) {
-    return {
-      announcementData: { size: 0 },
-    };
-  }
-}
+    fetchAnnouncementData();
+  }, []);
 
-export default async function Home() {
-  const { announcementData } = await getLadingPageData();
   return (
     <div className="flex flex-col h-full bg-white">
-       <div className="pt-10 pb-4 p-16">
-          <Announcement
-            statementClass={"min-w-[550px]"}
-            data={announcementData}
-          />
-        </div>
+      <div className="pt-10 pb-4 p-16">
+        <Announcement
+          statementClass={"min-w-[550px]"}
+          data={announcementData}
+        />
+      </div>
       <div className="flex flex-row  justify-center items-center h-full min-h-96 ">
         <div className="flex flex-col items-center justify-center gap-10 w-[746px] relative -top-16">
           <div className="text-justify leading-normal text-2xl font-bold ">

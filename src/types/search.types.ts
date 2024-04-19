@@ -23,3 +23,10 @@ export interface CalculationRes {
     };
   };
 }
+
+export interface AnnouncementRes {
+  announcementId: number;
+  message: string;
+  status: string;
+  lastModifiedAt: string;
+}

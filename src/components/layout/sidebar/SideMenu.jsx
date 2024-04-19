@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import VolumeUpOutlinedIcon from "@mui/icons-material/VolumeUpOutlined";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -24,11 +25,17 @@ const SideMenu = ({ onClose }) => {
       label: "LTV Search",
       path: "/",
     },
+    {
+      key: "2",
+      icon: <VolumeUpOutlinedIcon />,
+      label: "Announcements",
+      path: "/createAnnouncement",
+    },
   ];
 
   session?.roles?.includes("shuriken_admin") &&
     items.push({
-      key: "2",
+      key: "3",
       icon: <ContentCopyIcon />,
       label: "Override",
       path: "/overrides",

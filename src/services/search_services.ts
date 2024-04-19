@@ -1,4 +1,9 @@
-import { SearchRes, LTVSearch, CalculationRes } from "@/types/search.types";
+import {
+  SearchRes,
+  LTVSearch,
+  CalculationRes,
+  AnnouncementRes,
+} from "@/types/search.types";
 import { LTVCalculationRes } from "@/types/LTVCalculation";
 
 class SearchService {
@@ -18,6 +23,20 @@ class SearchService {
       throw new Error(`API request failed with status ${response.status}`);
     }
 
+    return response.json();
+  }
+
+  public async fetchAnnouncement(): Promise<AnnouncementRes> {
+    const response = await fetch(
+      `/shuriken/api/asset-query-svc/api/v1/announcement/latest`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
     return response.json();
   }
 
