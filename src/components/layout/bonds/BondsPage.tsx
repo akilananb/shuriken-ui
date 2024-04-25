@@ -24,9 +24,9 @@ const BondsPage = ({ announcementData, results, props }) => {
   const { isin, quantity } = props;
 
   const [attemptCount, setAttemptCount] = useState(0);
-  const [fetchedData, setFetchedData] = useState();
+  const [fetchedData, setFetchedData] = useState(results);
 
-  const errorCode = "shuriken-asset-class-query-404-data-not-ready";
+  const errorCode = "shuriken-asset-class-query-418-data-not-ready";
   const { code } = results.errors?.[0] ?? {};
 
   const delay = 60000;
@@ -69,21 +69,29 @@ const BondsPage = ({ announcementData, results, props }) => {
   ) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-        <Image
-          src={`${BASE_NAME}/static/images/NoResults.png`}
-          alt="no data"
-          width="50"
-          height="50"
-        />
         {code === errorCode ? (
           <>
-            <p className="text-gray-600 mt-2 text-lg p-2">
-              We are currently processing your LTV request. Please try again
-              later.
+            <Image
+              src={`${BASE_NAME}/static/images/data-not-ready.png`}
+              alt="data not ready"
+              width="80"
+              height="80"
+            />
+            <p className="text-gray-600 mt-2 text-lg p-2 text-center">
+              We're currently retrieving the latest data for the asset you
+              requested. This might take a few moments. <br />
+              Please stay on this page, or feel free to refresh or try again
+              shortly.
             </p>
           </>
         ) : (
           <>
+            <Image
+              src={`${BASE_NAME}/static/images/NoResults.png`}
+              alt="no data"
+              width="50"
+              height="50"
+            />
             <p className="text-gray-600 mt-2 text-lg p-2">No Results Found!</p>
           </>
         )}
@@ -101,29 +109,21 @@ const BondsPage = ({ announcementData, results, props }) => {
         <Bond_header
           Itvfields={Itvfields}
           {...props}
-          data={fetchedData ? toHeaderData(fetchedData) : toHeaderData(results)}
+          data={toHeaderData(fetchedData)}
         />
-        <BondsTabs overrideData={toOverrideData(results)} />
+        <BondsTabs overrideData={toOverrideData(fetchedData)} />
       </div>
       <div className="search-summary w-full bg-nomura-off-white">
         <div className="flex flex-wrap gap-8 w-full">
           <Ltvvalues
-            data={
-              fetchedData
-                ? toLTVValuesData(fetchedData)
-                : toLTVValuesData(results)
-            }
+            data={toLTVValuesData(fetchedData)}
             title="LTV"
             subTitle="Loan-To-Value"
             className="bg-noumura-light-red "
             cardValue="1"
           />
           <Ltvvalues
-            data={
-              fetchedData
-                ? toSummaryValuesData(fetchedData, quantity)
-                : toSummaryValuesData(results, quantity)
-            }
+            data={toSummaryValuesData(fetchedData, quantity)}
             title="Key Metrics"
             subTitle=""
             className="bg-nomura-secondary-grey"
@@ -134,20 +134,12 @@ const BondsPage = ({ announcementData, results, props }) => {
           <DetailVerticalDisplayCard
             title="Bond Information"
             colSize={15}
-            data={
-              fetchedData
-                ? toSummaryDetailData(fetchedData)
-                : toSummaryDetailData(results)
-            }
+            data={toSummaryDetailData(fetchedData)}
             labelClassName="nomura-14px-regular text-noumura-grey"
             valueClassName="nomura-14px-bold text-black"
           />
           <Disclaimers
-            disclaimer={
-              fetchedData
-                ? toDisclaimerData(fetchedData)
-                : toDisclaimerData(results)
-            }
+            disclaimer={toDisclaimerData(fetchedData)}
             title="Disclaimer"
           />
         </div>
