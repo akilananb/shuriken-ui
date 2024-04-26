@@ -25,21 +25,23 @@ const SideMenu = ({ onClose }) => {
       label: "LTV Search",
       path: "/",
     },
-    {
-      key: "2",
-      icon: <VolumeUpOutlinedIcon />,
-      label: "Announcements",
-      path: "/createAnnouncement",
-    },
   ];
 
   session?.roles?.includes("shuriken_admin") &&
-    items.push({
-      key: "3",
-      icon: <ContentCopyIcon />,
-      label: "Override",
-      path: "/overrides",
-    });
+    items.push(
+      {
+        key: "2",
+        icon: <ContentCopyIcon />,
+        label: "Override",
+        path: "/overrides",
+      },
+      {
+        key: "3",
+        icon: <VolumeUpOutlinedIcon />,
+        label: "Announcements",
+        path: "/createAnnouncement",
+      }
+    );
 
   function handleClick(key) {
     setSelectedKey(key);
