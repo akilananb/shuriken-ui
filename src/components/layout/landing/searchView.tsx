@@ -23,7 +23,7 @@ export default function SearchView() {
     ? `&quantity=${quantity}`
     : "";
 
-  const href = `/bonds?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
+  const href = `/${securityType === "Bond" ? "bonds" : "equity"}?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
 
   return (
     <div className="flex flex-col gap-8 bg-white h-full justify-center items-center">

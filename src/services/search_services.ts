@@ -4,7 +4,7 @@ import {
   CalculationRes,
   AnnouncementRes,
 } from "@/types/search.types";
-import { LTVCalculationRes } from "@/types/LTVCalculation";
+import { EquityLTVCalculationRes, LTVCalculationRes } from "@/types/LTVCalculation";
 
 class SearchService {
   private readonly baseUrl: string;
@@ -78,7 +78,28 @@ class SearchService {
     }
     return response.json();
   }
+  public async EquityCalculationDetail(
+    pdpId: string,
+    quantity: number
+  ): Promise<EquityLTVCalculationRes> {
+    const response = await fetch(
+      `${
+        process.env.API_BASE_URL
+      }/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/equity?pdpId=${pdpId}${
+        quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
+      }&source=LIVE`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      return response.json() as any;
+    }
+
+    return response.json();
+  }
 }
+
+
 
 export * from "@/types/search.types";
 

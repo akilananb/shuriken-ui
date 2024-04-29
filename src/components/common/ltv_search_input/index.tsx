@@ -110,7 +110,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
       if (matchedOption) {
         onSelectedItem?.(matchedOption);
         setOpenAutocomplete(false);
-        const url = `${isUpdate === false ? BASE_NAME : ""}/bonds?isin=${
+        const url = `${isUpdate === false ? BASE_NAME : ""}/${matchedOption?.securityType === "Bond" ? 'bonds' : 'equity'}?pdpId=${
           matchedOption?.pdpId
         }&securityType=${matchedOption?.securityType}${quantityParam}`;
 

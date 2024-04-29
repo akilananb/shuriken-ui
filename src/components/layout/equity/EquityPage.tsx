@@ -4,23 +4,16 @@ import { useState, useEffect } from "react";
 import "@/components/common/Bonds/bonds.css";
 import Disclaimers from "@/components/layout/bonds/Disclaimers";
 import Image from "next/image";
-import Bond_header from "./Bond_header";
 import Itvfields from "@/components/common/Constants/ltvfields.json";
-import DetailVerticalDisplayCard from "./DetailVerticalDisplayCard";
 import { BASE_NAME } from "@/config/appConfig";
 import Announcement from "@/components/layout/announcement";
-import {
-  toDisclaimerData,
-  toHeaderData,
-  toLTVValuesData,
-  toOverrideData,
-  toSummaryDetailData,
-  toSummaryValuesData,
-} from "./mapper";
-import BondsTabs from "./Bonds_tabs";
-import LtvMetricHeader from "./LtvMetricHeader";
+import Bond_header from "../bonds/Bond_header";
+import { toDisclaimerData, toEquityHeaderData, toLTVValuesData, toOverrideData, toSummaryEquitiesData, toSummaryValuesData } from "./mapper";
+import LtvMetricHeader from "../bonds/LtvMetricHeader";
+import BondsTabs from "../bonds/Bonds_tabs";
+import DetailVerticalDisplayCard from "../bonds/DetailVerticalDisplayCard";
 
-const BondsPage = ({ announcementData, results, props }) => {
+const EquityPage = ({ announcementData, results, props }) => {
   const { pdpId, isin, quantity } = props;
 
   const [attemptCount, setAttemptCount] = useState(0);
@@ -34,7 +27,7 @@ const BondsPage = ({ announcementData, results, props }) => {
 
   const fetchData = async () => {
     const response = await fetch(
-      `/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/bond?pdpId=${pdpId}${
+      `/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/equity?pdpId=${pdpId}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }&source=LIVE`,
       { cache: "no-store" }
@@ -110,7 +103,7 @@ const BondsPage = ({ announcementData, results, props }) => {
         <Bond_header
           Itvfields={Itvfields}
           {...props}
-          data={toHeaderData(fetchedData)}
+          data={toEquityHeaderData(fetchedData)}
         />
         <BondsTabs overrideData={toOverrideData(fetchedData)} />
       </div>
@@ -126,8 +119,8 @@ const BondsPage = ({ announcementData, results, props }) => {
         <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard
             title="Bond Information"
-            colSize={15}
-            data={toSummaryDetailData(fetchedData)}
+            colSize={6}
+            data={toSummaryEquitiesData(fetchedData)}
             labelClassName="nomura-14px-regular text-noumura-grey"
             valueClassName="nomura-14px-bold text-black"
           />
@@ -141,4 +134,4 @@ const BondsPage = ({ announcementData, results, props }) => {
   );
 };
 
-export default BondsPage;
+export default EquityPage;

@@ -27,7 +27,7 @@ const Bond_header: React.FC<HeaderProps> = (props: HeaderProps) => {
               <div className="ltm">
                 LTV <br /> At IM
               </div>
-              <div className="percentage inline-flex ">
+              <div className="percentage inline-flex items-center">
                 {ltv}%
                 {ltvTooltipMsg && (
                   <TooltipComponent tooltipMsg={ltvTooltipMsg}>

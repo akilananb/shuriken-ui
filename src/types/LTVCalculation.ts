@@ -116,3 +116,58 @@ interface BaseSecurityDetails {
   ticker: string;
   exchange: string;
 }
+
+export interface EquityLTVCalculationRes {
+  securityName?: string;
+  exchange?: string;
+  isin?: string;
+  ticker?: string;
+  securityType: string;
+  status?: string;
+  ltvCalculation?: EquityLtvCalculation;
+  marketData?: EquityMarketData;
+  takaraData?: TakaraData
+  assetCrncyExchangeRate: number;
+
+}
+
+export interface TakaraData {
+  equityExchangeMarket?: string;
+  equityExchangeMarketCountry?: string;
+  assetType?: string;
+  country?: string
+}
+export interface EquityMarketData {
+  pxYestClose?: string;
+  curMktCap?: number;
+  volatility260d?: string;
+  avgDailyValueTraded3m?: number;
+  volumeAvg3m?: string;
+  pxLast?: number;
+  crncy?: string;
+  marketCloseDate: string;
+}
+interface EquityLtvCalculation {
+  ltvAtIm: number;
+  ltvAtMc: number;
+  ltvAtSl: number;
+  overrideCalculationResult: Override;
+  financingEligibility: FinancingEligibility;
+  issueRating: IssueRating;
+  issuerRating: IssuerRating;
+  ratingUsed: string;
+  indicativeLtv1AdjMade: string[];
+  indicativeLtv2AdjMade: string[];
+  ltvCaps: LtvCaps;
+  bondType: string;
+  bondGrade: string;
+  countryClassification: string;
+  issueSizeUsd: number;
+  spread: number;
+  disclaimer: string;
+  isPerpetual: boolean;
+  lp: number;
+  curMktCap?: number;
+  volumeAvg3m?: string;
+  avgDailyValueTraded3m?: number;
+}

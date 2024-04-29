@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import { toRemoveCommaFormat, toSetCommaFormat } from "@/_utils/stringUtils";
 import TooltipComponent from "../tooltip";
 import { useRouter } from "next/navigation";
+import { BASE_NAME } from "@/config/appConfig";
 
 const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
   const {
@@ -39,10 +40,10 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
       ) {
         if (isUpdate) {
           router.push(
-            `/bonds?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`
+            `/${selectedItem?.securityType === "Bond" ? 'bonds' : "equity"}?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`
           );
         } else {
-          const url = `/shuriken/bonds?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`;
+          const url = `${BASE_NAME}/${selectedItem?.securityType === "Bond" ? 'bonds' : "equity"}?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`;
           window.open(url, "_blank");
         }
       }

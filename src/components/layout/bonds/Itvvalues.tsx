@@ -49,7 +49,7 @@ const LTVValueCard: React.FC<LTVValueCardProps> = (
                   >
                     {label}
                   </div>
-                  <div className="inline-flex w-full">
+                  <div className="inline-flex w-full items-center">
                     <div
                       className={`${
                         i === 0 && cardValue == "1" ? "text-40px" : "text-32px"
