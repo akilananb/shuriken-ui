@@ -27,7 +27,7 @@ const BondsPage = ({ announcementData, results, props }) => {
   const [fetchedData, setFetchedData] = useState(results);
 
   const errorCode = "shuriken-asset-class-query-418-data-not-ready";
-  const { code } = results.errors?.[0] ?? {};
+  const { code } = fetchedData.errors?.[0] ?? {};
 
   const delay = 60000;
   const maxAttempts = 15;
@@ -44,6 +44,7 @@ const BondsPage = ({ announcementData, results, props }) => {
 
     if (response.ok) {
       setFetchedData(data);
+      setAttemptCount(maxAttempts + 1);
     }
   };
 
@@ -63,9 +64,9 @@ const BondsPage = ({ announcementData, results, props }) => {
   }, [attemptCount, maxAttempts]);
 
   if (
-    Object.keys(results).length === 0 ||
+    Object.keys(fetchedData).length === 0 ||
     code === errorCode ||
-    (results.errors?.length ?? 0) > 0
+    (fetchedData.errors?.length ?? 0) > 0
   ) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
