@@ -159,9 +159,20 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
               </div>
             )
           )}
-          <div key={index} className="text-lg pl-4 text-nomura-dark-grey">
-            {option.securityName}
-          </div>
+          {option.securityType && option.securityType === "Equity" ? (
+            <>
+              <div key={index} className="text-lg pl-4 text-nomura-dark-grey">
+                {option.securityName}
+              </div>
+              <div key={index} className="text-lg pl-4 text-nomura-dark-grey">
+                {option.exchange}
+              </div>
+            </>
+          ) : (
+            <div key={index} className="text-lg pl-4 text-nomura-dark-grey">
+              {option.securityName}
+            </div>
+          )}
         </div>
       </div>
     );
