@@ -1,0 +1,59 @@
+Remarks,Remarks2,Type,Bloomberg,Name,S&P LT Foreign Issuer Credit,MOODY'S Senior Unsecured Debt/Foreign Currency Issuer Credit,MOODY'S Senior Unsecured Debt,5 Year Mid CDS Spread,"CET1 Ratio
+(%)","Leverage Ratio
+(%)","Market Cap
+(USD millions)",Issuer Full name and Domicile
+Approved,Approved,Issuer,1471Z SP Equity,DBS Bank Ltd,AA-,Aa1,Aa1,75.4,NA,NA,NA,DBS BANK LTD
+Approved,Approved,Issuer,OCBC SP Equity,Oversea-Chinese Banking Corp Ltd,AA-,Aa1,Aa1,53.7,15.50,7.70,"38,999",OVERSEA-CHINESE BANKING CORP
+Approved,Approved,Issuer,2292186Z AU Equity,Macquarie Bank Ltd,A+,A2,A2,83.0,11.50,NA,NA,MACQUARIE BANK
+As Guarantor,As Guarantor,Issuer,glesga na Equity,SGA Societe Generale Acceptance NV,NR,A2,A2,67.0,NA,NA,NA,SOCIETE GENERALE ACCEPT NV
+Approved,Approved,Guarantor,GLE FP Equity,Societe Generale SA,A,A1,A1,67.0,13.60,4.90,"22,824",SOCIETE GENERALE SA
+Approved,Approved,Issuer,1054Z NA Equity,NatWest Markets NV,A-,A2,A2,NA,29.70,NA,NA,ROYAL BANK OF SCOTLAND NV
+Approved,Approved,Issuer,UBSN VX Equity,UBS AG,A+,Aa3,Aa3,60.0,13.30,5.10,NA,UBS AG-REG
+Approved,Approved,Issuer,14130z us Equity,UBS AG/Jersey,A+,Aa3,Aa3,60.0,NA,NA,NA,UBS AG JERSEY BRANCH
+Approved,Approved,Issuer,1236172D LN Equity,Credit Suisse International,A,WR,WR,125.3,NA,NA,NA,CREDIT SUISSE INTERNATIONAL
+As Guarantor,As Guarantor,Issuer,289500Z NA Equity,BNP Paribas Issuance BV,A+,Aa3,Aa3,58.0,NA,NA,NA,BNP PARIBAS ARBITRAGE ISSUAN
+Approved,Approved,Guarantor,BNP FP Equity,BNP Paribas SA,A+,Aa3,Aa3,58.0,12.90,4.10,"71,612",BNP PARIBAS
+As Guarantor,As Guarantor,Issuer,msdwa29 ky Equity,Morgan Stanley Asia Securities Products LLC,NA,NA,NA,103.5,NA,NA,NA,MS ASIA SECURITIES PRODUCTS
+As Guarantor,As Guarantor,Issuer,332000Z NA Equity,Morgan Stanley BV,NA,NA,NA,103.5,NA,NA,NA,MORGAN STANLEY BV
+Approved,Approved,Guarantor,MS US Equity,Morgan Stanley,A-,A1,A1,103.5,16.00,5.60,"151,226",MORGAN STANLEY
+Approved,Approved,Issuer,7724Z US Equity,Citigroup Global Markets Holdings Inc/United States,A,A3,A3,105.5,NA,NA,NA,CITIGROUP GLOBAL MARKETS HOLDINGS INC/ UNITED STATES
+As Guarantor,As Guarantor,Issuer,0795122D LX Equity,Citigroup Global Markets Funding Luxembourg SCA,A+,(P)A1,(P)A1,105.5,NA,NA,NA,CITIGROUP GLOBAL MARKETS FUNDING LUXEMBOURG SCA
+Approved,Approved,Guarantor,3648383Z LN Equity,Citigroup Global Markets Ltd,A+,A1,NA,NA,NA,NA,NA,CITIGROUP GLOBAL MARKETS LTD
+As Guarantor,As Guarantor,Issuer,992465Z NA Equity,JP Morgan Structured Products BV,NA,Aa2,Aa2,86.5,NA,NA,NA,JP MORGAN STRUCTURED PRODUCT
+Approved,Approved,Guarantor,8147Z US Equity,JPMorgan Chase Bank NA,A+,Aa2,Aa2,86.5,NA,NA,NA,JPMORGAN CHASE & CO
+Approved,Approved,Issuer,Rabo na Equity,Cooperatieve Rabobank UA,A+,Aa2,Aa2,37.0,17.40,7.30,NA,COOPERATIEVE CENTRALE RAIFFE
+Approved,Approved,Issuer,6857Z LN Equity,Deutsche Bank AG/London,A-,A2,A2,93.0,NA,NA,NA,DEUTSCHE BANK AG/LONDON
+Approved,Approved,Issuer,1111Z NA Equity,ING Bank NV,A+,A1,A1,43.5,14.35,NA,NA,ING BANK NV
+Approved,Restricted,Issuer,CBK GR Equity,Commerzbank AG,BBB+,A1,A1,80.0,13.60,5.20,"10,930",COMMERZBANK AG
+Approved,Approved,Issuer,RY CN Equity,Royal Bank of Canada,AA-,Aa1,Aa1,51.7,13.70,4.90,"146,692",ROYAL BANK OF CANADA
+Approved,Approved,Issuer,8376923Z LN Equity,Barclays Bank PLC,A,A1,A1,26.5,13.00,3.70,NA,BARCLAYS PLC
+Approved,Restricted,Issuer,LLOY LN Equity,Lloyds Banking Group PLC,BBB+,A2,A2,74.5,17.30,5.80,"39,424",LLOYDS BANKING GROUP PLC
+Approved,Approved,Issuer,UOB SP Equity,United Overseas Bank Ltd,AA-,Aa1,Aa1,29.6,13.50,7.20,"35,933",UNITED OVERSEAS BANK LTD
+Approved,Approved,Issuer,ACA FP Equity,Credit Agricole SA,A+,Aa3,Aa3,54.0,11.90,6.10,"33,630",CREDIT AGRICOLE SA
+As Guarantor,As Guarantor,Issuer1,1435507D Equity,Raiffeisen Switzerland BV,NA,NA,NA,NA,21.00,NA,NA,RAIFFEISEN SWITZERLAND BV
+As Guarantor,As Guarantor,Issuer1,0714912D SW Equity,Notenstein La Roche Private Bank AG,NA,NA,NA,NA,NA,NA,NA,NOTENSTEIN PRIVATBANK AG
+Approved,Approved,Guarantor,1203z SW Equity,Raiffeisen Schweiz Genossenschaft,A+,A3,A3,NA,19.10,NA,NA,RAIFFEISEN SCHWEIZ
+Approved,Approved,Issuer,EFGN SW Equity,EFG International AG,NA,A3,NA,NA,16.30,NA,"2,163",EFG INTERNATIONAL AG
+Approved,Approved,Issuer,81074Z PM Equity,Asian Development Bank,AAA,Aaa,Aaa,NA,NA,NA,NA,ASIAN DEVELOPMENT BANK
+As Guarantor,As Guarantor,Issuer,3595882Z UH Equity,Vontobel Financial Products Ltd,NA,NA,NA,NA,NA,NA,NA,"VONTOBEL FINANCIAL PRODUCTS LTD., DIFC DUBAI"
+Approved,Approved,Guarantor,VONN SW Equity,Vontobel Holding AG,NR,A2,NA,NA,16.60,NA,"4,471","VONTOBEL HOLDINGS AG, ZURICH"
+Approved,Approved,Issuer2,2257Z LN EQUITY,Standard Chartered Bank,A+,A1,A1,37.0,12.33,NA,NA,STANDARD CHARTERED BANK
+Approved,Approved,Issuer,1671Z LN EQUITY,Goldman Sachs International,A+,A1,A1,110.5,NA,NA,NA,GOLDMAN SACHS INTERNATIONAL
+As Guarantor,As Guarantor,Issuer,0297536D GR EQUITY,Goldman Sachs & Co Wertpapier GmbH,NA,NA,NA,110.5,NA,NA,NA,GOLDMAN SACHS & CO WERTPAPIER GMBH
+Approved,Approved,Guarantor,1671Z LN EQUITY,Goldman Sachs International,A+,A1,A1,110.5,NA,NA,NA,GOLDMAN SACHS INTERNATIONAL
+As Guarantor,As Guarantor,Issuer,1671Z LN EQUITY,Goldman Sachs International,A+,A1,A1,110.5,NA,NA,NA,GOLDMAN SACHS INTERNATIONAL
+As Guarantor,As Guarantor,Issuer,0297536D GR EQUITY,Goldman Sachs & Co Wertpapier GmbH,NA,NA,NA,110.5,NA,NA,NA,GOLDMAN SACHS & CO WERTPAPIER GMBH
+As Guarantor,As Guarantor,Issuer,1483425D JY EQUITY,Goldman Sachs Finance Corp International Ltd,NA,NA,NA,110.5,NA,NA,NA,GOLDMAN SACHS FINANCE CORP INTERNATIONAL LTD
+Approved,Restricted,Guarantor,GS US EQUITY,Goldman Sachs Group Inc/The,BBB+,A2,A2,110.5,14.20,5.60,"117,647",GOLDMAN SACHS GROUP INC/THE
+Approved,Approved,Issuer,HSBCZ HK EQUITY,Hongkong & Shanghai Banking Corp Ltd/The,AA-,Aa3,Aa3,61.2,NA,NA,NA,THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED
+Approved,Approved,Issuer,MID LN EQUITY,HSBC Bank PLC,A+,A1,A1,54.5,15.30,4.20,NA,HSBC BANK PLC 
+Approved,Approved,Issuer,498119Z JY EQUITY,HSBC Bank Middle East Ltd,NA,A3,A3,NA,15.36,NA,NA,"HSBC BANK MIDDLE EAST LIMITED, ACTING THROUGH ITS DIFC HEAD OFFICE"
+Approved4,Approved4,Issuer,0291955D ID EQUITY,STARTS Ireland PLC,NA,NA,NA,NA,NA,NA,NA,STARTS (IRELAND) PUBLIC LIMITED COMPANY
+Approved,Approved,Issuer,0852432D SP Equity,Nomura International Funding Pte Ltd,NA,NA,NA,80.0,NA,NA,NA,NOMURA INTERNATIONAL FUNDING
+Approved,Approved,Guarantor,8604 JP Equity,Nomura Holdings Inc,BBB+,Baa1,Baa1,80.0,17.10,5.98,"12,868",NOMURA HOLDINGS INC
+Approved,Approved,Guarantor,NCLZ JP Equity,Nomura Securities Co Ltd,A-,WR,WR,84.5,NA,NA,NA,NOMURA SECURITIES CO LTD
+Approved,Approved,Issuer,146481Z LN Equity,Nomura Bank International PLC,A-,WR,WR,80.0,NA,NA,NA,NOMURA BANK INTERNATIONAL PLC
+Approved3,Approved3,Issuer,,Lani Finance Limited,NA,NA,NA,NA,NA,NA,NA,LANI FINANCE LTD
+Approved3,Approved3,Issuer,,Waipio Finance Limited,NA,NA,NA,NA,NA,NA,NA,WAIPIO FINANCE LTD
+Approved3,Approved3,Issuer,,Honu Finance Limited,NA,NA,NA,NA,NA,NA,NA,HONU FINANCE LTD
+,,,,"Credit Suisse AG, London Branch",,,,,,,,
