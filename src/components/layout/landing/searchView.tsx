@@ -23,12 +23,15 @@ export default function SearchView() {
     ? `&quantity=${quantity}`
     : "";
 
-  const href = `/${securityType === "Bond" ? "bonds" : "equity"}?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
+  const href = `/${
+    securityType === "Bond" ? "bonds" : "equity"
+  }?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
 
   return (
     <div className="flex flex-col gap-8 bg-white h-full justify-center items-center">
       <div className="flex gap-2  self-streach relative">
         <LTVSearchInput
+          pdpId={pdpId}
           className="w-[565px]"
           value={selectedItem?.isin}
           onSelectedItem={(selectedItem) => {
