@@ -6,10 +6,10 @@ import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
 import { BondsChildProps } from "./types";
 const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
-  const { quantity, isin, securityType } = props;
+  const { quantity, pdpId, data, securityType } = props;
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
-  const [onChangeSelect , setChangeSelect] = useState(false)
+  const [onChangeSelect, setChangeSelect] = useState(false);
 
   const classValue = () => {
     const numericQuantity = quantity !== undefined ? quantity : 0;
@@ -31,21 +31,22 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
     ? `&quantity=${_quantity}`
     : "";
 
-  const href = `/bonds?isin=${selectedItem?.isin || isin}&securityType=${
+  const href = `/bonds?pdpId=${selectedItem?.pdpId || pdpId}&securityType=${
     selectedItem?.securityType || securityType
   }${quantityParam}`;
 
   const onSerachInput = (selectedItem) => {
     setSelectedItem(selectedItem);
-    if(selectedItem !== null){
-      setChangeSelect(true)
+    if (selectedItem !== null) {
+      setChangeSelect(true);
     }
-  }
+  };
   return (
     <div className="flex gap-2 w-1/2">
       <LTVSearchInput
         className="w-full grow"
-        value={isin}
+        value={data.isin}
+        pdpId={pdpId}
         onSelectedItem={onSerachInput}
         quantity={_quantity}
         isUpdate={true}
@@ -58,7 +59,14 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         onChangeListener={(value) => {
           setQuantity(value);
         }}
-        selectedItem={onChangeSelect ? {isin : selectedItem?.isin , securityType:selectedItem?.securityType} : {isin:isin, securityType:securityType}}
+        selectedItem={
+          onChangeSelect
+            ? {
+                pdpId: selectedItem?.pdpId,
+                securityType: selectedItem?.securityType,
+              }
+            : { pdpId: pdpId, securityType: securityType }
+        }
         isUpdate={true}
       />
       <Link href={href} className={classValue()} replace>

@@ -28,7 +28,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 ) => {
   const autoCompleteRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { onSelectedItem, className, value, quantity, isUpdate } = props;
+  const { onSelectedItem, className, value, pdpId, quantity, isUpdate } = props;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(value);
@@ -47,8 +47,8 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   }, [searchTerm]);
 
   useEffect(() => {
-    if (value) {
-      initialCalculation(value);
+    if (pdpId) {
+      initialCalculation(pdpId);
     }
   }, []);
 

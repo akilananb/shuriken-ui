@@ -21,7 +21,7 @@ import BondsTabs from "./Bonds_tabs";
 import LtvMetricHeader from "./LtvMetricHeader";
 
 const BondsPage = ({ announcementData, results, props }) => {
-  const { pdpId, isin, quantity } = props;
+  const { pdpId, quantity } = props;
 
   const [attemptCount, setAttemptCount] = useState(0);
   const [fetchedData, setFetchedData] = useState(results);

@@ -16,6 +16,7 @@ export interface MutiSearchInput {
 }
 
 export interface BondsChildProps extends BondsProps {
+  data: HeaderData;
   Itvfields: any;
   ltvData?: LTVCalculationRes;
 }

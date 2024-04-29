@@ -16,8 +16,9 @@ export interface LTVCalculationViewProps extends BaseElementAttributes {
 }
 
 export interface LTVSearchInputProps extends BaseElementAttributes {
+  pdpId;
   value;
   onSelectedItem?: (selectedItem: LTVSearch | null) => void;
-  quantity:string;
-  isUpdate:boolean
+  quantity: string;
+  isUpdate: boolean;
 }
