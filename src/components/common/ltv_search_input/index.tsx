@@ -22,12 +22,14 @@ import {
 } from "./types";
 import { useRouter } from "next/navigation";
 import { BASE_NAME } from "@/config/appConfig";
+
 const SearchComponent: React.FC<LTVSearchInputProps> = (
   props: LTVSearchInputProps
 ) => {
-  const autocompleteRef = useRef<HTMLInputElement>(null);
-  const router = useRouter()
-  const { onSelectedItem, className, value , quantity , isUpdate } = props;
+  const autoCompleteRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const { onSelectedItem, className, value, quantity, isUpdate } = props;
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>(value);
   const [searchResults, setSearchResults] = useState<Response<LTVSearch[]>>(
@@ -37,11 +39,22 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   const [ltvCalculationResult, setLTVCalculationResult] = useState<
     Response<CalculationRes>
   >(new Response().applyLoader("UNKNOWN"));
+
   const searchService = new SearchService();
+
+  useEffect(() => {
+    performSearch();
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (value) {
+      initialCalculation(value);
+    }
+  }, []);
 
   const initialCalculation = async (searchKey) => {
     if (searchKey && searchKey.trim().length >= 3) {
-      setSearchResults(new Response().applyLoader("LOADING"));
+      setSearchResults(new Response().applyLoader("LOADED"));
 
       const _results = await searchService.fetchSearch(searchKey);
       const results = _results?.payLoad?.sort((a, b) =>
@@ -49,9 +62,8 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
       );
 
       setSearchResults(new Response(results).applyLoader("LOADED"));
-      setSelectedItem(results.find((val) => val.isin == searchKey) ?? null);
+      setSelectedItem(results.find((val) => val.pdpId === searchKey) ?? null);
     } else {
-      // Handle the case when the search term is empty
       setSearchResults(new Response([]).applyLoader("LOADED"));
     }
   };
@@ -67,82 +79,62 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 
       setSearchResults(new Response(results).applyLoader("LOADED"));
     } else {
-      // Handle the case when the search term is empty
       setSearchResults(new Response([]).applyLoader("LOADED"));
     }
   };
 
-  // const performCalculation = async () => {
-  //   if (searchTerm && searchTerm.trim().length >= 3) {
-  //     setLTVCalculationResult(new Response().applyLoader("LOADING"));
-
-  //     const result = await searchService.fetchLTVCalculation(selectedItem);
-
-  //     setLTVCalculationResult(new Response(result).applyLoader("LOADED"));
-  //   }
-  // };
-
-  useEffect(() => {
-    if (value) {
-      initialCalculation(value);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Perform API call when searchTerm changes
-
-    performSearch();
-  }, [searchTerm]);
-
-  const deBounceOnChangeListener = debounce((event) => {
-    setSearchTerm(event.target.value);
-    setOpenAutocomplete(true)
-  }, 400 ?? 0);
-
-  const clearAll = () => {
-    // setSelectedItem(null);
-    // onSelectedItem?.(null);
-    setLTVCalculationResult(new Response().applyLoader("UNKNOWN"));
-  };
-  const onClick = (_event) => {
-    clearAll();
-  };
-
   const handleSearchSelect = (_, selectedValue) => {
-    /*TODO
-    Call second API and display LTV calculation in UI
-    */
+    console.log(selectedValue);
     if (!selectedValue) {
       setSearchTerm("");
     }
     onSelectedItem?.(selectedValue);
     setSelectedItem(selectedValue);
-    setOpenAutocomplete(false)
-    // performCalculation(); //TODO Hide the calcuation logic in relese 1
+    setOpenAutocomplete(false);
   };
-  const quantityParam = ![null, "",undefined].includes(quantity)
+
+  const quantityParam = ![null, "", undefined].includes(quantity)
     ? `&quantity=${quantity}`
     : "";
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
-      // Check if the entered value matches an option exactly
-      const matchedOption = searchResults.getResponse()?.find(option =>
-        option.isin === searchTerm.trim() || (selectedItem && option.isin === selectedItem.isin)
-      );
+      const matchedOption = searchResults
+        .getResponse()
+        ?.find(
+          (option) =>
+            option.pdpId === searchTerm.trim() ||
+            (selectedItem && option.pdpId === selectedItem.pdpId)
+        );
       if (matchedOption) {
         onSelectedItem?.(matchedOption);
-        setOpenAutocomplete(false)
-        const url= `${isUpdate === false ? BASE_NAME : ''}/bonds?isin=${matchedOption?.isin}&securityType=${matchedOption?.securityType}${quantityParam}`
-        if(isUpdate){
-          router.push(url)
-        }else{
-          window.open(url, '_blank')
+        setOpenAutocomplete(false);
+        const url = `${isUpdate === false ? BASE_NAME : ""}/bonds?isin=${
+          matchedOption?.pdpId
+        }&securityType=${matchedOption?.securityType}${quantityParam}`;
+
+        if (isUpdate) {
+          router.push(url);
+        } else {
+          window.open(url, "_blank");
         }
       }
     }
   };
+
+  const clearAll = () => {
+    setLTVCalculationResult(new Response().applyLoader("UNKNOWN"));
+  };
+
+  const onClick = (_event) => {
+    clearAll();
+  };
+
+  const deBounceOnChangeListener = debounce((event) => {
+    setSearchTerm(event.target.value);
+    setOpenAutocomplete(true);
+  }, 400 ?? 0);
 
   const renderOption = (
     props,
@@ -184,7 +176,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
 
   const renderNoMatchOption = () => {
     const _searchResults = searchResults.getResponse() ?? [];
-
     let type: NoDataFoundOption = "UNKNOWN";
     if (searchTerm.length < 3) type = "LESS_THAN_3_CHAR";
     else if (searchResults.isLoading()) type = "LOADING";
@@ -211,8 +202,8 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   return (
     <>
       <Autocomplete
-      open={openAutocomplete}
-        ref={autocompleteRef}
+        open={openAutocomplete}
+        ref={autoCompleteRef}
         value={selectedItem || value}
         id="search-autocomplete"
         popupIcon={null}
@@ -234,7 +225,7 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
             },
           },
         }}
-        isOptionEqualToValue={(option, value) => option.isin === value.isin}
+        isOptionEqualToValue={(option, value) => option.pdpId === value.pdpId}
         renderGroup={renderGroup}
         renderInput={(params) => (
           <>

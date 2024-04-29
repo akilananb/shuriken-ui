@@ -21,18 +21,12 @@ import {
 import BondsTabs from "./Bonds_tabs";
 
 const BondsPage = ({ announcementData, results, props }) => {
-  const { isin, quantity } = props;
+  const { pdpId, isin, quantity } = props;
 
   const [attemptCount, setAttemptCount] = useState(0);
-<<<<<<< HEAD
-  const [fetchedData, setFetchedData] = useState();
-
-  const errorCode = "shuriken-asset-class-query-404-data-not-ready";
-=======
   const [fetchedData, setFetchedData] = useState(results);
 
   const errorCode = "shuriken-asset-class-query-418-data-not-ready";
->>>>>>> release
   const { code } = results.errors?.[0] ?? {};
 
   const delay = 60000;
@@ -40,7 +34,7 @@ const BondsPage = ({ announcementData, results, props }) => {
 
   const fetchData = async () => {
     const response = await fetch(
-      `/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/bond?isin=${isin}${
+      `/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/bond?pdpId=${pdpId}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }&source=LIVE`,
       { cache: "no-store" }
@@ -75,19 +69,6 @@ const BondsPage = ({ announcementData, results, props }) => {
   ) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-<<<<<<< HEAD
-        <Image
-          src={`${BASE_NAME}/static/images/NoResults.png`}
-          alt="no data"
-          width="50"
-          height="50"
-        />
-        {code === errorCode ? (
-          <>
-            <p className="text-gray-600 mt-2 text-lg p-2">
-              We are currently processing your LTV request. Please try again
-              later.
-=======
         {code === errorCode ? (
           <>
             <Image
@@ -101,20 +82,16 @@ const BondsPage = ({ announcementData, results, props }) => {
               requested. This might take a few moments. <br />
               Please stay on this page, or feel free to refresh or try again
               shortly.
->>>>>>> release
             </p>
           </>
         ) : (
           <>
-<<<<<<< HEAD
-=======
             <Image
               src={`${BASE_NAME}/static/images/NoResults.png`}
               alt="no data"
               width="50"
               height="50"
             />
->>>>>>> release
             <p className="text-gray-600 mt-2 text-lg p-2">No Results Found!</p>
           </>
         )}
@@ -132,43 +109,21 @@ const BondsPage = ({ announcementData, results, props }) => {
         <Bond_header
           Itvfields={Itvfields}
           {...props}
-<<<<<<< HEAD
-          data={fetchedData ? toHeaderData(fetchedData) : toHeaderData(results)}
-        />
-        <BondsTabs overrideData={toOverrideData(results)} />
-=======
           data={toHeaderData(fetchedData)}
         />
         <BondsTabs overrideData={toOverrideData(fetchedData)} />
->>>>>>> release
       </div>
       <div className="search-summary w-full bg-nomura-off-white">
         <div className="flex flex-wrap gap-8 w-full">
           <Ltvvalues
-<<<<<<< HEAD
-            data={
-              fetchedData
-                ? toLTVValuesData(fetchedData)
-                : toLTVValuesData(results)
-            }
-=======
             data={toLTVValuesData(fetchedData)}
->>>>>>> release
             title="LTV"
             subTitle="Loan-To-Value"
             className="bg-noumura-light-red "
             cardValue="1"
           />
           <Ltvvalues
-<<<<<<< HEAD
-            data={
-              fetchedData
-                ? toSummaryValuesData(fetchedData, quantity)
-                : toSummaryValuesData(results, quantity)
-            }
-=======
             data={toSummaryValuesData(fetchedData, quantity)}
->>>>>>> release
             title="Key Metrics"
             subTitle=""
             className="bg-nomura-secondary-grey"
@@ -179,28 +134,12 @@ const BondsPage = ({ announcementData, results, props }) => {
           <DetailVerticalDisplayCard
             title="Bond Information"
             colSize={15}
-<<<<<<< HEAD
-            data={
-              fetchedData
-                ? toSummaryDetailData(fetchedData)
-                : toSummaryDetailData(results)
-            }
-=======
             data={toSummaryDetailData(fetchedData)}
->>>>>>> release
             labelClassName="nomura-14px-regular text-noumura-grey"
             valueClassName="nomura-14px-bold text-black"
           />
           <Disclaimers
-<<<<<<< HEAD
-            disclaimer={
-              fetchedData
-                ? toDisclaimerData(fetchedData)
-                : toDisclaimerData(results)
-            }
-=======
             disclaimer={toDisclaimerData(fetchedData)}
->>>>>>> release
             title="Disclaimer"
           />
         </div>

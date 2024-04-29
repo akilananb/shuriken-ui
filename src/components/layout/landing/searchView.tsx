@@ -17,13 +17,13 @@ export default function SearchView() {
     else return `primary-button-disable`;
   };
 
-  const isin = selectedItem?.isin;
+  const pdpId = selectedItem?.pdpId;
   const securityType = selectedItem?.securityType;
   const quantityParam = ![null, ""].includes(quantity)
     ? `&quantity=${quantity}`
     : "";
 
-  const href = `/bonds?isin=${isin}&securityType=${securityType}${quantityParam}`;
+  const href = `/bonds?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
 
   return (
     <div className="flex flex-col gap-8 bg-white h-full justify-center items-center">
@@ -44,7 +44,7 @@ export default function SearchView() {
           onChangeListener={(value) => {
             setQuantity(value);
           }}
-          selectedItem={{isin:isin , securityType:securityType}}
+          selectedItem={{ pdpId: pdpId, securityType: securityType }}
           isUpdate={false}
         />
       </div>
@@ -66,7 +66,7 @@ export default function SearchView() {
           {/* {loading ? (
             <CircularProgress thickness={4} size={25} sx={{ color: "white" }} />
           ) : ( */}
-            Search
+          Search
           {/* )} */}
         </Link>
       </div>

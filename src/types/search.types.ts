@@ -3,6 +3,7 @@ type LTVSearchType = "Active" | "InActive";
 export interface LTVSearch {
   securityName: string;
   isin: string;
+  pdpId: string;
   ticker: string;
   securityType: string;
   status: string;

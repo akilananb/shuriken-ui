@@ -2,6 +2,7 @@ import { LTVCalculationRes } from "@/types/LTVCalculation";
 
 export interface BondsProps {
   isin?: string;
+  pdpId?: string;
   securityType?: string;
   quantity?: number;
 }

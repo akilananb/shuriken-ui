@@ -1,5 +1,6 @@
 export interface LTVCalculationRes {
   securityName?: string;
+  pdpId?: string;
   isin?: string;
   ticker?: string;
   exchange?: string;

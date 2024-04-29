@@ -21,6 +21,7 @@ export interface TextInputProps extends BaseInputProps {
 
 export interface HeaderData {
   isin?: string;
+  pdpId?: string;
   securityType: string | undefined;
 }
 export type InputProps = NumberInputProps | TextInputProps;

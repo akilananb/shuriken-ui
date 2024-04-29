@@ -7,9 +7,17 @@ import TooltipComponent from "../tooltip";
 import { useRouter } from "next/navigation";
 
 const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
-  const { onChangeListener, value, placeholder, className,selectedItem,isUpdate , ...rest } = props;
+  const {
+    onChangeListener,
+    value,
+    placeholder,
+    className,
+    selectedItem,
+    isUpdate,
+    ...rest
+  } = props;
   const [numberValue, setNumberValue] = useState("");
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     if (value) {
@@ -22,20 +30,24 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
     onChangeListener?.(toRemoveCommaFormat(event.target.value));
   };
 
-
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
-      if(selectedItem?.isin !== undefined && selectedItem?.securityType !== undefined){
-        if(isUpdate){
-          router.push(`/bonds?isin=${selectedItem?.isin}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`)
-        }else{
-          const url = `/shuriken/bonds?isin=${selectedItem?.isin}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`;
-          window.open(url, '_blank')
+      if (
+        selectedItem?.pdpId !== undefined &&
+        selectedItem?.securityType !== undefined
+      ) {
+        if (isUpdate) {
+          router.push(
+            `/bonds?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`
+          );
+        } else {
+          const url = `/shuriken/bonds?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`;
+          window.open(url, "_blank");
         }
       }
     }
-  }
+  };
 
   return (
     <div className={className}>
