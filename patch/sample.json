@@ -1,0 +1,184 @@
+{
+    "securityName": "NETEASE INC",
+    "isin": "US64110W1027",
+    "ticker": "NTES",
+    "exchange": "UW",
+    "securityType": "EQUITY",
+    "status": "ACTIVE",
+    "pdpId": "24241629",
+    "takaraData": {
+        "japanesePrimaryExchEng": "XNGS",
+        "eqyShOut": 644952000,
+        "equityExchangeMarket": "UW",
+        "assetType": "EQUITY",
+        "etfUnderlyingClassification": null,
+        "equityExchangeMarketCountry": "US",
+        "equityExchangeMarketMainCurrency": "USD",
+        "eqyPrimExch": "UW",
+        "marketStatus": "ACTIV",
+        "country": "US"
+    },
+    "marketData": {
+        "crncy": "USD",
+        "pxLast": "96.630000000",
+        "pxBid": null,
+        "pxAsk": null,
+        "curMktCap": "62321.72",
+        "volatility90d": null,
+        "volumeAvg3m": "487696.312500000",
+        "avgDailyValueTraded3m": "49942376.0000",
+        "volatility260d": null,
+        "idxTradedValAvg3m": null,
+        "idIsin": "US64110W1027",
+        "name": "NETEASE INC-ADR",
+        "pxYestClose": "96.630000000",
+        "effectiveDate": "2024-04-29",
+        "volatility260dCalc": "39.1315",
+        "curMktCapUsd": "62321.72"
+    },
+    "assetCrncyExchangeRate": 1,
+    "mainCrncyExchangeRate": 1,
+    "ltvCalculation": {
+        "ltvAtIm": 0,
+        "ltvAtMc": 0,
+        "ltvAtSl": 0,
+        "overrideCalculationResult": {
+            "ltvAtIm": 0,
+            "ltvAtMc": 0,
+            "ltvAtSl": 0,
+            "reason": null,
+            "hasOverride": false
+        },
+        "lp": 1.0000000320383804,
+        "tv": 11.00000003203838,
+        "mv": 4712609.5,
+        "curMktCap": 62321.71875,
+        "volumeAvg3m": 487696.3125,
+        "avgDailyValueTraded3m": 49942376,
+        "disclaimer": ""
+    }
+}, {
+    "securityName": "HSINCG 8.5 22-Jan-2019",
+    "isin": "XS1344477028",
+    "ticker": null,
+    "exchange": null,
+    "securityType": "BOND",
+    "status": "ACTIVE",
+    "pdpId": "321416115",
+    "marketData": {
+        "name": "HSIN CHONG GROUP HOLDING",
+        "currency": "USD",
+        "pxLast": "1.144500000",
+        "idIsin": "XS1344477028",
+        "exchangeRate": "1.0",
+        "yasIspreadToGovt": "73731.866971852",
+        "discMrgnAsk": null,
+        "marketCloseDate": "29Apr2024"
+    },
+    "bondDetail": {
+        "rule144aFlag": "N",
+        "privatePlacementFlag": "N",
+        "amountIssued": 150000000,
+        "marketSectorDes": "CORP",
+        "mtyTyp": "MTY",
+        "cpnTyp": "UNK",
+        "inDefault": "Y",
+        "floater": "N",
+        "payInKind": "N",
+        "tradingFlat": false,
+        "isSubordinated": false,
+        "isDepositCert": false,
+        "ultParentCountryOfRisk": null,
+        "countryOfRisk": "HK",
+        "industrySectorCode": "IND",
+        "industryGroupCode": "ENGN",
+        "calledDt": null,
+        "maturityDate": "2019-01-22",
+        "shortName": "HSIN CHONG CONST",
+        "capitalContingentSecurity": null,
+        "cdo": "N",
+        "issuerName": "HSIN CHONG GROUP HOLDINGS LTD",
+        "lossAbsorption": "N",
+        "isPerpetual": "false",
+        "isSynthetic": "N",
+        "isGuaAvailable": "N",
+        "realIssuerRating": {
+            "ticker": "HSINCG",
+            "rating": {
+                "rtgSpLtFcIssuerCredit": null,
+                "rtgMdyLtFcDebitRating": null,
+                "rtgMoodyLongTerm": null
+            }
+        },
+        "guarantor": {
+            "ticker": null,
+            "rating": {
+                "rtgSpLtFcIssuerCredit": null,
+                "rtgMdyLtFcDebitRating": null,
+                "rtgMoodyLongTerm": null
+            }
+        },
+        "issueParent": {
+            "ticker": "HSINCG",
+            "rating": {
+                "rtgSpLtFcIssuerCredit": null,
+                "rtgMdyLtFcDebitRating": null,
+                "rtgMoodyLongTerm": null
+            }
+        },
+        "ultimateIssuerParent": {
+            "ticker": null,
+            "rating": {
+                "rtgSpLtFcIssuerCredit": null,
+                "rtgMdyLtFcDebitRating": null,
+                "rtgMoodyLongTerm": null
+            }
+        },
+        "issueRating": {
+            "rtgSp": null,
+            "rtgMoody": null
+        }
+    },
+    "ltvCalculation": {
+        "ltvAtIm": 0,
+        "ltvAtMc": 0,
+        "ltvAtSl": 0,
+        "override": {
+            "ltvAtIm": 0,
+            "ltvAtMc": 0,
+            "ltvAtSl": 0,
+            "reason": "null",
+            "hasOverride": false
+        },
+        "financingEligibility": {
+            "reason": "Bond type 'Straight' and price less than 40",
+            "eligible": false
+        },
+        "ratingUsed": "ISSUE_ISSUER_UNRATED",
+        "issueRating": {
+            "snp": "",
+            "moodys": ""
+        },
+        "issuerRating": {
+            "snp": "",
+            "moodys": ""
+        },
+        "indicativeLtv1AdjMade": null,
+        "appliedLtv2Adjustment": "No Adjusted Ltv 2 for spread range above 1200",
+        "indicativeLtv1": 0,
+        "adjustedIndicativeLtv1": 0,
+        "indicativeLtv2": 0,
+        "ltvCapsAdjustment": 0,
+        "ltvCaps": {
+            "reason": "",
+            "capApplied": false
+        },
+        "bondType": "STRAIGHT",
+        "bondGrade": "NA",
+        "countryClassification": "DM",
+        "issueSizeUsd": 150000000,
+        "spread": 73731.866971852,
+        "disclaimer": "",
+        "isPerpetual": false
+    }
+}
