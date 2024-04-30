@@ -24,7 +24,7 @@ export default function SearchView() {
     : "";
 
   const href = `/${
-    securityType === "Bond" ? "bonds" : "equity"
+    securityType?.toUpperCase() === "BOND" ? "bonds" : "equity"
   }?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
 
   return (

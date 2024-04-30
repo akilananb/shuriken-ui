@@ -32,6 +32,7 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
   };
 
   const handleKeyDown = (event) => {
+    const securityType = selectedItem?.securityType?.toUpperCase();
     if (event.key === "Enter") {
       event.preventDefault();
       if (
@@ -40,10 +41,16 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
       ) {
         if (isUpdate) {
           router.push(
-            `/${selectedItem?.securityType === "Bond" ? 'bonds' : "equity"}?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`
+            `/${securityType === "BOND" ? "bonds" : "equity"}?pdpId=${
+              selectedItem?.pdpId
+            }&securityType=${securityType}&quantity=${numberValue}`
           );
         } else {
-          const url = `${BASE_NAME}/${selectedItem?.securityType === "Bond" ? 'bonds' : "equity"}?pdpId=${selectedItem?.pdpId}&securityType=${selectedItem?.securityType}&quantity=${numberValue}`;
+          const url = `${BASE_NAME}/${
+            securityType === "BOND" ? "bonds" : "equity"
+          }?pdpId=${
+            selectedItem?.pdpId
+          }&securityType=${securityType}&quantity=${numberValue}`;
           window.open(url, "_blank");
         }
       }

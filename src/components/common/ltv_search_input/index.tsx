@@ -84,7 +84,6 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   };
 
   const handleSearchSelect = (_, selectedValue) => {
-    console.log(selectedValue);
     if (!selectedValue) {
       setSearchTerm("");
     }
@@ -110,9 +109,12 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
       if (matchedOption) {
         onSelectedItem?.(matchedOption);
         setOpenAutocomplete(false);
-        const url = `${isUpdate === false ? BASE_NAME : ""}/${matchedOption?.securityType === "Bond" ? 'bonds' : 'equity'}?pdpId=${
-          matchedOption?.pdpId
-        }&securityType=${matchedOption?.securityType}${quantityParam}`;
+        const matchedSecurityType = matchedOption?.securityType?.toUpperCase();
+        const url = `${isUpdate === false ? BASE_NAME : ""}/${
+          matchedSecurityType === "BOND" ? "bonds" : "equity"
+        }?pdpId=${matchedOption?.pdpId}&securityType=${
+          matchedOption?.securityType
+        }${quantityParam}`;
 
         if (isUpdate) {
           router.push(url);
