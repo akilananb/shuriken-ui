@@ -38,6 +38,7 @@ export const toSummaryEquitiesData = (
     const ltvAtImFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtIm ?? 0
     const ltvAtMcFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtMc ?? 0
     const ltvAtSmFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtSl ?? 0
+    const lastClosingPrice = result?.marketData?.pxYestClose ?? 0
     return [
         {
             label: "Country",
@@ -53,7 +54,7 @@ export const toSummaryEquitiesData = (
         },
         {
             label: "Last Close Price",
-            value: result?.marketData?.pxYestClose ?? "-",
+            value: `${lastClosingPrice.toFixed(2)}` ?? 0
         },
         {
             label: "Market Cap (USD)",
@@ -80,11 +81,11 @@ export const toSummaryEquitiesData = (
             value: `${liquidPeriod.toFixed(6)}` ?? 0,
         },
         {
-            label: "3 month Average Liquidity (USD)",
+            label: "3 month Average Liquidity",
             value: toCommaSeprated(result?.ltvCalculation?.volumeAvg3m ?? 0),
         },
         {
-            label: "3 mon Average Traded Value (USD)",
+            label: "3 month Average Traded Value (USD)",
             value: toCommaSeprated(result?.ltvCalculation?.avgDailyValueTraded3m ?? 0),
         },
     ];
@@ -127,25 +128,27 @@ export const toLTVValuesData = (result?: EquityLTVCalculationRes): DisplayItem[]
 };
 export const toSummaryValuesData = (
     result?: EquityLTVCalculationRes,
-    quantity?: Number
+    quantity?: Number | string
 ): DisplayItem[] => {
+    const tradedValue = result?.ltvCalculation?.volumeAvg3m ?? 0;
+    const qty = quantity === "" ? (tradedValue / 10) : quantity ?? 0
     const ltvCalculation = result?.ltvCalculation;
     const override = ltvCalculation?.overrideCalculationResult;
     const marketData = result?.marketData;
     const exchangeRate = result?.assetCrncyExchangeRate ?? 0
-
+    console.log(marketData?.pxLast)
 
     const mvCalc = marketData?.pxLast
         ? (marketData.pxLast / exchangeRate / 100) *
-        Number(quantity || 0)
+        Number(qty || 0)
         : 0;
     const mv =
-        marketData?.pxLast && quantity
+        marketData?.pxLast && qty
             ? toSetCommaFormatPercentage(String(Math.round(mvCalc)))
             : "-";
 
     let cvCalculation = 0;
-    if (quantity !== undefined || quantity !== null) {
+    if (qty !== undefined || qty !== null) {
         const ltvAtIm = override?.hasOverride
             ? override?.ltvAtIm
             : ltvCalculation?.ltvAtIm;
@@ -155,12 +158,12 @@ export const toSummaryValuesData = (
         }
     }
 
-    const cv = quantity ? String(Math.round(cvCalculation)) : "-";
+    const cv = qty ? String(Math.round(cvCalculation)) : "-";
 
     return [
         {
             label: "Quantity",
-            value: quantity ? toCommaSeprated(String(quantity) ?? "") : "-",
+            value: qty ? toCommaSeprated(String(qty) ?? "") : "-",
         },
         {
             label: "Market Value (USD)",

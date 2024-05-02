@@ -31,7 +31,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
     ? `&quantity=${_quantity}`
     : "";
 
-  const href = `/bonds?pdpId=${selectedItem?.pdpId || pdpId}&securityType=${
+  const href = `/${selectedItem?.securityType?.toUpperCase() === "BOND" || securityType?.toUpperCase() === "BOND" ? "bonds" : "equity" }?pdpId=${selectedItem?.pdpId || pdpId}&securityType=${
     selectedItem?.securityType || securityType
   }${quantityParam}`;
 

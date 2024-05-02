@@ -1,11 +1,4 @@
-import { LTVCalculationRes } from "@/types/LTVCalculation";
-
-export interface BondsProps {
-  isin?: string;
-  pdpId?: string;
-  securityType?: string;
-  quantity?: number;
-}
+import { LTVCalculationRes, SeciritySearchProps } from "@/types/LTVCalculation";
 
 export interface SearchInput {
   isin: string;
@@ -15,7 +8,7 @@ export interface MutiSearchInput {
   searchInput: SearchInput[];
 }
 
-export interface BondsChildProps extends BondsProps {
+export interface BondsChildProps extends SeciritySearchProps {
   data: HeaderData;
   Itvfields: any;
   ltvData?: LTVCalculationRes;

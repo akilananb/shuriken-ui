@@ -138,7 +138,7 @@ export interface TakaraData {
   country?: string
 }
 export interface EquityMarketData {
-  pxYestClose?: string;
+  pxYestClose?: number;
   curMktCap?: number;
   volatility260d?: string;
   avgDailyValueTraded3m?: number;
@@ -168,6 +168,12 @@ interface EquityLtvCalculation {
   isPerpetual: boolean;
   lp: number;
   curMktCap?: number;
-  volumeAvg3m?: string;
+  volumeAvg3m?: number;
   avgDailyValueTraded3m?: number;
+}
+export interface SeciritySearchProps {
+  isin?: string;
+  pdpId?: string;
+  securityType?: string;
+  quantity?: number;
 }

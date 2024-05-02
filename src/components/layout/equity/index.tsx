@@ -1,11 +1,11 @@
 // "use client";
 import SearchService from "@/services/search_services";
-import { BondsProps } from "../bonds/types";
 import EquityPage from "./EquityPage";
+import { SeciritySearchProps } from "@/types/LTVCalculation";
 export async function getLadingPageData() {
   try {
     const announcementResponse = await fetch(
-      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/announcement/fetch`,
+      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/announcement/latest`,
       { cache: "no-store" }
     );
 
@@ -23,7 +23,7 @@ export async function getLadingPageData() {
   }
 }
 
-const Equity: React.FC<BondsProps> = async (props: BondsProps) => {
+const Equity: React.FC<SeciritySearchProps> = async (props: SeciritySearchProps) => {
   const { pdpId, quantity } = props;
 
   const searchService = new SearchService();
