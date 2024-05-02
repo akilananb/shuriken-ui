@@ -138,7 +138,7 @@ export interface TakaraData {
   country?: string
 }
 export interface EquityMarketData {
-  pxYestClose?: number;
+  pxYestClose?: string;
   curMktCap?: number;
   volatility260d?: string;
   avgDailyValueTraded3m?: number;

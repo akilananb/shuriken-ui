@@ -38,7 +38,7 @@ export const toSummaryEquitiesData = (
     const ltvAtImFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtIm ?? 0
     const ltvAtMcFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtMc ?? 0
     const ltvAtSmFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtSl ?? 0
-    const lastClosingPrice = result?.marketData?.pxYestClose ?? 0
+    const lastClosingPrice = result?.marketData?.pxYestClose ?? ''
     return [
         {
             label: "Country",
@@ -54,7 +54,7 @@ export const toSummaryEquitiesData = (
         },
         {
             label: "Last Close Price",
-            value: `${lastClosingPrice.toFixed(2)}` ?? 0
+            value: `${Number(lastClosingPrice).toFixed(2)}` ?? 0
         },
         {
             label: "Market Cap (USD)",
@@ -136,7 +136,6 @@ export const toSummaryValuesData = (
     const override = ltvCalculation?.overrideCalculationResult;
     const marketData = result?.marketData;
     const exchangeRate = result?.assetCrncyExchangeRate ?? 0
-    console.log(marketData?.pxLast)
 
     const mvCalc = marketData?.pxLast
         ? (marketData.pxLast / exchangeRate / 100) *
