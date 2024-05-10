@@ -141,6 +141,7 @@ export interface EquityMarketData {
   pxYestClose?: string;
   curMktCap?: number;
   volatility260d?: string;
+  volatility260dCalc?: string;
   avgDailyValueTraded3m?: number;
   volumeAvg3m?: string;
   pxLast?: number;

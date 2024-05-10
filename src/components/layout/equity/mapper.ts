@@ -70,7 +70,11 @@ export const toSummaryEquitiesData = (
     },
     {
       label: "260 Days Volatility (%)",
-      value: result?.marketData?.volatility260d ?? "-",
+      value: result?.marketData?.volatility260dCalc ?? "-",
+    },
+    {
+      label: "Exchange Rate",
+      value: toCommaSeprated(result?.assetCrncyExchangeRate ?? 0),
     },
     {
       label: "LTV at IM in Full Equity Financing",
@@ -90,7 +94,7 @@ export const toSummaryEquitiesData = (
     },
     {
       label: "3 month Average Liquidity",
-      value: toCommaSeprated(result?.ltvCalculation?.volumeAvg3m ?? 0),
+      value: toCommaSeprated(Math.round(result?.ltvCalculation?.volumeAvg3m ?? 0) ?? 0),
     },
     {
       label: "3 month Average Traded Value (USD)",
@@ -168,12 +172,12 @@ export const toSummaryValuesData = (
     }
   }
 
-  const cv = qty ? String(Math.round(cvCalculation)) : "-";
+  const cv = qty ? toSetCommaFormatPercentage(String(Math.round(cvCalculation))) : "-";
 
   return [
     {
       label: "Quantity",
-      value: qty ? toCommaSeprated(String(qty) ?? "") : "-",
+      value: qty ? toCommaSeprated(String(Math.round(Number(qty))) ?? "") : "-",
     },
     {
       label: "Market Value (USD)",
