@@ -8,7 +8,14 @@ import Itvfields from "@/components/common/Constants/ltvfields.json";
 import { BASE_NAME } from "@/config/appConfig";
 import Announcement from "@/components/layout/announcement";
 import Bond_header from "../bonds/Bond_header";
-import { toDisclaimerData, toEquityHeaderData, toLTVValuesData, toOverrideData, toSummaryEquitiesData, toSummaryValuesData } from "./mapper";
+import {
+  toDisclaimerData,
+  toEquityHeaderData,
+  toLTVValuesData,
+  toOverrideData,
+  toSummaryEquitiesData,
+  toSummaryValuesData,
+} from "./mapper";
 import LtvMetricHeader from "../bonds/LtvMetricHeader";
 import BondsTabs from "../bonds/Bonds_tabs";
 import DetailVerticalDisplayCard from "../bonds/DetailVerticalDisplayCard";
@@ -55,6 +62,10 @@ const EquityPage = ({ announcementData, results, props }) => {
       };
     }
   }, [attemptCount, maxAttempts]);
+
+  useEffect(() => {
+    setFetchedData(results);
+  }, [results]);
 
   if (
     Object.keys(fetchedData).length === 0 ||
@@ -109,12 +120,10 @@ const EquityPage = ({ announcementData, results, props }) => {
       </div>
       <div className="search-summary w-full bg-nomura-off-white">
         <div className="flex flex-wrap gap-8 w-full">
-        <LtvMetricHeader ltvData={fetchedData
-            ? toLTVValuesData(fetchedData)
-            : toLTVValuesData(results)}
-            metricsData={fetchedData
-              ? toSummaryValuesData(fetchedData, quantity)
-              : toSummaryValuesData(results, quantity)} />
+          <LtvMetricHeader
+            ltvData={toLTVValuesData(fetchedData)}
+            metricsData={toSummaryValuesData(fetchedData, quantity)}
+          />
         </div>
         <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard

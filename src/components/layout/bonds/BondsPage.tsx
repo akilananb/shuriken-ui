@@ -116,12 +116,10 @@ const BondsPage = ({ announcementData, results, props }) => {
       </div>
       <div className="search-summary w-full bg-nomura-off-white">
         <div className="flex flex-wrap gap-8 w-full">
-        <LtvMetricHeader ltvData={fetchedData
-            ? toLTVValuesData(fetchedData)
-            : toLTVValuesData(results)}
-            metricsData={fetchedData
-              ? toSummaryValuesData(fetchedData, quantity)
-              : toSummaryValuesData(results, quantity)} />
+          <LtvMetricHeader
+            ltvData={toLTVValuesData(fetchedData)}
+            metricsData={toSummaryValuesData(fetchedData, quantity)}
+          />
         </div>
         <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard

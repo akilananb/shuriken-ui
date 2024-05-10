@@ -2,14 +2,20 @@
 import InputComponent from "@/components/common/input";
 import LTVSearchInput from "@/components/common/ltv_search_input";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LTVSearch } from "@/types/search.types";
 import { BondsChildProps } from "./types";
+import Spinner from "@/components/common/spinner";
 const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
   const { quantity, pdpId, data, securityType } = props;
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [_quantity, setQuantity] = useState<string>(quantity?.toString() ?? "");
   const [onChangeSelect, setChangeSelect] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [selectedItem, pdpId, _quantity, securityType]);
 
   const classValue = () => {
     const numericQuantity = quantity !== undefined ? quantity : 0;
@@ -31,7 +37,12 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
     ? `&quantity=${_quantity}`
     : "";
 
-  const href = `/${selectedItem?.securityType?.toUpperCase() === "BOND" || securityType?.toUpperCase() === "BOND" ? "bonds" : "equity" }?pdpId=${selectedItem?.pdpId || pdpId}&securityType=${
+  const href = `/${
+    selectedItem?.securityType?.toUpperCase() === "BOND" ||
+    securityType?.toUpperCase() === "BOND"
+      ? "bonds"
+      : "equity"
+  }?pdpId=${selectedItem?.pdpId || pdpId}&securityType=${
     selectedItem?.securityType || securityType
   }${quantityParam}`;
 
@@ -41,6 +52,11 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
       setChangeSelect(true);
     }
   };
+
+  const handleUpdateClick = () => {
+    setIsLoading(true);
+  };
+
   return (
     <div className="flex gap-2 w-1/2">
       <LTVSearchInput
@@ -69,8 +85,13 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         }
         isUpdate={true}
       />
-      <Link href={href} className={classValue()} replace>
-        Update
+      <Link
+        href={href}
+        className={classValue()}
+        onClick={handleUpdateClick}
+        replace
+      >
+        {isLoading ? <Spinner fullPage={true} /> : "Update"}
       </Link>
     </div>
   );

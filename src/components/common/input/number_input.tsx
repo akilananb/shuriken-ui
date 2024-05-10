@@ -59,7 +59,7 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
 
   return (
     <div className={className}>
-      <TooltipComponent tooltipMsg="Face value" placement="bottom">
+      <TooltipComponent tooltipMsg="Bond: Face value" placement="bottom">
         <TextField
           fullWidth
           sx={{
