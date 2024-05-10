@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import Button from "@/components/common/button";
-import BrandLogoFull from "@/components/common/brand_logo_full";
 import Link from "next/link";
 import Image from "next/image";
 import { BASE_NAME } from "@/config/appConfig";
@@ -41,11 +40,13 @@ function NavBar({ showDrawer }) {
             className="h-[64px]"
           />
           <div className="absolute top-0 left-12">
-            <img
-              src={`${BASE_NAME}/static/images/nomura-text.png`}
-              alt="nomura Logo"
-              className="h-[64px]"
-            />
+            <Link href="/">
+              <img
+                src={`${BASE_NAME}/static/images/nomura-text.png`}
+                alt="nomura Logo"
+                className="h-[64px]"
+              />
+            </Link>
           </div>
           <div>
             <img
