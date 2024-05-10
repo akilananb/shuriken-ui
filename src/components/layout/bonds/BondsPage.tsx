@@ -63,6 +63,10 @@ const BondsPage = ({ announcementData, results, props }) => {
     }
   }, [attemptCount, maxAttempts]);
 
+  useEffect(() => {
+    setFetchedData(results);
+  }, [results]);
+
   if (
     Object.keys(fetchedData).length === 0 ||
     code === errorCode ||

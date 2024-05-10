@@ -24,7 +24,9 @@ export async function getLadingPageData() {
   }
 }
 
-const Bonds: React.FC<SeciritySearchProps> = async (props: SeciritySearchProps) => {
+const Bonds: React.FC<SeciritySearchProps> = async (
+  props: SeciritySearchProps
+) => {
   const { pdpId, quantity } = props;
 
   const searchService = new SearchService();
