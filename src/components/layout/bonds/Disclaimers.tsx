@@ -1,5 +1,13 @@
 import BondCards from "@/components/common/Bonds/BondCards";
 import { DisclaimerProps } from "./types";
+const renderTextWithLineBreaks = (text: string): JSX.Element[] => {
+  return text?.split('\n').map((line, i) => (
+    <span key={i}>
+      {line}
+      <br /> {/* Render line break */}
+    </span>
+  ));
+};
 
 const Disclaimers: React.FC<DisclaimerProps> = (props: DisclaimerProps) => {
   const { disclaimer } = props;
@@ -19,9 +27,9 @@ const Disclaimers: React.FC<DisclaimerProps> = (props: DisclaimerProps) => {
                 .map((value, index) => (
                   <div
                     key={index}
-                    className="flex-1 text-right nomura-14px-regular text-black"
+                    className="flex-1 nomura-14px-regular text-black"
                   >
-                    {value}
+                    {renderTextWithLineBreaks(value)}
                   </div>
                 ))
             ) : (
