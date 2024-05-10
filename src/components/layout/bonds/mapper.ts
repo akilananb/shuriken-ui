@@ -88,7 +88,7 @@ export const toSummaryDetailData = (
     },
     {
       label: "Last Close Price",
-      value: toCommaSeprated(result?.marketData?.pxLast ?? 0),
+      value: toCommaSeprated(Number(result?.marketData?.pxLast).toFixed(2) ?? 0),
     },
     {
       label: "Issuer Name",
@@ -264,7 +264,7 @@ export const toSummaryValuesData = (
     }
   }
 
-  const cv = quantity ? String(Math.round(cvCalculation)) : "-";
+  const cv = quantity ? toSetCommaFormatPercentage(String(Math.round(cvCalculation))) : "-";
 
   return [
     {
