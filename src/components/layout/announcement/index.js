@@ -3,15 +3,26 @@ import { useMemo } from "react";
 import Modal from "@/components/common/modal";
 import useModal from "@/hooks/useModal";
 
+const formatTimeStamp = (timeStamp) => {
+  const dateObj = new Date(timeStamp);
+  const formattedDate = dateObj.toLocaleDateString();
+  const formattedTime = dateObj.toLocaleTimeString();
+  return { formattedDate, formattedTime };
+};
+
 const AnnouncementModalContent = ({ payLoad }) => {
   const lastModified = payLoad.lastModifiedAt;
+  const { formattedDate, formattedTime } = useMemo(
+    () => formatTimeStamp(lastModified),
+    [lastModified]
+  );
 
   return (
     <div className="flex flex-col gap-10 h-full justify-center items-center max-w-[751px]">
       <div key={payLoad.id}>{payLoad.message}</div>
       {lastModified && (
         <p className="text-right announce-modified">
-          Last modified {lastModified}
+          Last modified {formattedDate} at {formattedTime}
         </p>
       )}
     </div>

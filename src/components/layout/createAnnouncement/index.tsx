@@ -1,11 +1,16 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import InputComponent from "@/components/common/input";
+import Modal from "@/components/common/modal";
+import Image from "next/image";
+import { BASE_NAME } from "@/config/appConfig";
 import SearchService, { AnnouncementRes } from "@/services/search_services";
 
 const CreateAnnouncement = () => {
   const [announcementText, setAnnouncementText] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [announcementCreated, setAnnouncementCreated] =
+    useState<boolean>(false);
 
   async function fetchAnnouncementData() {
     try {
@@ -44,6 +49,7 @@ const CreateAnnouncement = () => {
       if (!response.ok) {
         throw new Error("Failed to create announcement");
       }
+      setAnnouncementCreated(true);
       setAnnouncementText("");
       setErrorMessage("");
     } catch (error) {
@@ -73,6 +79,26 @@ const CreateAnnouncement = () => {
           Publish
         </button>
       </div>
+      <Modal
+        isOpen={announcementCreated}
+        onClose={() => setAnnouncementCreated(false)}
+        title="Success!"
+      >
+        <div className="flex items-center justify-center flex-col">
+          <div className="flex text-center justify-center">
+            <Image
+              src={`${BASE_NAME}/static/images/success.png`}
+              alt="success"
+              width="20"
+              height="20"
+            />
+          </div>
+
+          <p className="flex items-center text-lg mt-4">
+            Announcement published successfully.
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 };
