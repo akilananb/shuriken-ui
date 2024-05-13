@@ -6,7 +6,12 @@ const TooltipComponent: React.FC<TooltipProps> = (props: TooltipProps) => {
 
   return (
     <>
-      <Tooltip title={tooltipMsg} arrow placement={placement}>
+      <Tooltip
+        data-testid="tool-tip"
+        title={tooltipMsg}
+        arrow
+        placement={placement}
+      >
         <div>{children}</div>
       </Tooltip>
     </>

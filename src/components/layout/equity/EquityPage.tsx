@@ -127,8 +127,8 @@ const EquityPage = ({ announcementData, results, props }) => {
         </div>
         <div className="inline-flex gap-4 w-full flex-col">
           <DetailVerticalDisplayCard
-            title="Bond Information"
-            colSize={6}
+            title="Equity Information"
+            colSize={7}
             data={toSummaryEquitiesData(fetchedData)}
             labelClassName="nomura-14px-regular text-noumura-grey"
             valueClassName="nomura-14px-bold text-black"

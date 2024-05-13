@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import Button from "@/components/common/button";
-import BrandLogoFull from "@/components/common/brand_logo_full";
 import Link from "next/link";
 import Image from "next/image";
 import { BASE_NAME } from "@/config/appConfig";
@@ -10,7 +9,11 @@ NavBar.propTypes = {
 };
 
 function Header({ children, className }) {
-  return <div className={className}>{children}</div>;
+  return (
+    <div data-testid="shuriken-header" className={className}>
+      {children}
+    </div>
+  );
 }
 
 function NavBar({ showDrawer }) {
@@ -37,20 +40,22 @@ function NavBar({ showDrawer }) {
         <div className="relative flex">
           <img
             src={`${BASE_NAME}/static/images/nomura-back.png`}
-            alt="nomura Logo"
+            alt="nomura"
             className="h-[64px]"
           />
           <div className="absolute top-0 left-12">
-            <img
-              src={`${BASE_NAME}/static/images/nomura-text.png`}
-              alt="nomura Logo"
-              className="h-[64px]"
-            />
+            <Link href="/">
+              <img
+                src={`${BASE_NAME}/static/images/nomura-text.png`}
+                alt="nomura Logo"
+                className="h-[64px]"
+              />
+            </Link>
           </div>
           <div>
             <img
               src={`${BASE_NAME}/static/images/shuriken-text.png`}
-              alt="nomura Logo"
+              alt="shuriken logo"
               className="h-[64px]"
             />
           </div>
@@ -60,10 +65,11 @@ function NavBar({ showDrawer }) {
         <Button
           type="text"
           data-testid="shuriken-notification"
+          label="Notifications"
           icon={
             <Image
               src={`${BASE_NAME}/static/images/Heartbeat.svg`}
-              alt="hamburger"
+              alt="heartbeat"
               width="24"
               height="24"
             />

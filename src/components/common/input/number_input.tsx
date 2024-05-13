@@ -43,14 +43,14 @@ const NumberInput: React.FC<NumberInputProps> = (props: NumberInputProps) => {
           router.push(
             `/${securityType === "BOND" ? "bonds" : "equity"}?pdpId=${
               selectedItem?.pdpId
-            }&securityType=${securityType}&quantity=${numberValue}`
+            }&securityType=${securityType}&quantity=${toRemoveCommaFormat(numberValue)}`
           );
         } else {
           const url = `${BASE_NAME}/${
             securityType === "BOND" ? "bonds" : "equity"
           }?pdpId=${
             selectedItem?.pdpId
-          }&securityType=${securityType}&quantity=${numberValue}`;
+          }&securityType=${securityType}&quantity=${toRemoveCommaFormat(numberValue)}`;
           window.open(url, "_blank");
         }
       }
