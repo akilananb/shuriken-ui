@@ -5,8 +5,8 @@ import useModal from "@/hooks/useModal";
 import { Formik, Form } from "formik";
 import OverrideForm from "./overrideForm";
 import NoteForm from "./noteForm";
-
 import { AddOverrideSchema } from "./validation";
+
 const initialState = {
   instrumentId: "",
   instrumentType: "BOND",
@@ -70,6 +70,7 @@ const AddOverridePopup = ({ onChange }) => {
     <>
       <div className="flex">
         <button
+          data-testid="open-modal-button"
           className="asset-add-override-button me-3"
           onClick={() => {
             setModalType("overrides");
@@ -107,6 +108,7 @@ const AddOverridePopup = ({ onChange }) => {
                   )}
                   <div className="mt-10 w-full flex justify-center">
                     <button
+                      aria-label="Create Button"
                       type="submit"
                       className="asset-add-override-button"
                       disabled={!isValid || isSubmitting}
