@@ -74,7 +74,7 @@ export const toSummaryEquitiesData = (
     },
     {
       label: "Exchange Rate",
-      value: toCommaSeprated(result?.assetCrncyExchangeRate ?? 0),
+      value: toCommaSeprated((result?.assetCrncyExchangeRate)?.toFixed(6) ?? 0),
     },
     {
       label: "LTV at IM in Full Equity Financing",
