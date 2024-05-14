@@ -70,6 +70,7 @@ const LtvSearch = () => {
         <div className="absolute w-[565px] h-16 ltv-custom-search-override"></div>
       )}
       <Autocomplete
+        data-testid="autocomplete-input"
         popupClassName="ltv-search-popup"
         popupMatchSelectWidth={565}
         options={options}

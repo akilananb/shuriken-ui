@@ -15,7 +15,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
 
   useEffect(() => {
     setIsLoading(false);
-  }, [selectedItem, pdpId, _quantity, securityType]);
+  }, [selectedItem, pdpId, quantity, securityType]);
 
   const classValue = () => {
     const numericQuantity = quantity !== undefined ? quantity : 0;
@@ -54,7 +54,15 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
   };
 
   const handleUpdateClick = () => {
-    setIsLoading(true);
+    const updatedQuantity = quantity?.toString();
+    if (
+      selectedItem !== null &&
+      (selectedItem?.pdpId !== pdpId ||
+        _quantity !== updatedQuantity ||
+        selectedItem?.securityType !== securityType)
+    ) {
+      setIsLoading(true);
+    }
   };
 
   return (
