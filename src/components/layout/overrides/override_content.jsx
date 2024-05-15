@@ -7,9 +7,11 @@ import useModal from "@/hooks/useModal";
 
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import { filtersToQueryString } from "@/_utils/helper";
+import TextField from "@mui/material/TextField";
 import AddOverridePopup from "@/components/layout/add_override_popup";
+import { debounce } from "@mui/material/utils";
 
-export const fetchData = async (page, pageSize, filters) => {
+export const fetchData = async (page, pageSize, filters, searchKey) => {
   let url = `/shuriken/api/asset-query-svc/api/v1/instrument-override?page=${
     page - 1
   }&size=${pageSize}`;
@@ -18,6 +20,9 @@ export const fetchData = async (page, pageSize, filters) => {
     url += "&" + filtersToQueryString(filters);
   }
 
+  if (searchKey) {
+    url += `&searchKey=${encodeURIComponent(searchKey)}`;
+  }
   const response = await fetch(url, { cache: "no-store" });
 
   return response.json();
@@ -35,6 +40,7 @@ const OverrideContent = ({ intialData }) => {
     overrideStatus: "ACTIVE",
   });
   const [reloadTable, setReloadTable] = useState("");
+  const [searchKey, setSearchKey] = useState("");
 
   const handleFilterChange = (filterType, value) => {
     setFilters((prevFilters) => {
@@ -63,6 +69,10 @@ const OverrideContent = ({ intialData }) => {
       ? "asset-override-filter-button-active"
       : "asset-override-filter-button";
   };
+
+  const handleSearch = debounce((value) => {
+    setSearchKey(value);
+  }, 400);
 
   return (
     <>
@@ -118,6 +128,27 @@ const OverrideContent = ({ intialData }) => {
               InActive
             </button>
           </div>
+          <div>
+            <TextField
+              placeholder="Search Override"
+              className="w-[565px] !h-[50px]"
+              variant="outlined"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#D1D3D4",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#D1D3D4",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#D1D3D4",
+                  },
+                },
+              }}
+              onChange={(event) => handleSearch(event.target.value)}
+            />
+          </div>
         </div>
       </div>
       <InfiniteScrollTable
@@ -125,6 +156,7 @@ const OverrideContent = ({ intialData }) => {
         columns={columns}
         pageSize={20}
         filters={filters}
+        searchKey={searchKey}
         initialData={intialData}
         reload={reloadTable}
         actionItems={actionItems}

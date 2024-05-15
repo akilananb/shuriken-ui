@@ -18,13 +18,15 @@ const InfiniteScrollTable = ({
   initialData,
   actionItems,
   actionOnClick,
+  searchKey,
 }) => {
   const { data, loading, setHasMore } = useInfiniteScroll(
     fetchData,
     pageSize,
     filters,
     reload,
-    initialData
+    initialData,
+    searchKey
   );
   const { elementRef, showScrollTop, scrollToTop } = useScrollPosition(() => {
     if (!loading) {
