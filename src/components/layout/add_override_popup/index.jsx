@@ -9,11 +9,11 @@ import { AddOverrideSchema } from "./validation";
 
 const initialState = {
   instrumentId: "",
-  instrumentType: "BOND",
+  instrumentType: "",
   overrideType: "OVERRIDE_LTV",
   ltvOverrideNote: "",
   ltvOverrideValue: "",
-  generalNote: "some Test",
+  generalNote: "",
   status: "ACTIVE",
   startDate: "",
   endDate: "",
