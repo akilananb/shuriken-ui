@@ -38,14 +38,31 @@ const Disclaimers: React.FC<DisclaimerProps> = (props: DisclaimerProps) => {
               </div>
             )}
           </div>
-          {/* <div className="flex flex-col gap-2 items-start">
+          <div className="flex flex-col gap-2 items-start">
             <div className="nomura-18px-regular text-noumura-grey w-full">
               Notes
             </div>
-            <div className="flex-1 text-right nomura-14px-regular text-black">
-              {Itvfields.Desclaimer_and_notes.Notes}
+            <div className="flex-1 nomura-14px-regular text-black">
+            {disclaimer.notes.length > 0 ? (
+              disclaimer.notes
+                .filter(
+                  (value) => value == null || value === "" || value != "null"
+                )
+                .map((value, index) => (
+                  <div
+                    key={index}
+                    className="flex-1 nomura-14px-regular text-black"
+                  >
+                    {renderTextWithLineBreaks(value)}
+                  </div>
+                ))
+            ) : (
+              <div className="flex-1 text-right nomura-14px-regular text-black">
+                -
+              </div>
+            )}
             </div>
-          </div> */}
+          </div>
         </div>
       </BondCards>
     </div>

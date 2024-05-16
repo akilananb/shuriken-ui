@@ -31,3 +31,7 @@ export const extractNomuraRoles = (text: string): string[] | null => {
   }
   return null; // Return null if no match is found
 }
+export function roundDownQuantity(quantity) {
+  const decimalPlaces = (quantity.toString().split('.')[1] || '').length;
+  return parseFloat(quantity).toFixed(Math.min(decimalPlaces, 6));
+}

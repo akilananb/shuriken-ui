@@ -48,6 +48,7 @@ export interface DisplayItem {
 export interface DisplayListItem {
   label: string;
   value: string[];
+  notes: string[];
   key?: string;
   color?: "RED" | "BLACK";
   tooltipMsg?: string;
