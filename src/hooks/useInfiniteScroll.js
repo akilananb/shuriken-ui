@@ -1,30 +1,41 @@
 import { useState, useEffect } from "react";
 
-const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData) => {
+const useInfiniteScroll = (
+  fetchPageData,
+  pageSize,
+  filters,
+  reload,
+  initialData,
+  searchKey
+) => {
   const [data, setData] = useState(initialData?.content || []);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(-1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState("");
   const fetchData = async () => {
-    if (loading || !hasMore || (totalPage==page)) return;
+    if (loading || !hasMore || totalPage == page) return;
 
     setLoading(true);
 
     try {
-      const newData = await fetchPageData(page, pageSize, filters);
+      const newData = await fetchPageData(page, pageSize, filters, searchKey);
 
-      if (newData && Array.isArray(newData.content) && page <= newData.totalPages ) {
-        setData(prevData => [...prevData, ...newData.content]);
-        setPage(prevPage => prevPage + 1);
-        setTotalPage((newData.totalPages +1))
+      if (
+        newData &&
+        Array.isArray(newData.content) &&
+        page <= newData.totalPages
+      ) {
+        setData((prevData) => [...prevData, ...newData.content]);
+        setPage((prevPage) => prevPage + 1);
+        setTotalPage(newData.totalPages + 1);
         // setHasMore(page < newData.totalPages);
       } else {
-        console.error('Invalid data structure received:', newData);
+        console.error("Invalid data structure received:", newData);
         // setHasMore(false);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       // setHasMore(false);
     } finally {
       setLoading(false);
@@ -43,14 +54,14 @@ const useInfiniteScroll = (fetchPageData, pageSize, filters, reload, initialData
     setHasMore(new Date().getTime());
     setLoading(false);
     fetchData();
-  }, [filters,reload]);
+  }, [filters, reload, searchKey]);
 
   // Function to manually trigger a new page load
   const loadNextPage = () => {
-    if (!loading && hasMore) setPage(prevPage => prevPage + 1);
+    if (!loading && hasMore) setPage((prevPage) => prevPage + 1);
   };
 
-  return { data,  loading, setHasMore };
+  return { data, loading, setHasMore };
 };
 
 export default useInfiniteScroll;
