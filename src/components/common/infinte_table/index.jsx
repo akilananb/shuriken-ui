@@ -123,7 +123,8 @@ const InfiniteScrollTable = ({
                         onClick={() => {
                           actionOnClick(
                             actionItem.actionType,
-                            row.instrumentOverrideId
+                            row.instrumentOverrideId,
+                            row
                           );
                         }}
                       />

@@ -19,11 +19,38 @@ const initialState = {
   endDate: "",
 };
 
-const AddOverridePopup = ({ onChange }) => {
+const AddOverridePopup = ({ onChange, initialData, onClose }) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
   const [modalType, setModalType] = useState("overrides");
   const [commonError, setCommonError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const updateState = {
+    instrumentId: initialData?.instrumentId,
+    instrumentType: initialData?.instrumentType,
+    overrideType: initialData?.overrideType,
+    ltvOverrideNote: initialData?.ltvOverrideNote,
+    ltvOverrideValue: initialData?.ltvOverrideValue,
+    generalNote: initialData?.generalNote,
+    status: initialData?.overrideStatus,
+    startDate: formatDate(initialData?.startDate),
+    endDate: formatDate(initialData?.endDate),
+  };
+
+  function formatDate(timestamp) {
+    if (!timestamp) return null;
+    const date = new Date(timestamp);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+    return `${year}-${month}-${day}`;
+  }
+
+  useEffect(() => {
+    if (initialData) {
+      openModal();
+    }
+  }, [initialData, openModal]);
 
   useEffect(() => {
     setCommonError(null);
@@ -64,7 +91,45 @@ const AddOverridePopup = ({ onChange }) => {
     }
   };
 
-  const overrideCondition = true;
+  const onUpdateOverride = async (values, instrumentOverrideId) => {
+    setCommonError(null);
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(
+        `/shuriken/api/asset-query-svc/api/v1/instrument-override/update-override/${instrumentOverrideId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 400) {
+        response.json().then((err) => validateBE(err));
+      } else if (!response.ok) {
+        throw new Error("Network response was not ok");
+      } else {
+        onChange();
+        onClose();
+        closeModal();
+      }
+    } catch (error) {
+      setCommonError("Oops! Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const getInstrumentOverrideId = () => {
+    return initialData?.instrumentOverrideId || "";
+  };
+
+  const handleCloseModal = () => {
+    onClose();
+    closeModal();
+  };
 
   return (
     <>
@@ -82,14 +147,25 @@ const AddOverridePopup = ({ onChange }) => {
       </div>
       <Modal
         isOpen={isModalOpen}
-        onClose={closeModal}
-        title={overrideCondition ? "Add Override" : "Add Note"}
+        onClose={handleCloseModal}
+        title={
+          isModalOpen
+            ? initialData
+              ? "Update Override"
+              : "Add Override"
+            : "Add Note"
+        }
       >
         <div className="min-w-[600px] m-20 ">
           <Formik
-            initialValues={initialState}
+            initialValues={initialData ? updateState : initialState}
             validationSchema={AddOverrideSchema}
-            onSubmit={onCreateOverride}
+            onSubmit={
+              initialData
+                ? (values) =>
+                    onUpdateOverride(values, getInstrumentOverrideId())
+                : onCreateOverride
+            }
             validateOnMount
           >
             {({ errors, touched, isValid }) => {
@@ -97,7 +173,11 @@ const AddOverridePopup = ({ onChange }) => {
                 <Form>
                   <div className="flex flex-col gap-4 w-full">
                     {modalType === "overrides" && (
-                      <OverrideForm errors={errors} touched={touched} />
+                      <OverrideForm
+                        errors={errors}
+                        touched={touched}
+                        initialData={initialData}
+                      />
                     )}
                     {modalType === "notes" && (
                       <NoteForm errors={errors} touched={touched} />
@@ -113,7 +193,7 @@ const AddOverridePopup = ({ onChange }) => {
                       className="asset-add-override-button"
                       disabled={!isValid || isSubmitting}
                     >
-                      Create
+                      {initialData ? "Update" : "Create"}
                     </button>
                   </div>
                 </Form>

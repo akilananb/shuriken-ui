@@ -36,6 +36,7 @@ export const fetchDeleteData = async (instrumentId) => {
 const OverrideContent = ({ intialData }) => {
   const { isModalOpen, openModal, closeModal } = useModal(false);
   const [instrumentId, setInstrumentId] = useState(null);
+  const [rowData, setRowData] = useState(null);
   const [filters, setFilters] = useState({
     overrideStatus: "ACTIVE",
   });
@@ -70,6 +71,9 @@ const OverrideContent = ({ intialData }) => {
       : "asset-override-filter-button";
   };
 
+  const handlePopupClose = () => {
+    setRowData(null);
+  };
   const handleSearch = debounce((value) => {
     setSearchKey(value);
   }, 400);
@@ -82,6 +86,8 @@ const OverrideContent = ({ intialData }) => {
         </div>
         <AddOverridePopup
           onChange={() => setReloadTable(new Date().toISOString())}
+          initialData={rowData}
+          onClose={handlePopupClose}
         />
       </div>
       <div className="flex flex-row items-baseline override-filter">
@@ -160,11 +166,19 @@ const OverrideContent = ({ intialData }) => {
         initialData={intialData}
         reload={reloadTable}
         actionItems={actionItems}
-        actionOnClick={(actionType, instrumentId) => {
+        actionOnClick={(actionType, instrumentId, row) => {
+          console.log("finally inside call back");
           switch (actionType) {
+            case "Edit": {
+              setRowData(row);
+              break;
+            }
             case "Delete": {
               setInstrumentId(instrumentId);
               openModal();
+              break;
+            }
+            default: {
               break;
             }
           }
