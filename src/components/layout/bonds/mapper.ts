@@ -288,10 +288,12 @@ export const toDisclaimerData = (
   const { ltvCalculation } = result || {};
   const { disclaimer } = ltvCalculation || {};
   const reason = ltvCalculation?.override?.reason;
-  const disclaimers: string[] = [disclaimer ?? "", reason ?? ""];
+  const disclaimers: string[] = [reason ?? ""];
+  const notes: string[] = [disclaimer ?? ""];
 
   return {
     label: "Disclaimers",
     value: disclaimers,
+    notes: notes,
   };
 };

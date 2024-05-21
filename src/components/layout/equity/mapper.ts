@@ -2,6 +2,7 @@ import { EquityLTVCalculationRes } from "@/types/LTVCalculation";
 import { DisplayItem, DisplayListItem, OverrideData } from "../bonds/types";
 import { HeaderData } from "./types";
 import {
+  roundDownQuantity,
   toCommaSeprated,
   toSetCommaFormatPercentage,
 } from "@/_utils/stringUtils";
@@ -47,6 +48,8 @@ export const toSummaryEquitiesData = (
   const ltvAtMcFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtMc ?? 0;
   const ltvAtSmFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtSl ?? 0;
   const lastClosingPrice = result?.marketData?.pxYestClose ?? "";
+
+
   return [
     {
       label: "Country",
@@ -74,7 +77,7 @@ export const toSummaryEquitiesData = (
     },
     {
       label: "Exchange Rate",
-      value: toCommaSeprated(result?.assetCrncyExchangeRate ?? 0),
+      value: (roundDownQuantity(result?.assetCrncyExchangeRate) ?? 0),
     },
     {
       label: "LTV at IM in Full Equity Financing",
@@ -177,7 +180,7 @@ export const toSummaryValuesData = (
   return [
     {
       label: "Quantity",
-      value: qty ? toCommaSeprated(String(Math.round(Number(qty))) ?? "") : "-",
+      value: qty ? toCommaSeprated(String(Math.floor(Number(qty))) ?? "") : "-",
     },
     {
       label: "Market Value (USD)",
@@ -211,10 +214,12 @@ export const toDisclaimerData = (
   const { ltvCalculation } = result || {};
   const { disclaimer } = ltvCalculation || {};
   const reason = ltvCalculation?.overrideCalculationResult?.reason;
-  const disclaimers: string[] = [disclaimer ?? "", reason ?? ""];
+  const disclaimers: string[] = [reason ?? ""];
+  const notes: string[] = [disclaimer ?? ""];
 
   return {
     label: "Disclaimers",
     value: disclaimers,
+    notes: notes,
   };
 };
