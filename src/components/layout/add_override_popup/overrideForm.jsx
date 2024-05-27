@@ -1,12 +1,14 @@
-import { Field, useField } from "formik";
+import { Field, useField, useFormikContext } from "formik";
 import ErrorField from "@/components/common/ErrorField";
 import LTVSearchInput from "../../common/ltv_search_input";
 
 const OverridesForm = ({ errors, touched, initialData }) => {
   const [instrumentField, instrumentMeta, instrumentHelpers] =
     useField("instrumentId");
+  const { setFieldValue } = useFormikContext();
 
   const isin = initialData?.overrideInstrumentDetail?.isin;
+  const instrumentType = initialData?.overrideInstrumentDetail?.instrumentType;
 
   return (
     <>
@@ -18,9 +20,13 @@ const OverridesForm = ({ errors, touched, initialData }) => {
         <LTVSearchInput
           name="instrumentId"
           value={initialData ? isin : instrumentField.value.isin}
-          onSelectedItem={(value) =>
-            instrumentHelpers.setValue(initialData ? isin : value.isin)
-          }
+          onSelectedItem={(value) => {
+            instrumentHelpers.setValue(initialData ? isin : value.isin);
+            setFieldValue(
+              "instrumentType",
+              initialData ? instrumentType : value.securityType
+            );
+          }}
           error={instrumentMeta.touched}
         />
       </ErrorField>
