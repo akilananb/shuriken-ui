@@ -8,7 +8,8 @@ const OverridesForm = ({ errors, touched, initialData }) => {
   const { setFieldValue } = useFormikContext();
 
   const isin = initialData?.overrideInstrumentDetail?.isin;
-  const instrumentType = initialData?.overrideInstrumentDetail?.instrumentType;
+  const instrumentType =
+    initialData?.overrideInstrumentDetail?.instrumentType?.toUpperCase();
 
   return (
     <>
@@ -24,7 +25,7 @@ const OverridesForm = ({ errors, touched, initialData }) => {
             instrumentHelpers.setValue(initialData ? isin : value.isin);
             setFieldValue(
               "instrumentType",
-              initialData ? instrumentType : value.securityType
+              initialData ? instrumentType : value.securityType?.toUpperCase()
             );
           }}
           error={instrumentMeta.touched}
