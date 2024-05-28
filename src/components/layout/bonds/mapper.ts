@@ -264,7 +264,7 @@ export const toSummaryValuesData = (
     }
   }
 
-  const cv = quantity ? toSetCommaFormatPercentage(String(Math.round(cvCalculation))) : "-";
+  const cv = quantity ?  toSetCommaFormatPercentage(String(Math.round(cvCalculation))) : "-";
 
   return [
     {
@@ -288,9 +288,8 @@ export const toDisclaimerData = (
   const { ltvCalculation } = result || {};
   const { disclaimer } = ltvCalculation || {};
   const reason = ltvCalculation?.override?.reason;
-  const disclaimers: string[] = [reason ?? ""];
-  const notes: string[] = [disclaimer ?? ""];
-
+  const disclaimers: string[] = reason && reason != "null" ? [reason] : [];
+  const notes: string[] = disclaimer ? [ disclaimer] : [];
   return {
     label: "Disclaimers",
     value: disclaimers,
