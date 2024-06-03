@@ -5,10 +5,9 @@ import Link from "next/link";
 import ToggleButton from "@/components/common/toggleButton";
 import { useState } from "react";
 import { LTVSearch } from "@/types/search.types";
-import CircularProgress from "@mui/material/CircularProgress";
+import { getUrl } from "@/_utils/stringUtils";
 
 export default function SearchView() {
-  const [loading, setLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<LTVSearch | null>();
   const [quantity, setQuantity] = useState<string>("");
 
@@ -17,15 +16,11 @@ export default function SearchView() {
     else return `primary-button-disable`;
   };
 
-  const pdpId = selectedItem?.pdpId;
-  const securityType = selectedItem?.securityType;
+  const pdpId = selectedItem?.pdpId ?? "" ;
+  const securityType = selectedItem?.securityType ?? "";
   const quantityParam = ![null, ""].includes(quantity)
     ? `&quantity=${quantity}`
     : "";
-
-  const href = `/${
-    securityType?.toUpperCase() === "BOND" ? "bonds" : "equity"
-  }?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
 
   return (
     <div className="flex flex-col gap-8 bg-white h-full justify-center items-center">
@@ -61,16 +56,11 @@ export default function SearchView() {
         }}
       >
         <Link
-          href={href}
+          href={getUrl(securityType,pdpId,quantityParam)}
           className={classValue()}
-          onClick={() => setLoading(true)}
           target="_blank"
         >
-          {/* {loading ? (
-            <CircularProgress thickness={4} size={25} sx={{ color: "white" }} />
-          ) : ( */}
           Search
-          {/* )} */}
         </Link>
       </div>
     </div>

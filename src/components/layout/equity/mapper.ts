@@ -43,12 +43,13 @@ export const toSummaryEquitiesData = (
   result?: EquityLTVCalculationRes
 ): DisplayItem[] => {
   const lp = result?.ltvCalculation?.lp ?? 0;
+  const fullEquityLtvCalculation = result?.ltvCalculation?.fullEquityCalculationResult
   const liquidPeriod = lp > 10 ? 10 : lp;
-  const ltvAtImFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtIm ?? 0;
-  const ltvAtMcFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtMc ?? 0;
-  const ltvAtSmFull = lp < 10 ? "NA" : result?.ltvCalculation?.ltvAtSl ?? 0;
+  const ltvAtImFull = lp < 10 ? "NA" : fullEquityLtvCalculation?.ltvAtIm ?? 0;
+  const ltvAtMcFull = lp < 10 ? "NA" : fullEquityLtvCalculation?.ltvAtMc ?? 0;
+  const ltvAtSmFull = lp < 10 ? "NA" : fullEquityLtvCalculation?.ltvAtSl ?? 0;
   const lastClosingPrice = result?.marketData?.pxYestClose ?? "";
-
+  const exchangeRate = result?.marketData?.crncy === "GBp" ? (result?.assetCrncyExchangeRate / 100) : result?.assetCrncyExchangeRate
 
   return [
     {
@@ -77,7 +78,7 @@ export const toSummaryEquitiesData = (
     },
     {
       label: "Exchange Rate",
-      value: (roundDownQuantity(result?.assetCrncyExchangeRate) ?? 0),
+      value: (roundDownQuantity(exchangeRate) ?? 0),
     },
     {
       label: "LTV at IM in Full Equity Financing",
@@ -157,12 +158,12 @@ export const toSummaryValuesData = (
   const marketData = result?.marketData;
   const exchangeRate = result?.assetCrncyExchangeRate ?? 0;
 
-  const mvCalc = marketData?.pxLast
-    ? (marketData.pxLast / exchangeRate) * Number(qty || 0)
+  const mvCalc = marketData?.pxYestClose
+    ? (marketData.pxYestClose * exchangeRate) * Number(qty || 0)
     : 0;
   const mv =
-    marketData?.pxLast && qty
-      ? toSetCommaFormatPercentage(String(Math.round(mvCalc)))
+    marketData?.pxYestClose && qty
+      ? result?.marketData?.crncy === "GBp" ? toSetCommaFormatPercentage(String(Math.round(mvCalc / 100))) : toSetCommaFormatPercentage(String(Math.round(mvCalc)))
       : "-";
 
   let cvCalculation = 0;
@@ -171,7 +172,7 @@ export const toSummaryValuesData = (
       ? override?.ltvAtIm
       : ltvCalculation?.ltvAtIm;
     if (ltvAtIm) {
-      cvCalculation = (ltvAtIm / 100) * mvCalc;
+      cvCalculation = (ltvAtIm / 100) * (result?.marketData?.crncy === "GBp" ? mvCalc / 100 : mvCalc);
     }
   }
 

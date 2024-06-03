@@ -32,6 +32,21 @@ export const extractNomuraRoles = (text: string): string[] | null => {
   return null; // Return null if no match is found
 }
 export function roundDownQuantity(quantity) {
-  const decimalPlaces = (quantity.toString().split('.')[1] || '').length;
+  const decimalPlaces = (quantity?.toString().split('.')[1] || '').length;
   return parseFloat(quantity).toFixed(Math.min(decimalPlaces, 6));
+}
+export function getUrl(securityType: string, pdpId: string, quantityParam: string): string {
+  let basePath: string;
+  switch (securityType?.toUpperCase()) {
+    case "BOND":
+      basePath = "bonds";
+      break;
+    case "EQUITY":
+      basePath = "equity";
+      break;
+    default:
+      basePath = "equity"; // Default case if securityType is neither "BOND" nor "EQUITY"
+  }
+  const url = `/${basePath}?pdpId=${pdpId}&securityType=${securityType}${quantityParam}`;
+  return url;
 }

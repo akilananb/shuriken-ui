@@ -137,8 +137,14 @@ export interface TakaraData {
   assetType?: string;
   country?: string
 }
+export interface FullEquityCalculationResult {
+  ltvAtIm: number;
+  ltvAtMc: number;
+  ltvAtSl: number;
+}
+
 export interface EquityMarketData {
-  pxYestClose?: string;
+  pxYestClose?: number;
   curMktCap?: number;
   volatility260d?: string;
   volatility260dCalc?: string;
@@ -153,6 +159,7 @@ interface EquityLtvCalculation {
   ltvAtMc: number;
   ltvAtSl: number;
   overrideCalculationResult: Override;
+  fullEquityCalculationResult?: FullEquityCalculationResult;
   financingEligibility: FinancingEligibility;
   issueRating: IssueRating;
   issuerRating: IssuerRating;
