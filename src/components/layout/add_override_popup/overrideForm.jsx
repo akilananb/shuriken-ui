@@ -7,7 +7,7 @@ const OverridesForm = ({ errors, touched, initialData }) => {
     useField("instrumentId");
   const { setFieldValue } = useFormikContext();
 
-  const isin = initialData?.overrideInstrumentDetail?.isin;
+  const pdpId = initialData?.overrideInstrumentDetail?.pdpId;
   const instrumentType =
     initialData?.overrideInstrumentDetail?.instrumentType?.toUpperCase();
 
@@ -22,7 +22,7 @@ const OverridesForm = ({ errors, touched, initialData }) => {
           name="instrumentId"
           value={initialData ? isin : instrumentField.value.isin}
           onSelectedItem={(value) => {
-            instrumentHelpers.setValue(initialData ? isin : value.isin);
+            instrumentHelpers.setValue(initialData ? pdpId : value.pdpId);
             setFieldValue(
               "instrumentType",
               initialData ? instrumentType : value.securityType?.toUpperCase()
