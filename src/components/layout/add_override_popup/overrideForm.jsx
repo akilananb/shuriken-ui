@@ -23,7 +23,6 @@ const OverridesForm = ({ errors, touched, initialData }) => {
           value={initialData ? isin : instrumentField.value.isin}
           onSelectedItem={(value) => {
             instrumentHelpers.setValue(initialData ? pdpId : value.pdpId);
-            console.log(value);
             setFieldValue(
               "instrumentType",
               initialData ? instrumentType : value.securityType?.toUpperCase()
