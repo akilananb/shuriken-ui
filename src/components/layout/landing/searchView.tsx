@@ -55,13 +55,20 @@ export default function SearchView() {
           justifyContent: "center",
         }}
       >
-        <Link
+        {selectedItem != null ? (
+          <Link
           href={getUrl(securityType,pdpId,quantityParam)}
           className={classValue()}
           target="_blank"
-        >
+          >
           Search
         </Link>
+        ) :
+        <button
+          className={classValue()}
+          >
+          Search
+        </button>}
       </div>
     </div>
   );
