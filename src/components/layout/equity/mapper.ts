@@ -45,9 +45,9 @@ export const toSummaryEquitiesData = (
   const lp = result?.ltvCalculation?.lp ?? 0;
   const fullEquityLtvCalculation = result?.ltvCalculation?.fullEquityCalculationResult
   const liquidPeriod = lp > 10 ? 10 : lp;
-  const ltvAtImFull = lp < 10 ? "NA" : fullEquityLtvCalculation?.ltvAtIm ?? 0;
-  const ltvAtMcFull = lp < 10 ? "NA" : fullEquityLtvCalculation?.ltvAtMc ?? 0;
-  const ltvAtSmFull = lp < 10 ? "NA" : fullEquityLtvCalculation?.ltvAtSl ?? 0;
+  const ltvAtImFull = lp < 10 ? "NA" : `${fullEquityLtvCalculation?.ltvAtIm}%` ?? 0;
+  const ltvAtMcFull = lp < 10 ? "NA" : `${fullEquityLtvCalculation?.ltvAtMc}%` ?? 0;
+  const ltvAtSmFull = lp < 10 ? "NA" : `${fullEquityLtvCalculation?.ltvAtSl}%` ?? 0;
   const lastClosingPrice = result?.marketData?.pxYestClose ?? "";
   const exchangeRate = result?.marketData?.crncy === "GBp" ? (result?.assetCrncyExchangeRate / 100) : result?.assetCrncyExchangeRate
 
