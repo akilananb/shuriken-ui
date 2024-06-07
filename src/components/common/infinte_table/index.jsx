@@ -91,11 +91,12 @@ const InfiniteScrollTable = ({
                 {columns.map((column, columnIndex) => {
                   const { width = "", alignment = "text-left" } = column;
 
-                  const dataFieldParts = column.dataField.split(".");
+                  const dataFieldParts = column?.dataField?.split(".");
                   let value = row;
+
                   // Access nested properties
                   for (const part of dataFieldParts) {
-                    value = value[part];
+                    value = value ? value[part] : null;
                   }
                   return (
                     <td
