@@ -44,10 +44,6 @@ export const toSummaryEquitiesData = (
 ): DisplayItem[] => {
   const lp = result?.ltvCalculation?.lp ?? 0;
   const fullEquityLtvCalculation = result?.ltvCalculation?.fullEquityCalculationResult
-  const liquidPeriod = lp > 10 ? 10 : lp;
-  const ltvAtImFull = lp < 10 ? "NA" : `${fullEquityLtvCalculation?.ltvAtIm}%` ?? 0;
-  const ltvAtMcFull = lp < 10 ? "NA" : `${fullEquityLtvCalculation?.ltvAtMc}%` ?? 0;
-  const ltvAtSmFull = lp < 10 ? "NA" : `${fullEquityLtvCalculation?.ltvAtSl}%` ?? 0;
   const lastClosingPrice = result?.marketData?.pxYestClose ?? "";
   const exchangeRate = result?.marketData?.crncy === "GBp" ? (result?.assetCrncyExchangeRate / 100) : result?.assetCrncyExchangeRate
 
@@ -82,19 +78,19 @@ export const toSummaryEquitiesData = (
     },
     {
       label: "LTV at IM in Full Equity Financing",
-      value: `${ltvAtImFull}` ?? "-",
+      value: `${fullEquityLtvCalculation?.ltvAtIm}%` ?? "-",
     },
     {
       label: "LTV at MC in Full Equity Financing",
-      value: `${ltvAtMcFull}` ?? 0,
+      value: `${fullEquityLtvCalculation?.ltvAtMc}%` ?? 0,
     },
     {
       label: "LTV at SL in Full Equity Financing",
-      value: `${ltvAtSmFull}` ?? 0,
+      value: `${fullEquityLtvCalculation?.ltvAtSl}%` ?? 0,
     },
     {
       label: "Liquidation Period",
-      value: `${liquidPeriod.toFixed(6)}` ?? 0,
+      value: `${lp.toFixed(6)}` ?? 0,
     },
     {
       label: "3 month Average Liquidity",
