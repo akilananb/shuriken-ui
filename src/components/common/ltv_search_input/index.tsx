@@ -221,70 +221,68 @@ const SearchComponent: React.FC<LTVSearchInputProps> = (
   };
 
   return (
-    <>
-      <Autocomplete
-        open={openAutocomplete}
-        ref={autoCompleteRef}
-        value={selectedItem || value}
-        id="search-autocomplete"
-        popupIcon={null}
-        options={[...(searchResults.getResponse() ?? [])]}
-        groupBy={(option) => option.securityType}
-        getOptionLabel={(option) => option.isin || value}
-        onChange={handleSearchSelect}
-        onKeyDown={handleKeyDown}
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "#D1D3D4",
-            },
-            "&:hover fieldset": {
-              borderColor: "#D1D3D4",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#D1D3D4",
-            },
+    <Autocomplete
+      open={openAutocomplete}
+      ref={autoCompleteRef}
+      value={selectedItem || value}
+      id="search-autocomplete"
+      popupIcon={null}
+      options={[...(searchResults.getResponse() ?? [])]}
+      groupBy={(option) => option.securityType}
+      getOptionLabel={(option) => option.isin || value}
+      onChange={handleSearchSelect}
+      onKeyDown={handleKeyDown}
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: "#D1D3D4",
           },
-        }}
-        isOptionEqualToValue={(option, value) => option.pdpId === value.pdpId}
-        renderGroup={renderGroup}
-        renderInput={(params) => (
-          <>
-            <TextField
-              {...params}
-              placeholder="Search"
-              variant="outlined"
-              onClick={onClick}
-              value={selectedItem}
-              onChange={deBounceOnChangeListener}
-              disabled={disabled}
-              InputProps={{
-                ...params.InputProps,
-                startAdornment: (
-                  <>
-                    <SearchIcon color="disabled" />
-                    {params.InputProps.startAdornment}
-                    <LTVCalculationView
-                      className="absolute right-0 mr-4"
-                      calculationData={ltvCalculationResult.getResponse()}
-                      loading={renderLTVCalculation()}
-                    />
-                  </>
-                ),
-              }}
-            />
-          </>
-        )}
-        renderOption={renderOption}
-        noOptionsText={
-          <Typography variant="body2" color="textSecondary">
-            {renderNoMatchOption()}
-          </Typography>
-        }
-        filterOptions={(options) => options}
-        className={className}
-      />
-    </>
+          "&:hover fieldset": {
+            borderColor: "#D1D3D4",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "#D1D3D4",
+          },
+        },
+      }}
+      isOptionEqualToValue={(option, value) => option.pdpId === value.pdpId}
+      renderGroup={renderGroup}
+      renderInput={(params) => (
+        <>
+          <TextField
+            {...params}
+            placeholder="Search"
+            variant="outlined"
+            onClick={onClick}
+            value={selectedItem}
+            onChange={deBounceOnChangeListener}
+            disabled={disabled}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <>
+                  <SearchIcon color="disabled" />
+                  {params.InputProps.startAdornment}
+                  <LTVCalculationView
+                    className="absolute right-0 mr-4"
+                    calculationData={ltvCalculationResult.getResponse()}
+                    loading={renderLTVCalculation()}
+                  />
+                </>
+              ),
+            }}
+          />
+        </>
+      )}
+      renderOption={renderOption}
+      noOptionsText={
+        <Typography variant="body2" color="textSecondary">
+          {renderNoMatchOption()}
+        </Typography>
+      }
+      filterOptions={(options) => options}
+      className={className}
+    />
   );
 };
 

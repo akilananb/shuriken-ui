@@ -41,7 +41,7 @@ const InfiniteScrollTable = ({
           <thead className="border-b bg-nomura-dark-grey border-collapse p-4 text-white ">
             <tr>
               {columns.map((column, index) => {
-                const { width = "", alignment = "text-left" } = column;
+                const { width, alignment = "text-left" } = column;
                 return (
                   <th
                     key={index}
@@ -53,7 +53,7 @@ const InfiniteScrollTable = ({
                 );
               })}
               {actionItems?.map((actionItem, index) => {
-                const { width = "", alignment = "text-left" } = actionItem;
+                const { width, alignment = "text-left" } = actionItem;
 
                 return (
                   <th
@@ -89,7 +89,7 @@ const InfiniteScrollTable = ({
             {data.map((row, index) => (
               <tr key={index}>
                 {columns.map((column, columnIndex) => {
-                  const { width = "", alignment = "text-left" } = column;
+                  const { width, alignment = "text-left" } = column;
 
                   const dataFieldParts = column?.dataField?.split(".");
                   let value = row;
@@ -101,7 +101,7 @@ const InfiniteScrollTable = ({
                   return (
                     <td
                       key={columnIndex}
-                      className={`px-2 py-2 ${width} ${alignment} `}
+                      className={`px-3 py-2 ${width} ${alignment} `}
                     >
                       {column.type === "date"
                         ? value

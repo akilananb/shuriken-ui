@@ -6,4 +6,5 @@ thead,
 tbody tr {
   display: table;
   width: 100%;
+  min-width: 1504px;
 }
