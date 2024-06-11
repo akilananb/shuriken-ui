@@ -1,0 +1,172 @@
+fetch bond mutiple pdpid
+{
+  "size": 1,
+  "payLoad": [
+    {
+      "detail": {
+        "securityName": "HSINCG 8.5 22-Jan-2019",
+        "isin": "XS1344477028",
+        "ticker": "HSINCG",
+        "securityType": "BOND",
+        "status": "ACTIVE",
+        "exchange": "HK",
+        "pdpId": "321416115"
+      },
+      "rule144aFlag": "N",
+      "prvtPlace": "N",
+      "amtIssued": 150000000,
+      "marketSectorDes": "CORP",
+      "mtyTyp": "MTY",
+      "cpnTyp": "UNK",
+      "inDefault": "Y",
+      "floater": "N",
+      "payInKind": "N",
+      "tradingFlat": false,
+      "isSubordinated": "N",
+      "isCd": "N",
+      "ultParentCntryOfRisk": null,
+      "cntryOfRisk": "HK",
+      "industrySector": "IND",
+      "industryGroup": "ENGN",
+      "realIssuerTicker": "HSINCG",
+      "guarantorEqyTicker": null,
+      "issuerParentEqyTicker": "HSINCG",
+      "ultParentTickerExchange": null,
+      "ultimateIssuerParentRating": {
+        "rtgSpLtFcIssuerCredit": null,
+        "rtgMdyLtFcDebitRating": null,
+        "rtgMoodyLongTerm": null
+      },
+      "issueParentRating": {
+        "rtgSpLtFcIssuerCredit": null,
+        "rtgMdyLtFcDebitRating": null,
+        "rtgMoodyLongTerm": null
+      },
+      "guarantorRating": {
+        "rtgSpLtFcIssuerCredit": null,
+        "rtgMdyLtFcDebitRating": null,
+        "rtgMoodyLongTerm": null
+      },
+      "realIssuerRating": {
+        "rtgSpLtFcIssuerCredit": null,
+        "rtgMdyLtFcDebitRating": null,
+        "rtgMoodyLongTerm": null
+      },
+      "issueRating": {
+        "rtgSp": null,
+        "rtgMoody": null
+      },
+      "isSynthetic": "N",
+      "isGuaAvailable": "N",
+      "called": "N",
+      "calledDt": null,
+      "maturityDate": "2019-01-22T00:00:00.000+00:00",
+      "shortName": "HSIN CHONG CONST",
+      "capitalContingentSecurity": null,
+      "cdo": "N",
+      "issuerName": "HSIN CHONG GROUP HOLDINGS LTD",
+      "lossAbsorption": "N",
+      "isPerpetual": "N"
+    }
+  ]
+}
+
+{
+    "values": [
+        {
+            "CRNCY": "USD",
+            "PX_LAST": "1.277500000",
+            "ID_ISIN": "XS1344477028",
+            "NAME": "HSIN CHONG GROUP HOLDING",
+            "YAS_ISPREAD_TO_GOVT": "66000.785742044",
+            "BVAL_SNAPSHOT": "LO 12PM",
+            "globalPrimary": "false",
+            "securityId": "321416115",
+            "PDP_ID": "321416115",
+            "producer": "per.security.getdata.default",
+            "ID_BB_GLOBAL": "BBG00BV6Q0H0",
+            "status": "ACTIVE"
+        }
+    ],
+    "resultCode": 200,
+    "message": "Success",
+    "summary": {
+        "Request": {
+            "instrumentsCount": 1
+        },
+        "Result": {
+            "ValuesCount": 1
+        }
+    },
+    "traceId": "b26bd9a50a1ca97ce54cafcec6f9c951"
+}
+
+// equity payload
+{
+  "size": 1,
+  "payLoad": [
+    {
+      "detail": {
+        "securityName": "APPLE INTERNATIONAL CO LTD",
+        "isin": "JP3121170009",
+        "ticker": "2788",
+        "securityType": "EQUITY",
+        "status": "ACTIVE",
+        "exchange": "JT",
+        "pdpId": "5227403"
+      },
+      "japanesePrimaryExchEng": "XTKS",
+      "eqyShOut": 13861000,
+      "equityExchangeMarket": "JT",
+      "assetType": "EQUITY",
+      "etfUnderlyingClassification": null,
+      "equityExchangeMarketCountry": "JP",
+      "equityExchangeMarketMainCurrency": "JPY",
+      "eqyPrimExch": "JT",
+      "marketStatus": "ACTIV",
+      "country": "JP"
+    }
+  ]
+}
+
+{
+    "values": [
+        {
+            "CRNCY": "JPY",
+            "PX_LAST": "546.000000000",
+            "CUR_MKT_CAP": "7568.32",
+            "VOLATILITY_260D_CALC": "51.0323",
+            "AVG_DAILY_VALUE_TRADED_3M": "79224830.0000",
+            "VOLUME_AVG_3M": "174015.900000000",
+            "ID_ISIN": "JP3121170009",
+            "NAME": "APPLE INTERNATIONAL CO LTD",
+            "PX_YEST_CLOSE": "538.000000000",
+            "LAST_UPDATE_DT_EXCH_TZ": "20240611",
+            "VD": "20240611",
+            "PDP_ID": "5227403"
+        }
+    ],
+    "resultCode": 2002,
+    "message": "Query succeeded. But some of them failed in Takara reference.",
+    "failureInfo": {
+        "REFERENCE_NOT_FOUND": [
+            [
+                {
+                    "PDP_ID": "83535369"
+                }
+            ]
+        ]
+    },
+    "summary": {
+        "Request": {
+            "instrumentsCount": 2
+        },
+        "Result": {
+            "REFERENCE_NOT_FOUND": 1,
+            "ValuesCount": 1
+        }
+    },
+    "traceId": "1773c6164d813dd5bdcabdfc712c8291"
+}
+
+
