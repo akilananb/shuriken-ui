@@ -167,7 +167,6 @@ const OverrideContent = ({ intialData }) => {
         reload={reloadTable}
         actionItems={actionItems}
         actionOnClick={(actionType, instrumentId, row) => {
-          console.log("finally inside call back");
           switch (actionType) {
             case "Edit": {
               setRowData(row);

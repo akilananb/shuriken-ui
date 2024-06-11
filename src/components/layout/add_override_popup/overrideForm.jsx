@@ -10,6 +10,7 @@ const OverridesForm = ({ errors, touched, initialData }) => {
   const pdpId = initialData?.overrideInstrumentDetail?.pdpId;
   const instrumentType =
     initialData?.overrideInstrumentDetail?.instrumentType?.toUpperCase();
+  const isin = initialData?.overrideInstrumentDetail?.isin;
 
   return (
     <>
@@ -29,6 +30,7 @@ const OverridesForm = ({ errors, touched, initialData }) => {
             );
           }}
           error={instrumentMeta.touched}
+          disabled={initialData}
         />
       </ErrorField>
       <ErrorField

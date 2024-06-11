@@ -10,21 +10,18 @@ const columns = [
     dataField: "overrideInstrumentDetail.isin",
     width: "w-[7.5rem] min-w-[7.5rem]",
     type: "text",
-    alignment: "text-left",
   },
   {
     name: "Status",
     dataField: "overrideStatus",
     type: "text",
     width: "w-20",
-    alignment: "text-center",
   },
   {
     name: "Ticker",
     dataField: "overrideInstrumentDetail.ticker",
     width: "w-20",
     type: "text",
-    alignment: "text-center",
   },
   {
     name: "Exchange",
@@ -48,7 +45,6 @@ const columns = [
     name: "LTV Override (%)",
     dataField: "ltvOverrideValue",
     width: "w-20",
-    alignment: "text-center",
     type: "text",
   },
   {
@@ -59,14 +55,13 @@ const columns = [
   },
   {
     name: "Creator",
-    dataField: "overrideInstrumentDetail.createdByUser",
+    dataField: "createdByUser",
     width: "w-24",
-
     type: "text",
   },
   {
     name: "Creation Date",
-    dataField: "overrideInstrumentDetail.createdAt",
+    dataField: "createdAt",
     width: "w-28",
     type: "date",
   },
@@ -75,14 +70,12 @@ const columns = [
     dataField: "startDate",
     width: "w-28",
     type: "date",
-    alignment: "text-center",
   },
   {
     name: "Valid To",
     dataField: "endDate",
     width: "w-28",
     type: "date",
-    alignment: "text-center",
   },
   {
     name: "Last Modified",
@@ -90,7 +83,6 @@ const columns = [
     width: "w-28",
     type: "date",
   },
-
 ];
 
 export default columns;
