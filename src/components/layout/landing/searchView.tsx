@@ -16,7 +16,7 @@ export default function SearchView() {
     else return `primary-button-disable`;
   };
 
-  const pdpId = selectedItem?.pdpId ?? "" ;
+  const pdpId = selectedItem?.pdpId ?? "";
   const securityType = selectedItem?.securityType ?? "";
   const quantityParam = ![null, ""].includes(quantity)
     ? `&quantity=${quantity}`
@@ -34,6 +34,7 @@ export default function SearchView() {
           }}
           quantity={quantity}
           isUpdate={false}
+          disabled={false}
         />
         <InputComponent
           className="w-[167px] "
@@ -57,18 +58,15 @@ export default function SearchView() {
       >
         {selectedItem != null ? (
           <Link
-          href={getUrl(securityType,pdpId,quantityParam)}
-          className={classValue()}
-          target="_blank"
+            href={getUrl(securityType, pdpId, quantityParam)}
+            className={classValue()}
+            target="_blank"
           >
-          Search
-        </Link>
-        ) :
-        <button
-          className={classValue()}
-          >
-          Search
-        </button>}
+            Search
+          </Link>
+        ) : (
+          <button className={classValue()}>Search</button>
+        )}
       </div>
     </div>
   );

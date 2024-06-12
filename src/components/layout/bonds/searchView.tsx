@@ -74,6 +74,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         onSelectedItem={onSerachInput}
         quantity={_quantity}
         isUpdate={true}
+        disabled={false}
       />
       <InputComponent
         value={_quantity}
