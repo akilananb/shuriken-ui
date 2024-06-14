@@ -4,7 +4,10 @@ import {
   CalculationRes,
   AnnouncementRes,
 } from "@/types/search.types";
-import { EquityLTVCalculationRes, LTVCalculationRes } from "@/types/LTVCalculation";
+import {
+  EquityLTVCalculationRes,
+  LTVCalculationRes,
+} from "@/types/LTVCalculation";
 
 class SearchService {
   private readonly baseUrl: string;
@@ -67,7 +70,7 @@ class SearchService {
     const response = await fetch(
       `${
         process.env.API_BASE_URL
-      }/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/bond?pdpId=${pdpId}${
+      }/api/v1/asset_class_query/ltv/bond?pdpId=${pdpId}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }&source=LIVE`,
       { cache: "no-store" }
@@ -85,7 +88,7 @@ class SearchService {
     const response = await fetch(
       `${
         process.env.API_BASE_URL
-      }/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/equity?pdpId=${pdpId}${
+      }/api/v1/asset_class_query/ltv/equity?pdpId=${pdpId}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }&source=LIVE`,
       { cache: "no-store" }
@@ -98,8 +101,6 @@ class SearchService {
     return response.json();
   }
 }
-
-
 
 export * from "@/types/search.types";
 

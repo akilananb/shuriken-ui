@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import columns from "@/components/common/Constants/Constant";
+import { columns } from "@/components/common/Constants/Constant";
 import { actionItems } from "./overrides.const";
 import Modal from "@/components/common/modal";
 import useModal from "@/hooks/useModal";

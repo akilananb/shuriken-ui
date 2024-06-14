@@ -27,6 +27,7 @@ export async function getOverrideIntialData() {
 
 const Overrides = async () => {
   const { overrideData } = await getOverrideIntialData();
+
   return (
     <div className="flex bg-white h-full p-16 pt-8">
       <div className="flex flex-col w-full gap-4">

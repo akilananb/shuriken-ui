@@ -19,6 +19,8 @@ const InfiniteScrollTable = ({
   actionItems,
   actionOnClick,
   searchKey,
+  multiLtvData,
+  isMultiLtv,
 }) => {
   const { data, loading, setHasMore } = useInfiniteScroll(
     fetchData,
@@ -33,6 +35,8 @@ const InfiniteScrollTable = ({
       setHasMore(new Date().getTime());
     }
   });
+
+  const mapData = isMultiLtv ? multiLtvData : data;
 
   return (
     <>
@@ -69,7 +73,7 @@ const InfiniteScrollTable = ({
             ref={elementRef}
             className=" overflow-y-auto justify-between  w-full  h-[35vh]"
           >
-            {data.length == 0 && (
+            {mapData.length == 0 && (
               <tr className="w-full h-full">
                 <td colSpan={columns.length} className="text-center py-8">
                   <div className="flex flex-col items-center">
@@ -86,7 +90,7 @@ const InfiniteScrollTable = ({
                 </td>
               </tr>
             )}
-            {data.map((row, index) => (
+            {mapData.map((row, index) => (
               <tr key={index}>
                 {columns.map((column, columnIndex) => {
                   const { width, alignment = "text-left" } = column;

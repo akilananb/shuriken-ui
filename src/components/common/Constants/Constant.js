@@ -85,4 +85,96 @@ const columns = [
   },
 ];
 
-export default columns;
+const searchColumn = [
+  {
+    name: "Security Name",
+    dataField: "ltvResponse.securityName",
+    type: "text",
+    width: "min-w-[10rem]",
+  },
+  {
+    name: "ISIN",
+    dataField: "ltvResponse.isin",
+    width: "w-24",
+    type: "text",
+    alignment: "text-left",
+  },
+  {
+    name: "Ticker",
+    dataField: "ltvResponse.ticker",
+    width: "w-20",
+    type: "text",
+    alignment: "text-center",
+  },
+  {
+    name: "Exchange",
+    dataField: "ltvResponse.exchange",
+    type: "text",
+    width: "min-w-[10rem]",
+  },
+  {
+    name: "Security Type",
+    dataField: "ltvResponse.securityType",
+    type: "text",
+    width: "w-28",
+  },
+  {
+    name: "Last Close Price",
+    dataField: "ltvResponse.marketData.pxLast",
+    type: "text",
+    width: "w-28",
+  },
+  {
+    name: "Currency",
+    dataField: "ltvResponse.marketData.crncy",
+    type: "text",
+    width: "w-28",
+  },
+  {
+    name: "LTV at IM",
+    dataField: "ltvResponse.ltvCalculation.ltvAtIm",
+    width: "w-28",
+    type: "text",
+  },
+  {
+    name: "Quantity",
+    dataField: "ltvResponse.marketData.volumeAvg3m",
+    width: "w-28",
+    type: "text",
+  },
+  {
+    name: "MV (USD)",
+    dataField: "ltvResponse.ltvCalculation.mv",
+    width: "w-20",
+    alignment: "text-center",
+    type: "text",
+  },
+  {
+    name: "CV (USD)",
+    dataField: "ltvResponse.ltvCalculation.cv",
+    width: "w-20",
+    alignment: "text-center",
+    type: "text",
+  },
+  {
+    name: "Conc.",
+    dataField: "overrideInstrumentDetail.conc",
+    width: "w-24",
+    type: "text",
+  },
+  {
+    name: "LP",
+    dataField: "ltvResponse.ltvCalculation.lp",
+    width: "w-28",
+    type: "text",
+  },
+  {
+    name: "Disclaimer",
+    dataField: "ltvResponse.ltvCalculation.disclaimer",
+    width: "w-28",
+    type: "text",
+    alignment: "text-center",
+  },
+];
+
+export { columns, searchColumn };

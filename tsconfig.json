@@ -31,6 +31,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "__tests__/components/layout/add_override_popup.test.jsx"
-  ],
+, "src/components/layout/multi_search_view/multiSearchContent.jsx", "src/components/layout/multi_search_view/index.jsx"  ],
   "exclude": ["node_modules"]
 }
