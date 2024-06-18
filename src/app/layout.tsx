@@ -20,7 +20,7 @@ export default async function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <NavigationContainer />
-          <Suspense fallback={<Spinner fullPage={true} />}>
+          <Suspense fallback={<Spinner fullPage={true} statusMessage={""} />}>
             <div className="content-height">{children}</div>
           </Suspense>
         </AppRouterCacheProvider>

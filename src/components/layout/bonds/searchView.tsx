@@ -100,7 +100,7 @@ const SearchView: React.FC<BondsChildProps> = (props: BondsChildProps) => {
         onClick={handleUpdateClick}
         replace
       >
-        {isLoading ? <Spinner fullPage={true} /> : "Update"}
+        {isLoading ? <Spinner fullPage={true} statusMessage={""} /> : "Update"}
       </Link>
     </div>
   );
