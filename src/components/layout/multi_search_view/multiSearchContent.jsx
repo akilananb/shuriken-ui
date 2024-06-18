@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { searchColumn } from "@/components/common/Constants/Constant";
-import { actionItems } from "./searchView.const";
 import "@/components/common/Bonds/bonds.css";
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import BackButton from "@/components/common/button/BackButton";
@@ -29,11 +28,34 @@ const MultiSearchContent = ({ id }) => {
   const [isMultiLtv, setIsMultiLtv] = useState(true);
   const [failedResults, setFailedResults] = useState([]);
 
+  let callCount = 0;
+  const maxDuration = 15 * 60 * 1000;
+  const interval = 10 * 1000;
+  const maxCalls = maxDuration / interval;
+
   useEffect(() => {
     if (id) {
-      pollLtvResults(id);
+      startPolling(id);
     }
   }, [id]);
+
+  const startPolling = (id) => {
+    setLoading(true);
+    const intervalId = setInterval(() => {
+      if (callCount < maxCalls) {
+        pollLtvResults(id, intervalId);
+        callCount++;
+      } else {
+        clearInterval(intervalId);
+        setLoading(false);
+      }
+    }, interval);
+
+    setTimeout(() => {
+      clearInterval(intervalId);
+      setLoading(false);
+    }, maxDuration);
+  };
 
   const handleFilterChange = (filterType, value) => {
     setFilters((prevFilters) => {
@@ -63,7 +85,7 @@ const MultiSearchContent = ({ id }) => {
       : "asset-override-filter-button";
   };
 
-  const pollLtvResults = useCallback(async (id) => {
+  const pollLtvResults = useCallback(async (id, intervalId) => {
     setLoading(true);
     try {
       const response = await fetch(
@@ -82,6 +104,7 @@ const MultiSearchContent = ({ id }) => {
       ) {
         setResultData(data.ltvCalculationResults);
         setLoading(false);
+        clearInterval(intervalId);
       } else if (data.status === "FAILED") {
         const failed = data.ltvCalculationResults.filter(
           (item) => item.status === "FAILED"
@@ -89,9 +112,9 @@ const MultiSearchContent = ({ id }) => {
         setFailedResults(failed);
         setLoading(false);
         setStatusData(data);
+        clearInterval(intervalId);
       } else if (data.status !== "COMPLETED" && data.status !== "FAILED") {
         setStatusData(data);
-        setTimeout(() => pollLtvResults(id), 60000);
       }
     } catch (error) {
       console.error(error);
@@ -170,72 +193,68 @@ const MultiSearchContent = ({ id }) => {
           </div>
         </>
       ) : (
-        <>
-          <div>
-            <div className="flex justify-between mb-4">
-              <div className="flex justify-start items-center gap-6">
-                <BackButton />
-                <div className="text-24px font-bold">LTV Security Search</div>
-              </div>
-              <button type="submit" className="asset-add-override-button">
-                Update
-              </button>
+        <div>
+          <div className="flex justify-between mb-4">
+            <div className="flex justify-start items-center gap-6">
+              <BackButton />
+              <div className="text-24px font-bold">LTV Security Search</div>
             </div>
-            <div className="flex flex-row items-baseline override-filter justify-between mb-6">
+            <button type="submit" className="asset-add-override-button">
+              Update
+            </button>
+          </div>
+          <div className="flex flex-row items-baseline override-filter justify-between mb-6">
+            <div className="flex flex-row pr-4 items-center gap-4">
+              <div className="font-bold text-base">Result Filters:</div>
               <div className="flex flex-row pr-4 items-center gap-4">
-                <div className="font-bold text-base">Result Filters:</div>
-                <div className="flex flex-row pr-4 items-center gap-4">
-                  <button
-                    className={getButtonStyle("instrumentType", "ALL")}
-                    onClick={() => handleFilterChange("instrumentType", "ALL")}
-                  >
-                    All
-                  </button>
-                  <button
-                    className={getButtonStyle("instrumentType", "EQUITY")}
-                    onClick={() =>
-                      handleFilterChange("instrumentType", "EQUITY")
-                    }
-                  >
-                    Equity
-                  </button>
-                  <button
-                    className={getButtonStyle("instrumentType", "BOND")}
-                    onClick={() => handleFilterChange("instrumentType", "BOND")}
-                  >
-                    Bond
-                  </button>
-                  <button
-                    className={getButtonStyle("instrumentType", "FUND")}
-                    onClick={() => handleFilterChange("instrumentType", "FUND")}
-                  >
-                    Funds
-                  </button>
-                  <button
-                    className={getButtonStyle("instrumentType", "NOTES")}
-                    onClick={() =>
-                      handleFilterChange("instrumentType", "NOTES")
-                    }
-                  >
-                    Notes
-                  </button>
-                </div>
-              </div>
-              <div className="inline-flex items-center pb-3 gap-4">
-                <div className="info-warning inline-flex">
-                  <TooltipComponent tooltipMsg={"tooltipMsg"}>
-                    <Image
-                      src={`${BASE_NAME}/static/images/info.svg`}
-                      width="16"
-                      height="16"
-                      alt="info"
-                    />
-                  </TooltipComponent>
-                  Override Active
-                </div>
+                <button
+                  className={getButtonStyle("instrumentType", "ALL")}
+                  onClick={() => handleFilterChange("instrumentType", "ALL")}
+                >
+                  All
+                </button>
+                <button
+                  className={getButtonStyle("instrumentType", "EQUITY")}
+                  onClick={() => handleFilterChange("instrumentType", "EQUITY")}
+                >
+                  Equity
+                </button>
+                <button
+                  className={getButtonStyle("instrumentType", "BOND")}
+                  onClick={() => handleFilterChange("instrumentType", "BOND")}
+                >
+                  Bond
+                </button>
+                <button
+                  className={getButtonStyle("instrumentType", "FUND")}
+                  onClick={() => handleFilterChange("instrumentType", "FUND")}
+                >
+                  Funds
+                </button>
+                <button
+                  className={getButtonStyle("instrumentType", "NOTES")}
+                  onClick={() => handleFilterChange("instrumentType", "NOTES")}
+                >
+                  Notes
+                </button>
               </div>
             </div>
-            {statusData.status !== "FAILED" ? (
+            <div className="inline-flex items-center pb-3 gap-4">
+              <div className="info-warning inline-flex">
+                <TooltipComponent tooltipMsg={"tooltipMsg"}>
+                  <Image
+                    src={`${BASE_NAME}/static/images/Info.svg`}
+                    width="16"
+                    height="16"
+                    alt="info"
+                  />
+                </TooltipComponent>
+                Override Active
+              </div>
+            </div>
+          </div>
+          {statusData.status !== "FAILED" && resultData ? (
+            <>
               <InfiniteScrollTable
                 fetchData={fetchData}
                 columns={searchColumn}
@@ -244,33 +263,8 @@ const MultiSearchContent = ({ id }) => {
                 responseId={id}
                 multiLtvData={filteredResults}
                 isMultiLtv={isMultiLtv}
-                actionItems={actionItems}
-                actionOnClick={(actionType, instrumentId) => {
-                  switch (actionType) {
-                    case "Notes": {
-                      break;
-                    }
-                  }
-                }}
               />
-            ) : (
-              <div>
-                {failedResults.length > 0 && (
-                  <div>
-                    <h3>Failed LTV Results:</h3>
-                    {failedResults.map((item, index) => (
-                      <div key={index}>
-                        <p>ISIN: {item.ltvResponse.isin}</p>
-                        <p>Security Name: {item.ltvResponse.securityName}</p>
-                        <p>Status Message: {item.statusMessage}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-          <div className="flex gap-8 justify-end">
+              {/* <div className="flex gap-8 justify-end">
             <button className="w-[95px] h-[36px] multi-search-page-buttons ">
               <Image
                 src={`${BASE_NAME}/static/images/SendIcon.svg`}
@@ -291,27 +285,36 @@ const MultiSearchContent = ({ id }) => {
               />
               Download
             </button>
-          </div>
-          <div className="flex flex-wrap gap-8 w-full mr-8 ">
-            {assetType === "BOND" && (
-              <LtvMetricHeader
-                ltvData={toLTVValuesDataBond(lowestLtvObject, isMultiLtv)}
-                metricsData={toSummaryValuesDataBond(
-                  lowestLtvObject,
-                  quantity,
-                  isMultiLtv
+          </div> */}
+              <div className="flex flex-wrap gap-8 w-full mr-8 mt-6">
+                {assetType === "BOND" && (
+                  <LtvMetricHeader
+                    ltvData={toLTVValuesDataBond(lowestLtvObject, isMultiLtv)}
+                    metricsData={toSummaryValuesDataBond(
+                      lowestLtvObject,
+                      quantity,
+                      isMultiLtv
+                    )}
+                  />
                 )}
-              />
-            )}
 
-            {assetType === "EQUITY" && (
-              <LtvMetricHeader
-                ltvData={toLTVValuesData(lowestLtvObject, isMultiLtv)}
-                metricsData={toSummaryValuesData(lowestLtvObject, quantity)}
-              />
-            )}
-          </div>
-        </>
+                {assetType === "EQUITY" && (
+                  <LtvMetricHeader
+                    ltvData={toLTVValuesData(lowestLtvObject, isMultiLtv)}
+                    metricsData={toSummaryValuesData(lowestLtvObject, quantity)}
+                  />
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center justify-center min-h-screen flex-col">
+                <div className="text-center">{statusData.status}</div>
+                <div>{statusData.statusMessage}</div>
+              </div>
+            </>
+          )}
+        </div>
       )}
     </>
   );

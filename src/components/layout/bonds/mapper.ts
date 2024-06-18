@@ -227,15 +227,9 @@ export const toSummaryDetailData = (
 };
 
 export const toLTVValuesDataBond = (
-  result?: LTVCalculationRes,
-  isMultiLtv?: boolean
+  result?: LTVCalculationRes
 ): DisplayItem[] => {
-  let ltvCalculation;
-  if (isMultiLtv) {
-    ltvCalculation = result?.ltvResponse?.ltvCalculation;
-  } else {
-    ltvCalculation = result?.ltvCalculation;
-  }
+  const ltvCalculation = result?.ltvCalculation;
 
   const isOverride =
     ltvCalculation?.override && ltvCalculation?.override?.hasOverride;
@@ -273,22 +267,11 @@ export const toLTVValuesDataBond = (
 
 export const toSummaryValuesDataBond = (
   result?: LTVCalculationRes,
-  quantity?: Number,
-  isMultiLtv?: boolean
+  quantity?: Number
 ): DisplayItem[] => {
-  let ltvCalculation;
-  let override;
-  let marketData;
-
-  if (isMultiLtv) {
-    ltvCalculation = result?.ltvResponse?.ltvCalculation;
-    override = result?.ltvResponse?.ltvCalculation?.overrideCalculationResult;
-    marketData = result?.ltvResponse?.marketData;
-  } else {
-    ltvCalculation = result?.ltvCalculation;
-    override = ltvCalculation?.override;
-    marketData = result?.marketData;
-  }
+  const ltvCalculation = result?.ltvCalculation;
+  const override = ltvCalculation?.override;
+  const marketData = result?.marketData;
 
   const mvCalc = marketData?.pxLast
     ? (marketData.pxLast / marketData.exchangeRate / 100) *

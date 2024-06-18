@@ -81,7 +81,7 @@ const multiLtvSearch: React.FC<MultiLtvSearchProps> = (
         onClick={onAddInput}
       >
         <Image
-          src={`${BASE_NAME}/static/images/plus.svg`}
+          src={`${BASE_NAME}/static/images/Plus.svg`}
           alt="hamburger"
           width="16"
           height="16"
