@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import { searchColumn } from "@/components/common/Constants/Constant";
-import { actionItems, multiSearchActionItems } from "./searchView.const";
+import { actionItems } from "./searchView.const";
 import "@/components/common/Bonds/bonds.css";
 import InfiniteScrollTable from "@/components/common/infinte_table";
 import BackButton from "@/components/common/button/BackButton";
@@ -9,17 +9,25 @@ import { BASE_NAME } from "@/config/appConfig";
 import Image from "next/image";
 import TooltipComponent from "@/components/common/tooltip";
 import Spinner from "@/components/common/spinner";
+import LtvMetricHeader from "../bonds/LtvMetricHeader";
+import {
+  toLTVValuesDataBond,
+  toSummaryValuesDataBond,
+} from "@/components/layout/bonds/mapper";
+import {
+  toLTVValuesData,
+  toSummaryValuesData,
+} from "@/components/layout/equity/mapper";
 
 const fetchData = () => {};
 
 const MultiSearchContent = ({ id }) => {
-  const [filters, setFilters] = useState({
-    overrideStatus: "ACTIVE",
-  });
-  const [reloadTable, setReloadTable] = useState("");
-  const [result, setResult] = useState([]);
+  const [filters, setFilters] = useState({ instrumentType: "ALL" });
+  const [resultData, setResultData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [statusData, setStatusData] = useState("");
+  const [isMultiLtv, setIsMultiLtv] = useState(true);
+  const [failedResults, setFailedResults] = useState([]);
 
   useEffect(() => {
     if (id) {
@@ -72,9 +80,13 @@ const MultiSearchContent = ({ id }) => {
         data.status === "COMPLETED" &&
         data.ltvCalculationResults.length > 0
       ) {
-        setResult(data.ltvCalculationResults);
+        setResultData(data.ltvCalculationResults);
         setLoading(false);
       } else if (data.status === "FAILED") {
+        const failed = data.ltvCalculationResults.filter(
+          (item) => item.status === "FAILED"
+        );
+        setFailedResults(failed);
         setLoading(false);
         setStatusData(data);
       } else if (data.status !== "COMPLETED" && data.status !== "FAILED") {
@@ -87,124 +99,199 @@ const MultiSearchContent = ({ id }) => {
     }
   });
 
+  const filteredResults =
+    filters.instrumentType && filters.instrumentType !== "ALL"
+      ? resultData.filter((item) => item.assetType === filters.instrumentType)
+      : resultData;
+
+  // const result = sortedResult(resultData);
+
+  // const resultQty = result === null ? "-" : result.quantity;
+
+  // function sortedResult(resultData) {
+  //   if (!resultData || resultData.length === 0) {
+  //     return null;
+  //   }
+
+  //   let lowestLtvObject = null;
+  //   let lowestLtvValue = 100;
+
+  //   resultData.forEach((item) => {
+  //     let ltvAtIm;
+  //     let hasOverride = false;
+
+  //     if (item.assetType === "BOND") {
+  //       if (item.ltvResponse.ltvCalculation.override.hasOverride) {
+  //         hasOverride = true;
+  //         ltvAtIm = item.ltvResponse.ltvCalculation.override.ltvAtIm;
+  //       } else {
+  //         ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
+  //       }
+  //     } else if (item.assetType === "EQUITY") {
+  //       if (
+  //         item.ltvResponse.ltvCalculation.overrideCalculationResult &&
+  //         item.ltvResponse.ltvCalculation.overrideCalculationResult.hasOverride
+  //       ) {
+  //         ltvAtIm =
+  //           item.ltvResponse.ltvCalculation.overrideCalculationResult.ltvAtIm;
+  //         hasOverride = true;
+  //       } else {
+  //         ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
+  //       }
+  //     } else {
+  //       ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
+  //     }
+  //     if (hasOverride && ltvAtIm < lowestLtvValue) {
+  //       lowestLtvValue = ltvAtIm;
+  //       lowestLtvObject = item;
+  //     } else if (!hasOverride && ltvAtIm < lowestLtvValue) {
+  //       lowestLtvValue = ltvAtIm;
+  //       lowestLtvObject = item;
+  //     }
+  //   });
+  //   return lowestLtvObject;
+  // }
+
   return (
     <>
-      <div className="flex justify-between">
-        <div className="flex justify-start items-center gap-6">
-          <BackButton />
-          <div className="text-24px font-bold">LTV Security Search</div>
-        </div>
-        {/* <button type="submit" className="asset-add-override-button">
-          Update
-        </button> */}
-      </div>
-      <div className="flex flex-row items-baseline override-filter justify-between">
-        <div className="flex flex-row pr-4 items-center gap-4">
-          <div className="font-bold text-base">Result Filters:</div>
-          <div className="flex flex-row pr-4 items-center gap-4">
-            <button
-              className={getButtonStyle("instrumentType", "ALL")}
-              onClick={() => handleFilterChange("instrumentType", "ALL")}
-            >
-              All
-            </button>
-            <button
-              className={getButtonStyle("instrumentType", "EQUITY")}
-              onClick={() => handleFilterChange("instrumentType", "EQUITY")}
-            >
-              Equity
-            </button>
-            <button
-              className={getButtonStyle("instrumentType", "BOND")}
-              onClick={() => handleFilterChange("instrumentType", "BOND")}
-            >
-              Bond
-            </button>
-            <button
-              className={getButtonStyle("instrumentType", "FUND")}
-              onClick={() => handleFilterChange("instrumentType", "FUND")}
-            >
-              Funds
-            </button>
-            <button
-              className={getButtonStyle("instrumentType", "NOTES")}
-              onClick={() => handleFilterChange("instrumentType", "NOTES")}
-            >
-              Notes
-            </button>
-          </div>
-        </div>
-        <div className="inline-flex items-center pb-3 gap-4">
-          <div className="info-warning inline-flex">
-            <TooltipComponent tooltipMsg={"tooltipMsg"}>
-              <Image
-                src={`${BASE_NAME}/static/images/info.svg`}
-                width="16"
-                height="16"
-                alt="info"
-              />
-            </TooltipComponent>
-            Override Active
-          </div>
-        </div>
-      </div>
-      {statusData.status !== "FAILED" ? (
-        <InfiniteScrollTable
-          fetchData={fetchData}
-          columns={searchColumn}
-          pageSize={result.length}
-          filters={filters}
-          initialData={""}
-          multiLtvData={result}
-          reload={reloadTable}
-          isMultiLtv={true}
-          actionItems={multiSearchActionItems}
-          actionOnClick={(actionType, instrumentId) => {
-            switch (actionType) {
-              case "Delete": {
-                setInstrumentId(instrumentId);
-                break;
-              }
-            }
-          }}
-        />
-      ) : (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">{statusData.statusMessage}</div>
-        </div>
-      )}
-
-      <div className="flex gap-8 justify-end">
-        <button className="w-[95px] h-[36px] multi-search-page-buttons ">
-          <Image
-            src={`${BASE_NAME}/static/images/SendIcon.svg`}
-            width="20"
-            height="20"
-            alt="send"
-            className="mr-1"
-          />
-          Send
-        </button>
-        <button className="w-[127px] h-[36px] multi-search-page-buttons">
-          <Image
-            src={`${BASE_NAME}/static/images/Download.svg`}
-            width="20"
-            height="20"
-            alt="download"
-            className="mr-1"
-          />
-          Download
-        </button>
-      </div>
       {loading ? (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <Spinner fullPage={true} />
-            <span>{statusData.status}</span>
+        <>
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center">
+              <Spinner fullPage={true} statusMessage={statusData.status} />
+            </div>
           </div>
-        </div>
+        </>
       ) : (
-        <div></div>
+        <>
+          <div>
+            <div className="flex justify-between mb-4">
+              <div className="flex justify-start items-center gap-6">
+                <BackButton />
+                <div className="text-24px font-bold">LTV Security Search</div>
+              </div>
+              <button type="submit" className="asset-add-override-button">
+                Update
+              </button>
+            </div>
+            <div className="flex flex-row items-baseline override-filter justify-between mb-6">
+              <div className="flex flex-row pr-4 items-center gap-4">
+                <div className="font-bold text-base">Result Filters:</div>
+                <div className="flex flex-row pr-4 items-center gap-4">
+                  <button
+                    className={getButtonStyle("instrumentType", "ALL")}
+                    onClick={() => handleFilterChange("instrumentType", "ALL")}
+                  >
+                    All
+                  </button>
+                  <button
+                    className={getButtonStyle("instrumentType", "EQUITY")}
+                    onClick={() =>
+                      handleFilterChange("instrumentType", "EQUITY")
+                    }
+                  >
+                    Equity
+                  </button>
+                  <button
+                    className={getButtonStyle("instrumentType", "BOND")}
+                    onClick={() => handleFilterChange("instrumentType", "BOND")}
+                  >
+                    Bond
+                  </button>
+                  <button
+                    className={getButtonStyle("instrumentType", "FUND")}
+                    onClick={() => handleFilterChange("instrumentType", "FUND")}
+                  >
+                    Funds
+                  </button>
+                  <button
+                    className={getButtonStyle("instrumentType", "NOTES")}
+                    onClick={() =>
+                      handleFilterChange("instrumentType", "NOTES")
+                    }
+                  >
+                    Notes
+                  </button>
+                </div>
+              </div>
+              <div className="inline-flex items-center pb-3 gap-4">
+                <div className="info-warning inline-flex">
+                  <TooltipComponent tooltipMsg={"tooltipMsg"}>
+                    <Image
+                      src={`${BASE_NAME}/static/images/info.svg`}
+                      width="16"
+                      height="16"
+                      alt="info"
+                    />
+                  </TooltipComponent>
+                  Override Active
+                </div>
+              </div>
+            </div>
+            {statusData.status !== "FAILED" ? (
+              <InfiniteScrollTable
+                fetchData={fetchData}
+                columns={searchColumn}
+                pageSize={resultData.length}
+                filters={filters}
+                responseId={id}
+                multiLtvData={filteredResults}
+                isMultiLtv={isMultiLtv}
+                actionItems={actionItems}
+                actionOnClick={(actionType, instrumentId) => {
+                  switch (actionType) {
+                    case "Notes": {
+                      break;
+                    }
+                  }
+                }}
+              />
+            ) : (
+              <div>
+                {failedResults.length > 0 && (
+                  <div>
+                    <h3>Failed LTV Results:</h3>
+                    {failedResults.map((item, index) => (
+                      <div key={index}>
+                        <p>ISIN: {item.ltvResponse.isin}</p>
+                        <p>Security Name: {item.ltvResponse.securityName}</p>
+                        <p>Status Message: {item.statusMessage}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="flex gap-8 justify-end">
+            <button className="w-[95px] h-[36px] multi-search-page-buttons ">
+              <Image
+                src={`${BASE_NAME}/static/images/SendIcon.svg`}
+                width="20"
+                height="20"
+                alt="send"
+                className="mr-1"
+              />
+              Send
+            </button>
+            <button className="w-[127px] h-[36px] multi-search-page-buttons">
+              <Image
+                src={`${BASE_NAME}/static/images/Download.svg`}
+                width="20"
+                height="20"
+                alt="download"
+                className="mr-1"
+              />
+              Download
+            </button>
+          </div>
+          {/* <div className="flex flex-wrap gap-8 w-full mr-8 ">
+            <LtvMetricHeader
+              ltvData={toLTVValuesData(result, isMultiLtv)}
+              metricsData={toSummaryValuesData(result, resultQty, isMultiLtv)}
+            />
+          </div> */}
+        </>
       )}
     </>
   );

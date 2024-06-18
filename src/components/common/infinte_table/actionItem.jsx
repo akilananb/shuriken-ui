@@ -8,6 +8,8 @@ const ActionItem = ({ actionType, onClick }) => {
         return `${BASE_NAME}/static/images/editIcon.svg`;
       case "Delete":
         return `${BASE_NAME}/static/images/deleteIcon.svg`;
+      case "Notes":
+        return `${BASE_NAME}/static/images/NotesIcon.svg`;
 
       default:
         return "";

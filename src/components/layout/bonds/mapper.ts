@@ -63,7 +63,10 @@ export const toSummaryDetailData = (
   return [
     {
       label: "Maturity date",
-      value: result?.ltvCalculation?.isPerpetual === true ? "Perpetual" : result?.bondDetail?.maturityDate ?? "",
+      value:
+        result?.ltvCalculation?.isPerpetual === true
+          ? "Perpetual"
+          : result?.bondDetail?.maturityDate ?? "",
     },
     {
       label: "Maturity Type",
@@ -71,12 +74,32 @@ export const toSummaryDetailData = (
     },
     {
       label: "Issue Rating (S&P / Moody's)",
-      value: `${(result?.ltvCalculation?.issueRating?.snp !== "" && result?.ltvCalculation?.issueRating?.snp !== undefined) ? result?.ltvCalculation?.issueRating?.snp : "Unrated"} /
-      ${(result?.ltvCalculation?.issueRating?.moodys !== "" && result?.ltvCalculation?.issueRating?.moodys !== undefined) ? result?.ltvCalculation?.issueRating?.moodys : "Unrated"}`,
+      value: `${
+        result?.ltvCalculation?.issueRating?.snp !== "" &&
+        result?.ltvCalculation?.issueRating?.snp !== undefined
+          ? result?.ltvCalculation?.issueRating?.snp
+          : "Unrated"
+      } /
+      ${
+        result?.ltvCalculation?.issueRating?.moodys !== "" &&
+        result?.ltvCalculation?.issueRating?.moodys !== undefined
+          ? result?.ltvCalculation?.issueRating?.moodys
+          : "Unrated"
+      }`,
     },
     {
       label: "Issuer Rating (S&P / Moody's)",
-      value: `${result?.ltvCalculation?.issuerRating?.snp !== "" && result?.ltvCalculation?.issuerRating?.snp !== undefined ? result?.ltvCalculation?.issuerRating?.snp : "Unrated"} / ${result?.ltvCalculation?.issuerRating?.moodys !== "" && result?.ltvCalculation?.issuerRating?.moodys !== undefined ? result?.ltvCalculation?.issuerRating?.moodys : "Unrated"}`,
+      value: `${
+        result?.ltvCalculation?.issuerRating?.snp !== "" &&
+        result?.ltvCalculation?.issuerRating?.snp !== undefined
+          ? result?.ltvCalculation?.issuerRating?.snp
+          : "Unrated"
+      } / ${
+        result?.ltvCalculation?.issuerRating?.moodys !== "" &&
+        result?.ltvCalculation?.issuerRating?.moodys !== undefined
+          ? result?.ltvCalculation?.issuerRating?.moodys
+          : "Unrated"
+      }`,
     },
     {
       label: "Subordinated",
@@ -88,7 +111,9 @@ export const toSummaryDetailData = (
     },
     {
       label: "Last Close Price",
-      value: toCommaSeprated(Number(result?.marketData?.pxLast).toFixed(2) ?? 0),
+      value: toCommaSeprated(
+        Number(result?.marketData?.pxLast).toFixed(2) ?? 0
+      ),
     },
     {
       label: "Issuer Name",
@@ -158,7 +183,7 @@ export const toSummaryDetailData = (
       label: "Capital Contingent Security",
       value:
         result?.bondDetail?.capitalContingentSecurity &&
-          result?.bondDetail?.capitalContingentSecurity === "Y"
+        result?.bondDetail?.capitalContingentSecurity === "Y"
           ? "Y"
           : "N",
     },
@@ -166,7 +191,7 @@ export const toSummaryDetailData = (
       label: "CDO",
       value:
         result?.bondDetail?.marketSectorDes &&
-          result?.bondDetail?.marketSectorDes.toUpperCase() === "MTGE"
+        result?.bondDetail?.marketSectorDes.toUpperCase() === "MTGE"
           ? "Y"
           : "N",
     },
@@ -201,8 +226,16 @@ export const toSummaryDetailData = (
   ];
 };
 
-export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
-  const ltvCalculation = result?.ltvCalculation;
+export const toLTVValuesDataBond = (
+  result?: LTVCalculationRes,
+  isMultiLtv?: boolean
+): DisplayItem[] => {
+  let ltvCalculation;
+  if (isMultiLtv) {
+    ltvCalculation = result?.ltvResponse?.ltvCalculation;
+  } else {
+    ltvCalculation = result?.ltvCalculation;
+  }
 
   const isOverride =
     ltvCalculation?.override && ltvCalculation?.override?.hasOverride;
@@ -220,6 +253,7 @@ export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
   const _ltvAtSl = isOverride
     ? ltvCalculation?.override.ltvAtSl
     : ltvCalculation?.ltvAtSl;
+
   return [
     {
       label: "Initial Margin",
@@ -237,17 +271,28 @@ export const toLTVValuesData = (result?: LTVCalculationRes): DisplayItem[] => {
   ];
 };
 
-export const toSummaryValuesData = (
+export const toSummaryValuesDataBond = (
   result?: LTVCalculationRes,
-  quantity?: Number
+  quantity?: Number,
+  isMultiLtv?: boolean
 ): DisplayItem[] => {
-  const ltvCalculation = result?.ltvCalculation;
-  const override = ltvCalculation?.override;
-  const marketData = result?.marketData;
+  let ltvCalculation;
+  let override;
+  let marketData;
+
+  if (isMultiLtv) {
+    ltvCalculation = result?.ltvResponse?.ltvCalculation;
+    override = result?.ltvResponse?.ltvCalculation?.overrideCalculationResult;
+    marketData = result?.ltvResponse?.marketData;
+  } else {
+    ltvCalculation = result?.ltvCalculation;
+    override = ltvCalculation?.override;
+    marketData = result?.marketData;
+  }
 
   const mvCalc = marketData?.pxLast
     ? (marketData.pxLast / marketData.exchangeRate / 100) *
-    Number(quantity || 0)
+      Number(quantity || 0)
     : 0;
   const mv =
     marketData?.pxLast && quantity
@@ -264,7 +309,9 @@ export const toSummaryValuesData = (
     }
   }
 
-  const cv = quantity ?  toSetCommaFormatPercentage(String(Math.round(cvCalculation))) : "-";
+  const cv = quantity
+    ? toSetCommaFormatPercentage(String(Math.round(cvCalculation)))
+    : "-";
 
   return [
     {
@@ -289,7 +336,7 @@ export const toDisclaimerData = (
   const { disclaimer } = ltvCalculation || {};
   const reason = ltvCalculation?.override?.reason;
   const disclaimers: string[] = reason && reason != "null" ? [reason] : [];
-  const notes: string[] = disclaimer ? [ disclaimer] : [];
+  const notes: string[] = disclaimer ? [disclaimer] : [];
   return {
     label: "Disclaimers",
     value: disclaimers,

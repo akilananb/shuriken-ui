@@ -27,16 +27,16 @@ export async function getLadingPageData() {
 const Bonds: React.FC<SeciritySearchProps> = async (
   props: SeciritySearchProps
 ) => {
-  const { pdpId, quantity } = props;
-
+  const { pdpId, quantity, id } = props;
   const searchService = new SearchService();
 
   const { announcementData } = await getLadingPageData();
 
-  const _results = await searchService.fetchLTVCalculationDetail(
-    pdpId ?? "",
-    quantity ?? 0
-  );
+  const _results = id
+    ? await searchService.fetchLtv(id, pdpId ?? "")
+    : await searchService.fetchLTVCalculationDetail(pdpId ?? "", quantity ?? 0);
+
+  console.log(_results);
 
   return (
     <BondsPage

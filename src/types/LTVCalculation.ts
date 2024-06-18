@@ -9,6 +9,7 @@ export interface LTVCalculationRes {
   marketData?: MarketData;
   bondDetail?: BondDetail;
   ltvCalculation?: LtvCalculation;
+  ltvResponse: any;
   errors?: any[];
 }
 interface LtvCalculation {
@@ -126,16 +127,15 @@ export interface EquityLTVCalculationRes {
   status?: string;
   ltvCalculation?: EquityLtvCalculation;
   marketData?: EquityMarketData;
-  takaraData?: TakaraData
+  takaraData?: TakaraData;
   assetCrncyExchangeRate: number;
-
 }
 
 export interface TakaraData {
   equityExchangeMarket?: string;
   equityExchangeMarketCountry?: string;
   assetType?: string;
-  country?: string
+  country?: string;
 }
 export interface FullEquityCalculationResult {
   ltvAtIm: number;
@@ -180,6 +180,7 @@ interface EquityLtvCalculation {
   avgDailyValueTraded3m?: number;
 }
 export interface SeciritySearchProps {
+  id?: string;
   isin?: string;
   pdpId?: string;
   securityType?: string;

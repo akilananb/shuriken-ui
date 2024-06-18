@@ -43,6 +43,18 @@ class SearchService {
     return response.json();
   }
 
+  public async fetchLtv(id: string, pdpId: string) {
+    const response = await fetch(
+      `${process.env.API_BASE_URL}/shuriken/api/asset-query-svc/api/v1/asset_class_query/v2/ltv/response/${id}/security/${pdpId}`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      return response.json() as any;
+    }
+    return response.json();
+  }
+
   public async fetchLTVCalculation(
     item?: LTVSearch | null
   ): Promise<CalculationRes> {
@@ -70,7 +82,7 @@ class SearchService {
     const response = await fetch(
       `${
         process.env.API_BASE_URL
-      }/api/v1/asset_class_query/ltv/bond?pdpId=${pdpId}${
+      }/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/bond?pdpId=${pdpId}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }&source=LIVE`,
       { cache: "no-store" }
@@ -88,7 +100,7 @@ class SearchService {
     const response = await fetch(
       `${
         process.env.API_BASE_URL
-      }/api/v1/asset_class_query/ltv/equity?pdpId=${pdpId}${
+      }/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/equity?pdpId=${pdpId}${
         quantity.valueOf() > 0 ? "&quantity=" + quantity : ""
       }&source=LIVE`,
       { cache: "no-store" }

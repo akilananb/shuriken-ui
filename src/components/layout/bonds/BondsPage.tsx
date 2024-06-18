@@ -12,10 +12,10 @@ import Announcement from "@/components/layout/announcement";
 import {
   toDisclaimerData,
   toHeaderData,
-  toLTVValuesData,
+  toLTVValuesDataBond,
   toOverrideData,
   toSummaryDetailData,
-  toSummaryValuesData,
+  toSummaryValuesDataBond,
 } from "./mapper";
 import BondsTabs from "./Bonds_tabs";
 import LtvMetricHeader from "./LtvMetricHeader";
@@ -121,8 +121,8 @@ const BondsPage = ({ announcementData, results, props }) => {
       <div className="search-summary w-full bg-nomura-off-white">
         <div className="flex flex-wrap gap-8 w-full">
           <LtvMetricHeader
-            ltvData={toLTVValuesData(fetchedData)}
-            metricsData={toSummaryValuesData(fetchedData, quantity)}
+            ltvData={toLTVValuesDataBond(fetchedData)}
+            metricsData={toSummaryValuesDataBond(fetchedData, quantity)}
           />
         </div>
         <div className="inline-flex gap-4 w-full flex-col">
