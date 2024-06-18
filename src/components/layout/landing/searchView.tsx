@@ -71,6 +71,7 @@ export default function SearchView() {
     }
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("requestId", uuidv4());
 
     try {
       const response = await fetch(
@@ -81,7 +82,12 @@ export default function SearchView() {
         }
       );
 
-      return response;
+      const data = await response.json();
+
+      window.open(
+        `${BASE_NAME}/multi-search?responseId=${data.responseId}`,
+        "_blank"
+      );
     } catch (error) {
       console.error("Error uploading file:", error);
     }

@@ -104,53 +104,60 @@ const MultiSearchContent = ({ id }) => {
       ? resultData.filter((item) => item.assetType === filters.instrumentType)
       : resultData;
 
-  // const result = sortedResult(resultData);
+  const resultDataExists = resultData.length > 0;
+  const { lowestLtvObject, quantity, assetType } = resultDataExists
+    ? sortedResult(resultData)
+    : {};
 
-  // const resultQty = result === null ? "-" : result.quantity;
+  function sortedResult(resultData) {
+    let lowestLtvObject = null;
+    let lowestLtvValue = 100;
+    let result = null;
 
-  // function sortedResult(resultData) {
-  //   if (!resultData || resultData.length === 0) {
-  //     return null;
-  //   }
+    resultData?.forEach((item) => {
+      let ltvAtIm;
+      let hasOverride = false;
 
-  //   let lowestLtvObject = null;
-  //   let lowestLtvValue = 100;
+      if (item.assetType === "BOND") {
+        if (
+          item.ltvResponse.ltvCalculation.override &&
+          item.ltvResponse.ltvCalculation.override.hasOverride
+        ) {
+          hasOverride = true;
+          ltvAtIm = item.ltvResponse.ltvCalculation.override.ltvAtIm;
+        } else {
+          ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
+        }
+      } else if (item.assetType === "EQUITY") {
+        if (
+          item.ltvResponse.ltvCalculation.overrideCalculationResult &&
+          item.ltvResponse.ltvCalculation.overrideCalculationResult.hasOverride
+        ) {
+          ltvAtIm =
+            item.ltvResponse.ltvCalculation.overrideCalculationResult.ltvAtIm;
+          hasOverride = true;
+        } else {
+          ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
+        }
+      } else {
+        ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
+      }
+      if (hasOverride && ltvAtIm < lowestLtvValue) {
+        lowestLtvValue = ltvAtIm;
+        result = item;
+        lowestLtvObject = item?.ltvResponse;
+      } else if (!hasOverride && ltvAtIm < lowestLtvValue) {
+        lowestLtvValue = ltvAtIm;
+        result = item;
+        lowestLtvObject = item?.ltvResponse;
+      }
+    });
 
-  //   resultData.forEach((item) => {
-  //     let ltvAtIm;
-  //     let hasOverride = false;
+    const assetType = result.assetType;
+    const quantity = result.quantity;
 
-  //     if (item.assetType === "BOND") {
-  //       if (item.ltvResponse.ltvCalculation.override.hasOverride) {
-  //         hasOverride = true;
-  //         ltvAtIm = item.ltvResponse.ltvCalculation.override.ltvAtIm;
-  //       } else {
-  //         ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
-  //       }
-  //     } else if (item.assetType === "EQUITY") {
-  //       if (
-  //         item.ltvResponse.ltvCalculation.overrideCalculationResult &&
-  //         item.ltvResponse.ltvCalculation.overrideCalculationResult.hasOverride
-  //       ) {
-  //         ltvAtIm =
-  //           item.ltvResponse.ltvCalculation.overrideCalculationResult.ltvAtIm;
-  //         hasOverride = true;
-  //       } else {
-  //         ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
-  //       }
-  //     } else {
-  //       ltvAtIm = item.ltvResponse.ltvCalculation.ltvAtIm;
-  //     }
-  //     if (hasOverride && ltvAtIm < lowestLtvValue) {
-  //       lowestLtvValue = ltvAtIm;
-  //       lowestLtvObject = item;
-  //     } else if (!hasOverride && ltvAtIm < lowestLtvValue) {
-  //       lowestLtvValue = ltvAtIm;
-  //       lowestLtvObject = item;
-  //     }
-  //   });
-  //   return lowestLtvObject;
-  // }
+    return { lowestLtvObject, assetType, quantity };
+  }
 
   return (
     <>
@@ -285,12 +292,25 @@ const MultiSearchContent = ({ id }) => {
               Download
             </button>
           </div>
-          {/* <div className="flex flex-wrap gap-8 w-full mr-8 ">
-            <LtvMetricHeader
-              ltvData={toLTVValuesData(result, isMultiLtv)}
-              metricsData={toSummaryValuesData(result, resultQty, isMultiLtv)}
-            />
-          </div> */}
+          <div className="flex flex-wrap gap-8 w-full mr-8 ">
+            {assetType === "BOND" && (
+              <LtvMetricHeader
+                ltvData={toLTVValuesDataBond(lowestLtvObject, isMultiLtv)}
+                metricsData={toSummaryValuesDataBond(
+                  lowestLtvObject,
+                  quantity,
+                  isMultiLtv
+                )}
+              />
+            )}
+
+            {assetType === "EQUITY" && (
+              <LtvMetricHeader
+                ltvData={toLTVValuesData(lowestLtvObject, isMultiLtv)}
+                metricsData={toSummaryValuesData(lowestLtvObject, quantity)}
+              />
+            )}
+          </div>
         </>
       )}
     </>
