@@ -154,12 +154,12 @@ const searchColumn = [
     type: "text",
     width: "w-20",
   },
-  {
-    name: "Conc.",
-    dataField: "",
-    type: "text",
-    width: "w-20",
-  },
+  // {
+  //   name: "Conc.",
+  //   dataField: "",
+  //   type: "text",
+  //   width: "w-20",
+  // },
   {
     name: "LP",
     dataField: "ltvResponse.ltvCalculation.lp",

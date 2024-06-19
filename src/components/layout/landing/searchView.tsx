@@ -65,17 +65,17 @@ export default function SearchView() {
 
   const handleFileSelect = async (event) => {
     const file = event.target.files[0];
+    const requestId = uuidv4();
 
     if (!file) {
       return;
     }
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("requestId", uuidv4());
 
     try {
       const response = await fetch(
-        `/shuriken/api/asset-query-svc/api/v1/ltv/process/multiple/upload`,
+        `/shuriken/api/asset-query-svc/api/v1/asset_class_query/ltv/process/multiple/upload?requestId=${requestId}`,
         {
           method: "POST",
           body: formData,

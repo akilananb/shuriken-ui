@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
 import { searchColumn } from "@/components/common/Constants/Constant";
 import "@/components/common/Bonds/bonds.css";
@@ -185,13 +186,11 @@ const MultiSearchContent = ({ id }) => {
   return (
     <>
       {loading ? (
-        <>
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="text-center">
-              <Spinner fullPage={true} statusMessage={statusData.status} />
-            </div>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <Spinner fullPage={true} statusMessage={statusData.status} />
           </div>
-        </>
+        </div>
       ) : (
         <div>
           <div className="flex justify-between mb-4">
@@ -199,8 +198,9 @@ const MultiSearchContent = ({ id }) => {
               <BackButton />
               <div className="text-24px font-bold">LTV Security Search</div>
             </div>
+
             <button type="submit" className="asset-add-override-button">
-              Update
+              <Link href="/update-multi-search">Update</Link>
             </button>
           </div>
           <div className="flex flex-row items-baseline override-filter justify-between mb-6">
@@ -253,18 +253,17 @@ const MultiSearchContent = ({ id }) => {
               </div>
             </div>
           </div>
-          {statusData.status !== "FAILED" && resultData ? (
-            <>
-              <InfiniteScrollTable
-                fetchData={fetchData}
-                columns={searchColumn}
-                pageSize={resultData.length}
-                filters={filters}
-                responseId={id}
-                multiLtvData={filteredResults}
-                isMultiLtv={isMultiLtv}
-              />
-              {/* <div className="flex gap-8 justify-end">
+
+          <InfiniteScrollTable
+            fetchData={fetchData}
+            columns={searchColumn}
+            pageSize={resultData.length}
+            filters={filters}
+            responseId={id}
+            multiLtvData={filteredResults}
+            isMultiLtv={isMultiLtv}
+          />
+          {/* <div className="flex gap-8 justify-end">
             <button className="w-[95px] h-[36px] multi-search-page-buttons ">
               <Image
                 src={`${BASE_NAME}/static/images/SendIcon.svg`}
@@ -286,34 +285,25 @@ const MultiSearchContent = ({ id }) => {
               Download
             </button>
           </div> */}
-              <div className="flex flex-wrap gap-8 w-full mr-8 mt-6">
-                {assetType === "BOND" && (
-                  <LtvMetricHeader
-                    ltvData={toLTVValuesDataBond(lowestLtvObject, isMultiLtv)}
-                    metricsData={toSummaryValuesDataBond(
-                      lowestLtvObject,
-                      quantity,
-                      isMultiLtv
-                    )}
-                  />
+          <div className="flex flex-wrap gap-8 w-full mr-8 mt-6">
+            {assetType === "BOND" && (
+              <LtvMetricHeader
+                ltvData={toLTVValuesDataBond(lowestLtvObject, isMultiLtv)}
+                metricsData={toSummaryValuesDataBond(
+                  lowestLtvObject,
+                  quantity,
+                  isMultiLtv
                 )}
+              />
+            )}
 
-                {assetType === "EQUITY" && (
-                  <LtvMetricHeader
-                    ltvData={toLTVValuesData(lowestLtvObject, isMultiLtv)}
-                    metricsData={toSummaryValuesData(lowestLtvObject, quantity)}
-                  />
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex items-center justify-center min-h-screen flex-col">
-                <div className="text-center">{statusData.status}</div>
-                <div>{statusData.statusMessage}</div>
-              </div>
-            </>
-          )}
+            {assetType === "EQUITY" && (
+              <LtvMetricHeader
+                ltvData={toLTVValuesData(lowestLtvObject, isMultiLtv)}
+                metricsData={toSummaryValuesData(lowestLtvObject, quantity)}
+              />
+            )}
+          </div>
         </div>
       )}
     </>

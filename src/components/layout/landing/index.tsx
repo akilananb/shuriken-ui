@@ -24,14 +24,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      <div className="pt-10 pb-4 p-16">
+    <div className="flex flex-col h-full bg-white overflow-hidden">
+      <div className="pt-10 pb-4 p-16 flex-shrink-0">
         <Announcement
           statementClass={"min-w-[550px]"}
           data={announcementData}
         />
       </div>
-      <div className="flex flex-row  justify-center items-center h-full min-h-96 ">
+      <div className="flex flex-row justify-center items-center h-full overflow-auto min-h-96 ">
         <div className="flex flex-col items-center justify-center gap-10 w-[746px] relative -top-16">
           <div className="text-justify leading-normal text-2xl font-bold ">
             LTV Search
