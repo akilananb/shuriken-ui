@@ -38,9 +38,9 @@ public class TransformToMktDataRequestHandler implements ExternalTaskHandler {
                 .filter(r -> r.ticker() != null && r.exchange() != null)
                 .collect(Collectors.toMap(r -> r.ticker() + "_" + r.exchange(), r -> r, (existing, replacement) -> existing));
 
-        List<MultiUmdUploadRequestInput> missingAssetsForPdpId = new ArrayList<>();
-        List<String> queryBond = new ArrayList<>();
-        List<String> queryEquity = new ArrayList<>();
+        Set<MultiUmdUploadRequestInput> missingAssetsForPdpId = new HashSet<>();
+        Set<String> queryBond = new HashSet<>();
+        Set<String> queryEquity = new HashSet<>();
         Map<String, TakaraSecurityDetail> securityData = new HashMap<>();
 
         multiUmdUploadRequestInputs.forEach(v -> {
@@ -78,11 +78,11 @@ public class TransformToMktDataRequestHandler implements ExternalTaskHandler {
         });
 
         HashMap<AssetTypes, List<String>> mktDataRequest = new LinkedHashMap<>();
-        mktDataRequest.put(AssetTypes.BOND, queryBond);
-        mktDataRequest.put(AssetTypes.EQUITY, queryEquity);
+        mktDataRequest.put(AssetTypes.BOND, new ArrayList<>(queryBond));
+        mktDataRequest.put(AssetTypes.EQUITY, new ArrayList<>(queryEquity));
 
         VariableMap processVariable = Variables.createVariables()
-                .putValue("missingAssetsForPdpId", Variables.objectValue(missingAssetsForPdpId)
+                .putValue("missingAssetsForPdpId", Variables.objectValue(new ArrayList<>(missingAssetsForPdpId))
                         .serializationDataFormat(Variables.SerializationDataFormats.JSON)
                         .create())
                 .putValueTyped("mktDataRequest", Variables.objectValue(mktDataRequest)
