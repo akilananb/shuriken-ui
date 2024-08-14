@@ -4,12 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomura.shuriken.assetquerysvc.dto.MultiUmdUploadRequestInput;
 import com.nomura.shuriken.assetquerysvc.dto.takara.TakaraSecurityDetail;
 import com.nomura.shuriken.assetquerysvc.enums.AssetTypes;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.client.spring.annotation.ExternalTaskSubscription;
@@ -19,6 +13,9 @@ import org.camunda.bpm.client.task.ExternalTaskService;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
 import org.springframework.stereotype.Component;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -31,22 +28,29 @@ public class TransformToMktDataRequestHandler implements ExternalTaskHandler {
     @Override
     public void execute(ExternalTask externalTask, ExternalTaskService externalTaskService) {
         List<TakaraSecurityDetail> pdpIds = externalTask.getVariable("pdpIds");
-        List<MultiUmdUploadRequestInput> multiUmdUploadRequestInputs =
-                externalTask.getVariable("multiUmdUploadRequest");
+        List<MultiUmdUploadRequestInput> multiUmdUploadRequestInputs = externalTask.getVariable("multiUmdUploadRequest");
+
+        Map<String, TakaraSecurityDetail> isinMap = pdpIds.stream()
+                .filter(r -> r.isin() != null)
+                .collect(Collectors.toMap(TakaraSecurityDetail::isin, r -> r, (existing, replacement) -> existing));
+        
+        Map<String, TakaraSecurityDetail> tickerExchangeMap = pdpIds.stream()
+                .filter(r -> r.ticker() != null && r.exchange() != null)
+                .collect(Collectors.toMap(r -> r.ticker() + "_" + r.exchange(), r -> r, (existing, replacement) -> existing));
+
         List<MultiUmdUploadRequestInput> missingAssetsForPdpId = new ArrayList<>();
         List<String> queryBond = new ArrayList<>();
         List<String> queryEquity = new ArrayList<>();
         Map<String, TakaraSecurityDetail> securityData = new HashMap<>();
+
         multiUmdUploadRequestInputs.forEach(v -> {
             switch (v.getAssetType()) {
                 case BOND -> {
                     if (v.getIsin() != null) {
-                        Optional<TakaraSecurityDetail> bond =
-                                pdpIds.stream().filter(r -> r.isin() != null).filter(r -> r.isin().equalsIgnoreCase(v.getIsin())
-                                        && r.securityType().equalsIgnoreCase(AssetTypes.BOND.name())).findFirst();
-                        if (bond.isPresent()) {
-                            queryBond.add(bond.get().pdpId());
-                            securityData.put(bond.get().pdpId(), bond.get());
+                        TakaraSecurityDetail bond = isinMap.get(v.getIsin());
+                        if (bond != null && AssetTypes.BOND.name().equalsIgnoreCase(bond.securityType())) {
+                            queryBond.add(bond.pdpId());
+                            securityData.put(bond.pdpId(), bond);
                         } else {
                             missingAssetsForPdpId.add(v);
                         }
@@ -55,27 +59,27 @@ public class TransformToMktDataRequestHandler implements ExternalTaskHandler {
                     }
                 }
                 case EQUITY -> {
-                    Optional<TakaraSecurityDetail> equity =
-                            pdpIds.stream().filter(r -> ((r.isin() != null && r.isin().equalsIgnoreCase(v.getIsin())
-                                            || (r.ticker() != null && r.ticker().equalsIgnoreCase(v.getTicker())
-                                            && r.exchange() != null && r.exchange().equalsIgnoreCase(v.getExchange())))
-                                            && r.securityType().equalsIgnoreCase(AssetTypes.EQUITY.name())))
-                                    .findFirst();
-                    if (equity.isPresent()) {
-                        queryEquity.add(equity.get().pdpId());
-                        securityData.put(equity.get().pdpId(), equity.get());
+                    TakaraSecurityDetail equity = null;
+                    if (v.getIsin() != null) {
+                        equity = isinMap.get(v.getIsin());
+                    }
+                    if (equity == null && v.getTicker() != null && v.getExchange() != null) {
+                        equity = tickerExchangeMap.get(v.getTicker() + "_" + v.getExchange());
+                    }
+                    if (equity != null && AssetTypes.EQUITY.name().equalsIgnoreCase(equity.securityType())) {
+                        queryEquity.add(equity.pdpId());
+                        securityData.put(equity.pdpId(), equity);
                     } else {
                         missingAssetsForPdpId.add(v);
                     }
                 }
-                default -> {
-                    missingAssetsForPdpId.add(v);
-                }
+                default -> missingAssetsForPdpId.add(v);
             }
         });
+
         HashMap<AssetTypes, List<String>> mktDataRequest = new LinkedHashMap<>();
-        mktDataRequest.put(AssetTypes.BOND, queryBond.stream().toList());
-        mktDataRequest.put(AssetTypes.EQUITY, queryEquity.stream().toList());
+        mktDataRequest.put(AssetTypes.BOND, queryBond);
+        mktDataRequest.put(AssetTypes.EQUITY, queryEquity);
 
         VariableMap processVariable = Variables.createVariables()
                 .putValue("missingAssetsForPdpId", Variables.objectValue(missingAssetsForPdpId)
