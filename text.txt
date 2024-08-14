@@ -1,0 +1,17 @@
+
+    EQUITY(new String[] {"COMMON-STOCK", "REIT", "ETP", "ETF"}),
+    
+    FUND(new String[] {"OPEN-END-FUND", "CLOSED-END-FUND", "MUTUAL-FUND", "HEDGE-FUND", "PVT-EQTY-FUND", "FUND", "Fund/Mutual fund", "TRUST"});
+
+"There are Equities with Sec Type = Fund. Based on investigation,  there are ETF and confirmed with users that ETF are under Equity.
+
+For Shuriken to include ETF as part of Equity. To provide solution to include ETFs."
+"For Unmatch LTV,  pls provide reason for unmatch such as  (refer to Unmatched LTVs Tab)
+     a) Due to Takara Data or  
+     b) due to Market changes.
+
+Pls provide a sample for the two reasons"
+"Shuriken didnt calculate LTV for some Asset despite Asset being Active in Takara.   (refer to LTV's not Caulculated tab')
+
+Pls provide your findings for the reason and resolution :
+"
