@@ -15,3 +15,7 @@ Pls provide a sample for the two reasons"
 
 Pls provide your findings for the reason and resolution :
 "
+
+
+XS2713768807 – Excel Has both Issue& Issuer Rating Unrated and used BB- and had 30LTV, shuriken had requirement to have unrated bond 0 LTV (Expected) (WMSHURIKEN-392)
+SGXF77189094 – Excel Has Issue Rating AA and Takara Has no Issue rating (Data Issue)
